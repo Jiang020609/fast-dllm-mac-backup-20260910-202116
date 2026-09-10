@@ -1,0 +1,123 @@
+Allocating real-shape BF16 weights...
+q_proj: weight=(4096, 4096), 32.0 MiB
+k_proj: weight=(4096, 4096), 32.0 MiB
+v_proj: weight=(4096, 4096), 32.0 MiB
+o_proj: weight=(4096, 4096), 32.0 MiB
+gate_proj: weight=(12288, 4096), 96.0 MiB
+up_proj: weight=(12288, 4096), 96.0 MiB
+down_proj: weight=(4096, 12288), 96.0 MiB
+Total layer weights: 0.406 GiB
+
+========================================================================================
+M=32
+========================================================================================
+q_proj          0.413 ms     2.60 TFLOPS
+k_proj          0.390 ms     2.75 TFLOPS
+v_proj          0.389 ms     2.76 TFLOPS
+o_proj          0.334 ms     3.21 TFLOPS
+gate_proj       0.658 ms     4.90 TFLOPS
+up_proj         0.567 ms     5.68 TFLOPS
+down_proj       0.705 ms     4.57 TFLOPS
+
+7 GEMMs serial:       2.041 ms
+Sum of medians:       3.456 ms
+Serial TFLOPS:        6.84
+Effective weight BW:  213.72 GB/s
+P1 block/layer:       2.367 ms
+GEMM share of P1:     86.23%
+Estimated non-GEMM:   0.326 ms
+
+========================================================================================
+M=64
+========================================================================================
+q_proj          0.616 ms     3.49 TFLOPS
+k_proj          0.587 ms     3.66 TFLOPS
+v_proj          0.661 ms     3.25 TFLOPS
+o_proj          0.685 ms     3.13 TFLOPS
+gate_proj       0.736 ms     8.76 TFLOPS
+up_proj         0.731 ms     8.82 TFLOPS
+down_proj       0.871 ms     7.39 TFLOPS
+
+7 GEMMs serial:       2.811 ms
+Sum of medians:       4.887 ms
+Serial TFLOPS:        9.93
+Effective weight BW:  155.16 GB/s
+P1 block/layer:       3.341 ms
+GEMM share of P1:     84.14%
+Estimated non-GEMM:   0.530 ms
+
+========================================================================================
+M=128
+========================================================================================
+q_proj          1.207 ms     3.56 TFLOPS
+k_proj          1.155 ms     3.72 TFLOPS
+v_proj          1.133 ms     3.79 TFLOPS
+o_proj          1.122 ms     3.83 TFLOPS
+gate_proj       1.219 ms    10.57 TFLOPS
+up_proj         1.186 ms    10.87 TFLOPS
+down_proj       1.403 ms     9.18 TFLOPS
+
+7 GEMMs serial:       4.994 ms
+Sum of medians:       8.424 ms
+Serial TFLOPS:        11.18
+Effective weight BW:  87.34 GB/s
+P1 block/layer:       5.845 ms
+GEMM share of P1:     85.45%
+Estimated non-GEMM:   0.850 ms
+
+========================================================================================
+M=256
+========================================================================================
+q_proj          0.907 ms     9.48 TFLOPS
+k_proj          0.914 ms     9.40 TFLOPS
+v_proj          0.946 ms     9.08 TFLOPS
+o_proj          0.957 ms     8.98 TFLOPS
+gate_proj       2.122 ms    12.14 TFLOPS
+up_proj         2.087 ms    12.35 TFLOPS
+down_proj       2.324 ms    11.09 TFLOPS
+
+7 GEMMs serial:       8.948 ms
+Sum of medians:       10.258 ms
+Serial TFLOPS:        12.48
+Effective weight BW:  48.75 GB/s
+
+========================================================================================
+M=1331
+========================================================================================
+q_proj          3.516 ms    12.70 TFLOPS
+k_proj          3.389 ms    13.18 TFLOPS
+v_proj          3.372 ms    13.25 TFLOPS
+o_proj          3.372 ms    13.25 TFLOPS
+gate_proj       9.491 ms    14.12 TFLOPS
+up_proj         9.587 ms    13.98 TFLOPS
+down_proj       9.714 ms    13.79 TFLOPS
+
+7 GEMMs serial:       41.251 ms
+Sum of medians:       42.440 ms
+Serial TFLOPS:        14.07
+Effective weight BW:  10.57 GB/s
+
+====================================================================================================================
+P2 Bare GEMM Calibration — Apple M4 Max / MPS BF16
+====================================================================================================================
+      M    7 GEMMs ms      Sum ms      TFLOPS    Weight GB/s   P1 layer ms    GEMM share    Non-GEMM ms
+--------------------------------------------------------------------------------------------------------------------
+     32         2.041       3.456        6.84         213.72         2.367        86.23%          0.326
+     64         2.811       4.887        9.93         155.16         3.341        84.14%          0.530
+    128         4.994       8.424       11.18          87.34         5.845        85.45%          0.850
+    256         8.948      10.258       12.48          48.75             —             —              —
+   1331        41.251      42.440       14.07          10.57             —             —              —
+
+Decision thresholds:
+- GEMM share >= 80%: GEMM/weight-flow dominated; prioritize quantization.
+- GEMM share <= 60%: non-GEMM/dispatch significant; run MLX Block spike.
+- GEMM share 60-80%: mixed bottleneck; run a targeted Metal trace.
+
+Notes:
+- P1 comparison exists only for M=32,64,128.
+- Effective weight GB/s assumes each weight is read once.
+- Bare GEMM excludes RoPE, RMSNorm, activation, SDPA, cache update and residual ops.
+
+Individual CSV: /Users/z33/Fast-dLLM/results/p2_bare_gemm_20260724_021239/p2_individual_gemms.csv
+Summary CSV: /Users/z33/Fast-dLLM/results/p2_bare_gemm_20260724_021239/p2_summary.csv
+Summary: /Users/z33/Fast-dLLM/results/p2_bare_gemm_20260724_021239/p2_summary.txt

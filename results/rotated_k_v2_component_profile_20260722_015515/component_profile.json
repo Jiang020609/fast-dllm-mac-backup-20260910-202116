@@ -1,0 +1,80 @@
+{
+  "0": {
+    "forward_index": 0,
+    "input_shape": [
+      1,
+      1331,
+      4096
+    ],
+    "past_length_at_layer0": 0,
+    "replace_count": 0,
+    "profiled_phase_total_seconds": 1.744388994120527,
+    "phases_seconds": {
+      "attn_norm": 0.029407039983198047,
+      "qkv_projections": 0.37190646294038743,
+      "head_reshape": 0.0005977050168439746,
+      "position_context_build": 0.005387375014834106,
+      "q_rope": 0.061450669047189876,
+      "new_k_rope": 0.0611176649981644,
+      "cache_update": 2.2876018192619085e-05,
+      "sdpa": 0.07953170797554776,
+      "attn_out_residual": 0.11669837214867584,
+      "ff_norm": 0.0276931268745102,
+      "gate_up_projections": 0.6408438330108766,
+      "silu_multiply": 0.01586412006872706,
+      "ff_out_residual": 0.3338680410233792
+    }
+  },
+  "8": {
+    "forward_index": 8,
+    "input_shape": [
+      1,
+      32,
+      4096
+    ],
+    "past_length_at_layer0": 1331,
+    "replace_count": 32,
+    "profiled_phase_total_seconds": 0.13439695662236772,
+    "phases_seconds": {
+      "attn_norm": 0.006999750941758975,
+      "qkv_projections": 0.020338874019216746,
+      "head_reshape": 0.00034600100480020046,
+      "position_context_build": 0.0009098750015255064,
+      "q_rope": 0.007834166957763955,
+      "new_k_rope": 0.007618205854669213,
+      "cache_update": 0.005487415997777134,
+      "sdpa": 0.01126320892944932,
+      "attn_out_residual": 0.010397502890555188,
+      "ff_norm": 0.0065724550222512335,
+      "gate_up_projections": 0.029434790019877255,
+      "silu_multiply": 0.005493917065905407,
+      "ff_out_residual": 0.02170079291681759
+    }
+  },
+  "32": {
+    "forward_index": 32,
+    "input_shape": [
+      1,
+      32,
+      4096
+    ],
+    "past_length_at_layer0": 1331,
+    "replace_count": 32,
+    "profiled_phase_total_seconds": 0.1337162131385412,
+    "phases_seconds": {
+      "attn_norm": 0.0068468340032268316,
+      "qkv_projections": 0.020599333016434684,
+      "head_reshape": 0.00032858405029401183,
+      "position_context_build": 0.0010001669870689511,
+      "q_rope": 0.00796320996596478,
+      "new_k_rope": 0.007538877020124346,
+      "cache_update": 0.005414708983153105,
+      "sdpa": 0.011019829078577459,
+      "attn_out_residual": 0.009901956043904647,
+      "ff_norm": 0.006251586048165336,
+      "gate_up_projections": 0.028938004019437358,
+      "silu_multiply": 0.005916580848861486,
+      "ff_out_residual": 0.021996543073328212
+    }
+  }
+}

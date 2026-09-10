@@ -1,0 +1,115 @@
+{
+  "results": {
+    "mbpp": {
+      "alias": "mbpp",
+      "pass_at_1,none": 0.14,
+      "pass_at_1_stderr,none": 0.049569575922564175
+    }
+  },
+  "group_subtasks": {
+    "mbpp": []
+  },
+  "configs": {
+    "mbpp": {
+      "task": "mbpp",
+      "dataset_path": "google-research-datasets/mbpp",
+      "dataset_name": "full",
+      "test_split": "test",
+      "doc_to_text": "You are an expert Python programmer, and here is your task: {{text}} Your code should pass these tests:\n\n{{test_list[0]}}\n{{test_list[1]}}\n{{test_list[2]}}\n[BEGIN]\n",
+      "doc_to_target": "{% if is_fewshot is defined %}{{code}}\n[DONE]{% else %}{{test_list[0]}}\n{{test_list[1]}}\n{{test_list[2]}}{% endif %}",
+      "unsafe_code": true,
+      "description": "",
+      "target_delimiter": "",
+      "fewshot_delimiter": "\n\n",
+      "fewshot_config": {
+        "sampler": "first_n",
+        "samples": "<function list_fewshot_samples at 0x127551800>"
+      },
+      "num_fewshot": 3,
+      "metric_list": [
+        {
+          "metric": "def pass_at_1(references, predictions):\n    return pass_at_k.compute(\n        references=references,\n        predictions=[predictions],\n        k=[1],\n    )[0][\"pass@1\"]\n",
+          "aggregation": "mean",
+          "higher_is_better": true
+        }
+      ],
+      "output_type": "generate_until",
+      "generation_kwargs": {
+        "until": [
+          "[DONE]"
+        ],
+        "do_sample": false
+      },
+      "repeats": 1,
+      "should_decontaminate": false,
+      "metadata": {
+        "version": 1.0
+      }
+    }
+  },
+  "versions": {
+    "mbpp": 1.0
+  },
+  "n-shot": {
+    "mbpp": 3
+  },
+  "higher_is_better": {
+    "mbpp": {
+      "pass_at_1": true
+    }
+  },
+  "n-samples": {
+    "mbpp": {
+      "original": 500,
+      "effective": 50
+    }
+  },
+  "config": {
+    "model": "llada_dist",
+    "model_args": "model_path=/Users/z33/models/LLaDA-8B-Instruct,device=mps,is_check_greedy=False,gen_length=512,steps=512,block_length=32,show_speed=True,use_cache=True,dual_cache=True,threshold=0.75",
+    "batch_size": "1",
+    "batch_sizes": [],
+    "device": null,
+    "use_cache": null,
+    "limit": 50.0,
+    "bootstrap_iters": 100000,
+    "gen_kwargs": null,
+    "random_seed": 0,
+    "numpy_seed": 1234,
+    "torch_seed": 1234,
+    "fewshot_seed": 1234
+  },
+  "git_hash": "6f0f383",
+  "date": 1784816027.0984588,
+  "pretty_env_info": "PyTorch version: 2.13.0\nIs debug build: False\nCUDA used to build PyTorch: None\nROCM used to build PyTorch: N/A\n\nOS: macOS 26.5.1 (arm64)\nGCC version: Could not collect\nClang version: 17.0.0 (clang-1700.6.4.2)\nCMake version: Could not collect\nLibc version: N/A\n\nPython version: 3.12.13 (main, Mar  3 2026, 12:39:30) [Clang 21.0.0 (clang-2100.0.123.102)] (64-bit runtime)\nPython platform: macOS-26.5.1-arm64-arm-64bit\nIs CUDA available: False\nCUDA runtime version: No CUDA\nCUDA_MODULE_LOADING set to: N/A\nGPU models and configuration: No CUDA\nNvidia driver version: No CUDA\ncuDNN version: No CUDA\nIs XPU available: False\nHIP runtime version: N/A\nMIOpen runtime version: N/A\nIs XNNPACK available: False\nCaching allocator config: N/A\n\nCPU:\nApple M4 Max\n\nVersions of relevant libraries:\n[pip3] numpy==2.5.1\n[pip3] torch==2.13.0\n[conda] Could not collect",
+  "transformers_version": "4.49.0",
+  "upper_git_hash": null,
+  "tokenizer_pad_token": [
+    "<|endoftext|>",
+    "126081"
+  ],
+  "tokenizer_eos_token": [
+    "<|endoftext|>",
+    "126081"
+  ],
+  "tokenizer_bos_token": [
+    "<|startoftext|>",
+    "126080"
+  ],
+  "eot_token_id": null,
+  "max_length": 4096,
+  "task_hashes": {
+    "mbpp": "c989422bd5fbc6c02fcda52e916b16b03ba7956759f619e38296d2662081d5af"
+  },
+  "model_source": "llada_dist",
+  "model_name": "/Users/z33/models/LLaDA-8B-Instruct",
+  "model_name_sanitized": "__Users__z33__models__LLaDA-8B-Instruct",
+  "system_instruction": null,
+  "system_instruction_sha": null,
+  "fewshot_as_multiturn": false,
+  "chat_template": null,
+  "chat_template_sha": null,
+  "start_time": 305268.541021666,
+  "end_time": 306661.047031625,
+  "total_evaluation_time_seconds": "1392.5060099589755"
+}

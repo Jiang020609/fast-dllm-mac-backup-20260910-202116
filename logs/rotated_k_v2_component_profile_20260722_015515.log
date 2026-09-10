@@ -1,0 +1,149 @@
+2026-07-22:01:55:22,417 WARNING  [lm_eval.__main__:316]  --limit SHOULD ONLY BE USED FOR TESTING.REAL METRICS SHOULD NOT BE COMPUTED USING LIMIT.
+2026-07-22:01:55:22,418 INFO     [lm_eval.__main__:379] Selected Tasks: ['gsm8k']
+2026-07-22:01:55:22,418 INFO     [lm_eval.evaluator:169] Setting random seed to 0 | Setting numpy seed to 1234 | Setting torch manual seed to 1234 | Setting fewshot manual seed to 1234
+2026-07-22:01:55:22,418 INFO     [lm_eval.evaluator:206] Initializing llada_dist model, with arguments: {'model_path': '/Users/z33/models/LLaDA-8B-Instruct', 'device': 'mps', 'is_check_greedy': False, 'gen_length': 256, 'steps': 256, 'block_length': 32, 'show_speed': True, 'use_cache': True, 'dual_cache': True, 'threshold': 0.75}
+The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+================================================================================
+Experimental Rotated-K Cache v2 enabled
+Position metadata and RoPE slices are reused across 32 layers
+================================================================================
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 2/6 [00:00<00:00, 18.82it/s]Loading checkpoint shards:  67%|██████▋   | 4/6 [00:00<00:00, 19.23it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 19.61it/s]
+Using the latest cached version of the dataset since openai/gsm8k couldn't be found on the Hugging Face Hub (offline mode is enabled).
+2026-07-22:01:55:24,248 WARNING  [datasets.load:835] Using the latest cached version of the dataset since openai/gsm8k couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'main' at /Users/z33/hf-cache/datasets/openai___gsm8k/main/0.0.0/740312add88f781978c0658806c59bc2815b9866 (last modified on Mon Jul 20 13:47:26 2026).
+2026-07-22:01:55:24,248 WARNING  [datasets.packaged_modules.cache.cache:95] Found the latest cached dataset configuration 'main' at /Users/z33/hf-cache/datasets/openai___gsm8k/main/0.0.0/740312add88f781978c0658806c59bc2815b9866 (last modified on Mon Jul 20 13:47:26 2026).
+2026-07-22:01:55:24,302 WARNING  [lm_eval.evaluator:275] Overwriting default num_fewshot of gsm8k from 5 to 5
+2026-07-22:01:55:24,302 INFO     [lm_eval.api.task:420] Building contexts for gsm8k on rank 0...
+  0%|          | 0/1 [00:00<?, ?it/s]100%|██████████| 1/1 [00:00<00:00, 893.36it/s]
+2026-07-22:01:55:24,304 INFO     [lm_eval.evaluator:517] Running generate_until requests
+Batching...:   0%|          | 0/1 [00:00<?, ?it/s]Batching...: 100%|██████████| 1/1 [00:00<00:00, 91180.52it/s]
+Generating...:   0%|          | 0/1 [00:00<?, ?it/s]Generating...: 100%|██████████| 1/1 [00:20<00:00, 20.34s/it]Generating...: 100%|██████████| 1/1 [00:20<00:00, 20.34s/it]
+2026-07-22:01:55:45,027 INFO     [lm_eval.loggers.evaluation_tracker:209] Saving results aggregated
+2026-07-22:01:55:45,027 INFO     [lm_eval.loggers.evaluation_tracker:290] Saving per-sample results for: gsm8k
+====================
+answer:  To determine how much Janet makes every day at the farmers' market, we need to follow these steps:
+
+1. Calculate the total number of eggs laid by Janet's ducks per day.
+2. Subtract the number of eggs Janet eats for breakfast and bakes for her friends.
+3. Calculate the number of eggs left to sell.
+4. Multiply the number of eggs sold by the price per egg to find the daily earnings.
+
+Let's start with the first step:
+Janet's ducks lay 16 eggs per day.
+
+Next, we subtract the eggs she eats for breakfast and bakes for her friends:
+- She eats 3 eggs for breakfast.
+- She bakes 4 eggs for her friends.
+
+So, the number of eggs left to sell is:
+\[ 16 - 3 - 4 = 9 \]
+
+Janet sells these eggs at $2 per egg. Therefore, her daily earnings are:
+\[ 9 \text{ eggs} \times \$2 \text{ per duck egg} = \$18 \]
+
+Thus, Janet makes $18 every day at the farmers' market.
+
+\(\boxed{18}\)
+nfe:  81
+avg nfe:  81.0
+====================
+
+Total number of tokens generated: 255
+Total time taken: 20.343538999557495 seconds
+Tokens per second: 12.534692764282227
+Total NFE is 81
+llada_dist (model_path=/Users/z33/models/LLaDA-8B-Instruct,device=mps,is_check_greedy=False,gen_length=256,steps=256,block_length=32,show_speed=True,use_cache=True,dual_cache=True,threshold=0.75), gen_kwargs: (None), limit: 1.0, num_fewshot: 5, batch_size: 1
+|Tasks|Version|     Filter     |n-shot|  Metric   |   |Value|   |Stderr|
+|-----|------:|----------------|-----:|-----------|---|----:|---|------|
+|gsm8k|      3|flexible-extract|     5|exact_match|↑  |    1|±  |   N/A|
+|     |       |strict-match    |     5|exact_match|↑  |    0|±  |   N/A|
+
+
+====================================================================================================
+Rotated-K v2 component profile
+====================================================================================================
+各阶段前后包含 MPS synchronize；用于比较占比和排序，不代表无扰动绝对延迟。
+
+----------------------------------------------------------------------------------------------------
+Forward index=0, x=[1, 1331, 4096], past_len=0, replace_count=0
+----------------------------------------------------------------------------------------------------
+Phase                             Total ms       Share
+gate_up_projections                640.844      36.74%
+qkv_projections                    371.906      21.32%
+ff_out_residual                    333.868      19.14%
+attn_out_residual                  116.698       6.69%
+sdpa                                79.532       4.56%
+q_rope                              61.451       3.52%
+new_k_rope                          61.118       3.50%
+attn_norm                           29.407       1.69%
+ff_norm                             27.693       1.59%
+silu_multiply                       15.864       0.91%
+position_context_build               5.387       0.31%
+head_reshape                         0.598       0.03%
+cache_update                         0.023       0.00%
+
+Grouped:
+  MLP                         1018.269 ms     58.37%
+  Attention projections        401.314 ms     23.01%
+  New Q/K RoPE                 122.568 ms      7.03%
+  Attention output             116.698 ms      6.69%
+  SDPA                          79.532 ms      4.56%
+  Position metadata              5.387 ms      0.31%
+  Cache update                   0.023 ms      0.00%
+
+----------------------------------------------------------------------------------------------------
+Forward index=8, x=[1, 32, 4096], past_len=1331, replace_count=32
+----------------------------------------------------------------------------------------------------
+Phase                             Total ms       Share
+gate_up_projections                 29.435      21.90%
+ff_out_residual                     21.701      16.15%
+qkv_projections                     20.339      15.13%
+sdpa                                11.263       8.38%
+attn_out_residual                   10.398       7.74%
+q_rope                               7.834       5.83%
+new_k_rope                           7.618       5.67%
+attn_norm                            7.000       5.21%
+ff_norm                              6.572       4.89%
+silu_multiply                        5.494       4.09%
+cache_update                         5.487       4.08%
+position_context_build               0.910       0.68%
+head_reshape                         0.346       0.26%
+
+Grouped:
+  MLP                           63.202 ms     47.03%
+  Attention projections         27.339 ms     20.34%
+  New Q/K RoPE                  15.452 ms     11.50%
+  SDPA                          11.263 ms      8.38%
+  Attention output              10.398 ms      7.74%
+  Cache update                   5.487 ms      4.08%
+  Position metadata              0.910 ms      0.68%
+
+----------------------------------------------------------------------------------------------------
+Forward index=32, x=[1, 32, 4096], past_len=1331, replace_count=32
+----------------------------------------------------------------------------------------------------
+Phase                             Total ms       Share
+gate_up_projections                 28.938      21.64%
+ff_out_residual                     21.997      16.45%
+qkv_projections                     20.599      15.41%
+sdpa                                11.020       8.24%
+attn_out_residual                    9.902       7.41%
+q_rope                               7.963       5.96%
+new_k_rope                           7.539       5.64%
+attn_norm                            6.847       5.12%
+ff_norm                              6.252       4.68%
+silu_multiply                        5.917       4.42%
+cache_update                         5.415       4.05%
+position_context_build               1.000       0.75%
+head_reshape                         0.329       0.25%
+
+Grouped:
+  MLP                           63.103 ms     47.19%
+  Attention projections         27.446 ms     20.53%
+  New Q/K RoPE                  15.502 ms     11.59%
+  SDPA                          11.020 ms      8.24%
+  Attention output               9.902 ms      7.41%
+  Cache update                   5.415 ms      4.05%
+  Position metadata              1.000 ms      0.75%
+
+Profile JSON:
+/Users/z33/Fast-dLLM/results/rotated_k_v2_component_profile_20260722_015515/component_profile.json

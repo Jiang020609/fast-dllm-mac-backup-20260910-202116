@@ -1,0 +1,39 @@
+====================================================================================================================
+P1 Cached-Forward Scaling — Rotated-K v2b exact path
+====================================================================================================================
+Kind                    B      Q   Layers    Median(ms)         Tok/s     Weight GB/s      BW %    MPS GiB
+--------------------------------------------------------------------------------------------------------------------
+block_stack             1     32        8        18.989       1685.20          183.78
+block_stack             1     32       16        37.738        847.94          184.95
+block_stack             1     32       32        75.741        422.49          184.30
+block_stack             2     32       32       108.986        587.23          128.08
+block_stack             4     32       32       193.641        661.02           72.09
+block_stack             8     32       32       351.976        727.32           39.66
+block_stack             1     64       32       106.924        598.56          130.55
+block_stack             1    128       32       187.027        684.39           74.64
+full_cached_model       1     32       32        86.354        370.57               —         —      15.59
+
+====================================================================================================================
+Layer scaling fit
+====================================================================================================================
+latency_ms = -0.0126 + 2.3662 × layers
+R² = 0.999989
+Fixed intercept = -0.0126 ms
+Per-layer cost = 2.3662 ms
+Intercept share at 32 layers = -0.02%
+
+====================================================================================================================
+Key scaling ratios
+====================================================================================================================
+B=2 / B=1 latency ratio: 1.439x
+B=4 / B=1 latency ratio: 2.557x
+B=8 / B=1 latency ratio: 4.647x
+Q=64 / Q=32 latency ratio: 1.412x
+Q=128 / Q=32 latency ratio: 2.469x
+Full cached model / 32-block stack ratio: 1.140x
+Non-block endpoint overhead: 10.613 ms
+
+Interpretation guardrails:
+- Weight GB/s assumes each block parameter is read once; it is an effective lower-bound diagnostic, not a hardware counter.
+- Layer-fit intercept includes Python/framework and stack-level fixed costs, but excludes embedding/final LM-head costs.
+- The full_cached_model point quantifies embedding/final norm/LM-head and model-wrapper overhead at B=1,Q=32.

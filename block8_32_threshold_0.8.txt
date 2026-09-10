@@ -1,0 +1,81 @@
+================================================================================
+Rotated-K v2b enabled
+Explicit block bounds + request-local ContextVar
+No replace_position/nonzero/global POSITION_CONTEXT
+================================================================================
+Loading tokenizer...
+Loading model...
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 3/6 [00:00<00:00, 20.71it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 21.56it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 21.42it/s]
+
+============================================================================
+BLOCK_LENGTH=8  THRESHOLD=0.8
+============================================================================
+WARMUP 1/1
+captured_transfer_calls=108, transfer_counts=[1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 3, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 3, 1, 1, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 5, 3]
+RUN 1: time=7886.011 ms, NFE=108, tok/NFE=1.185, generated_tok/s=16.231, hash=87c5017777f8
+captured_transfer_calls=108, transfer_counts=[1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 3, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 3, 1, 1, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 5, 3]
+RUN 2: time=7899.976 ms, NFE=108, tok/NFE=1.185, generated_tok/s=16.203, hash=87c5017777f8
+captured_transfer_calls=108, transfer_counts=[1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 3, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 3, 1, 1, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 5, 3]
+RUN 3: time=7902.206 ms, NFE=108, tok/NFE=1.185, generated_tok/s=16.198, hash=87c5017777f8
+
+PER-BLOCK TRANSFERS (first measured run)
+block  1: rounds= 7, transfers=[1, 1, 1, 1, 2, 1, 1], mean=1.14, max=2
+block  2: rounds= 8, transfers=[1, 1, 1, 1, 1, 1, 1, 1], mean=1.00, max=1
+block  3: rounds= 8, transfers=[1, 1, 1, 1, 1, 1, 1, 1], mean=1.00, max=1
+block  4: rounds= 8, transfers=[1, 1, 1, 1, 1, 1, 1, 1], mean=1.00, max=1
+block  5: rounds= 7, transfers=[1, 1, 1, 1, 1, 2, 1], mean=1.14, max=2
+block  6: rounds= 6, transfers=[1, 3, 1, 1, 1, 1], mean=1.33, max=3
+block  7: rounds= 6, transfers=[1, 3, 1, 1, 1, 1], mean=1.33, max=3
+block  8: rounds= 7, transfers=[1, 1, 1, 1, 1, 1, 2], mean=1.14, max=2
+block  9: rounds= 7, transfers=[1, 1, 1, 2, 1, 1, 1], mean=1.14, max=2
+block 10: rounds= 7, transfers=[1, 1, 1, 2, 1, 1, 1], mean=1.14, max=2
+block 11: rounds= 8, transfers=[1, 1, 1, 1, 1, 1, 1, 1], mean=1.00, max=1
+block 12: rounds= 8, transfers=[1, 1, 1, 1, 1, 1, 1, 1], mean=1.00, max=1
+block 13: rounds= 5, transfers=[1, 1, 2, 1, 3], mean=1.60, max=3
+block 14: rounds= 7, transfers=[1, 1, 1, 1, 2, 1, 1], mean=1.14, max=2
+block 15: rounds= 7, transfers=[1, 2, 1, 1, 1, 1, 1], mean=1.14, max=2
+block 16: rounds= 2, transfers=[5, 3], mean=4.00, max=5
+
+SUMMARY
+block_length       : 8
+mean_time_ms       : 7896.064
+median_time_ms     : 7899.976
+mean_NFE           : 108.000
+mean_tokens_per_NFE: 1.185
+mean_generated_tps : 16.211
+output_hash        : 87c5017777f8
+answer_preview     : 'KV cache (Key-Value cache) is a technique used to accelerate Transformer inference by reducing the overhead of attention computation. In a Transformer model, attention mechanisms a'
+
+============================================================================
+BLOCK_LENGTH=32  THRESHOLD=0.8
+============================================================================
+WARMUP 1/1
+captured_transfer_calls=93, transfer_counts=[1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 32]
+RUN 1: time=8411.520 ms, NFE=93, tok/NFE=1.376, generated_tok/s=15.217, hash=0a64032b77e4
+captured_transfer_calls=93, transfer_counts=[1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 32]
+RUN 2: time=8418.187 ms, NFE=93, tok/NFE=1.376, generated_tok/s=15.205, hash=0a64032b77e4
+captured_transfer_calls=93, transfer_counts=[1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 32]
+RUN 3: time=8431.623 ms, NFE=93, tok/NFE=1.376, generated_tok/s=15.181, hash=0a64032b77e4
+
+PER-BLOCK TRANSFERS (first measured run)
+block  1: rounds=29, transfers=[1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], mean=1.10, max=3
+block  2: rounds=32, transfers=[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], mean=1.00, max=1
+block  3: rounds=31, transfers=[1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], mean=1.03, max=2
+block  4: rounds= 1, transfers=[32], mean=32.00, max=32
+
+SUMMARY
+block_length       : 32
+mean_time_ms       : 8420.443
+median_time_ms     : 8418.187
+mean_NFE           : 93.000
+mean_tokens_per_NFE: 1.376
+mean_generated_tps : 15.201
+output_hash        : 0a64032b77e4
+answer_preview     : 'KV cache (Key-Value Cache) is a technique used to accelerate Transformer inference by precomputing and storing the results of attention computations. This allows for faster retriev'
+
+============================================================================================
+FINAL COMPARISON
+============================================================================================
+  Block      Mean ms    Median ms       NFE     Tok/NFE     Gen tok/s
+      8     7896.064     7899.976    108.00       1.185        16.211
+     32     8420.443     8418.187     93.00       1.376        15.201

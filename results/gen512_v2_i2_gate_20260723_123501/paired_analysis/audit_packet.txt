@@ -1,0 +1,168 @@
+================================================================================================
+Paired audit: gen_length=512, Rotated-K v2 vs interval=2
+================================================================================================
+v2 file: /Users/z33/Fast-dLLM/results/gen512_v2_i2_gate_20260723_123501/v2/eval/__Users__z33__models__LLaDA-8B-Instruct/samples_gsm8k_2026-07-23T13-00-10.079630.jsonl
+i2 file: /Users/z33/Fast-dLLM/results/gen512_v2_i2_gate_20260723_123501/i2/eval/__Users__z33__models__LLaDA-8B-Instruct/samples_gsm8k_2026-07-23T13-15-55.048498.jsonl
+Pairing hash check: PASS
+
+Filter: flexible-extract
+------------------------------------------------------------------------------------------------
+N:                          40
+Both correct:               25
+v2 correct / i2 wrong:      2
+v2 wrong / i2 correct:      1
+Both wrong:                 12
+Net change:                 -1/40
+Final-answer agreement:     0.5750
+Discordant pairs:           3
+McNemar exact two-sided p:  1.000000
+
+Filter: strict-match
+------------------------------------------------------------------------------------------------
+N:                          40
+Both correct:               5
+v2 correct / i2 wrong:      9
+v2 wrong / i2 correct:      5
+Both wrong:                 21
+Net change:                 -4/40
+Final-answer agreement:     0.5750
+Discordant pairs:           14
+McNemar exact two-sided p:  0.423950
+
+Degradation gate: v2
+------------------------------------------------------------------------------------------------
+Residual-mask samples:      0 []
+Empty-response samples:     0 []
+Replacement-char samples:  0 []
+Severe-repetition samples:  2 [5, 20]
+Full-512 budget proxy:      0 []
+
+Degradation gate: interval=2
+------------------------------------------------------------------------------------------------
+Residual-mask samples:      0 []
+Empty-response samples:     0 []
+Replacement-char samples:  0 []
+Severe-repetition samples:  1 [20]
+Full-512 budget proxy:      0 []
+
+Per-sample NFE
+------------------------------------------------------------------------------------------------
+v2 records:                 40
+interval=2 records:         40
+v2 mean NFE:                81.600
+interval=2 mean NFE:        92.775
+Mean paired delta:           +11.175
+Median paired delta:         +3.000
+Delta P10:                   -6.300
+Delta P90:                   +50.200
+i2 lower / equal / higher:   10 / 1 / 29
+NFE CSV:                     /Users/z33/Fast-dLLM/results/gen512_v2_i2_gate_20260723_123501/paired_analysis/paired_nfe.csv
+
+
+##############################################################################################################
+一、FLEXIBLE 翻转：完整推理输出
+##############################################################################################################
+
+==============================================================================================================
+doc_id=12  category=i2_only
+==============================================================================================================
+TARGET:
+He makes $10.5 selling lemons each year because 7 x 1.5 = <<7*1.5=10.5>>10.5 He earns $7.5 each year from the lemon tree because 10.5 - 3 = <<10.5-3=7.5>>7.5 It will take 12 years to earn enough to pay off the tree because 90 / 7.5 = <<90/7.5=12>>12 He will make money in year 13 because 12 + 1 = <<12+1=13>>13 #### 13
+
+V2 FINAL ANSWER:
+'12'
+
+INTERVAL=2 FINAL ANSWER:
+'13'
+
+--- V2 FULL RESPONSE ---
+To determine how many years it will take for Carlos to start earning money from the lemon tree, we need to calculate the net profit per year and then find the number of years required to cover the initial cost of planting the tree. 1. **Calculate the net profit per year:** - Each lemon sells for $1.5. - The tree grows 7 lemons each year. - Revenue from selling lemons per year: \( 7 \times 1.5 = 10.5 \) dollars. - The cost to water and feed the tree each year is $3. - Net profit per year: \( 10.5 - 3 = 7.5 \) dollars. 2. **Determine the number of years needed to cover the initial cost:** - The initial cost of planting the tree is $90. - The net profit per year is $7.5. - Number of years required to cover $90: \( \frac{90}{7.5} = 12 \) years. Therefore, it will take Carlos 12 years to start earning money from the lemon tree. #### 12
+
+--- INTERVAL=2 FULL RESPONSE ---
+To determine how many years it will take for Carlos to start earning money from the lemon tree, we need to calculate the net profit per year and then find the point where the net profit exceeds the initial planting cost. First, let's calculate the net profit per year: - Each year, Carlos sells 7 lemons at $1.5 each. - The revenue from selling lemons is \( 7 \times 1.5 = 10.5. - The cost to water and feed the tree each year is $3. - The net profit per year is the revenue minus the cost: \( 10.5 - 3 = 7.5 \). Next, we need to find out how many years it will take for the net profit to exceed the initial planting cost of $90. Let \( n \) be the number of years. The total net profit after \( n \) years is \( 7.5n \). We need to find the smallest \( n \) such that: \[ 7.5n > 90 \] Solving for \( n \): \[ n > \frac{90}{7.5} \] \[ n > 12 \] Since \( n \) must be a whole number (you can't have a fraction of a year), we round up to the next whole number: \[ n = 13 \] Therefore, it will take Carlos 13 years to start earning money from the lemon tree. #### 13
+
+==============================================================================================================
+doc_id=15  category=v2_only
+==============================================================================================================
+TARGET:
+If he purchases jewelry, he will make a profit of 2.5% which is $5000*(2.5/100) = $<<5000*(2.5/100)=125>>125 If he purchases electronic gadgets, he will make a profit of 1.2% which is $8000*(1.2/100) = $<<8000*(1.2/100)=96>>96 If he wants to maximize profit, since $125 > $96, he will choose to purchase jewelry, thereby making a profit of $<<125=125>>125 #### 125
+
+V2 FINAL ANSWER:
+'$125.'
+
+INTERVAL=2 FINAL ANSWER:
+'$960.'
+
+--- V2 FULL RESPONSE ---
+To determine the profit the merchant can expect at the end of the month, we need to calculate the potential profit for each purchase plan based on the given market increases. ### Jewelry Purchase Plan: - Initial value of jewelry: $5,000 - Market increase for jewelry: 2.5% - Increase in value: \( 5000 \times 0.025 = 125 \) - New value of jewelry: \( 5000 + 125 = 5125 \) - Profit from jewelry: \( 5125 - 5000 = 125 \) ### Electronic Gadgets Purchase Plan: - Initial value of electronic gadgets: $8,000 - Market increase for electronic gadgets: 1.2% - Increase in value: \( 8000 \times 0.012 = 96 \) - New value of electronic gadgets: \( 8000 + 96 = 8096 \) - Profit from electronic gadgets: \( 8096 - 8000 = 96 \) ### Comparison: - Profit from jewelry: $125 - Profit from electronic gadgets: $96 The merchant should choose the purchase plan that maximizes the profit. In this case, the jewelry purchase plan yields a higher profit of $125 compared to the electronic gadgets purchase plan, which yields a profit of $96. Therefore, the merchant should choose the jewelry purchase plan to maximize profit. The expected profit at the end of the month would be $125.
+
+--- INTERVAL=2 FULL RESPONSE ---
+To determine the profit the merchant can expect at the end of the month, we need to calculate the potential profit for each purchase plan based on the given market increases. 1. **Jewelry Purchase:** - Initial cost of jewelry: $5,000 - Market increase for jewelry: 2.5% - Increase in value: \( 5000 \times 0.025 = 125 \) - New value of jewelry: \( 5000 + 125 = 5125 \) - Profit from jewelry: \( 5125 - 5000 = 125 \) 2. **Electronic Gadgets Purchase:** - Initial cost of electronic gadgets: $8,000 - Market increase for electronic gadgets: 1.2% - Increase in value: \( 8000 \times 0.012 = 96 \) - New value of electronic gadgets: \( 8000 + 96 = 8960 \) - Profit from electronic gadgets: \( 8960 - 8000 = 960 \) Therefore, the merchant can expect to make a profit of $125 from the jewelry purchase and $960 from the electronic gadgets purchase. To maximize profit, the merchant should choose the electronic gadgets purchase, as it yields a higher profit. The answer is $960.
+
+==============================================================================================================
+doc_id=18  category=v2_only
+==============================================================================================================
+TARGET:
+She eats 3 eggs every day and there are 7 days in a week so she eats 3*7 = <<3*7=21>>21 eggs a week After 4 weeks she will have eaten 4*21 = <<4*21=84>>84 eggs There are 12 eggs in 1 dozen and she'll eat 84 eggs so that's 84/12 = <<84/12=7>>7 dozen eggs #### 7
+
+V2 FINAL ANSWER:
+'7'
+
+INTERVAL=2 FINAL ANSWER:
+'4'
+
+--- V2 FULL RESPONSE ---
+To determine how many dozens of eggs Claire will eat in 4 weeks, we need to follow these steps: 1. Calculate the total number of eggs Claire eats in one week. 2. Calculate the total number of eggs Claire eats in 4 weeks. 3. Convert the total number of eggs from eggs to dozens. First, let's find out how many eggs Claire eats in one week: - Claire makes a 3 egg omelet every morning. - There are 7 days in a week. - Therefore, she eats 3 eggs/day * 7 days/week = 21 eggs/week. Next, let's find out how many eggs she eats in 4 weeks: - If she eats 21 eggs per week, then in 4 weeks she eats 21 eggs/week * 4 weeks = 84 eggs. Finally, let's convert the total number of eggs into dozens: - There are 12 eggs in a dozen. - Therefore, 84 eggs is equal to 84 eggs / 12 eggs/dozen = 7 dozens. So, Claire will eat 7 dozens of eggs in 4 weeks. #### 7
+
+--- INTERVAL=2 FULL RESPONSE ---
+To determine how many dozens of eggs Claire will eat in 4 weeks, we need to follow these steps: 1. Calculate the total number of eggs Claire eats in one week. 2. Calculate the total number of eggs Claire eats in 4 weeks. 3. Convert the total number of eggs into dozens. First, let's find out how many eggs Claire eats in one week: - Claire makes a 3 egg omelet every morning. - There are 7 days in a week. - Therefore, in one week, she eats \(3 \text{ eggs/day} \times 7 \text{ days/week} = 21 \text{ eggs/week}\). Next, let's find out how many eggs she eats in 4 weeks: - In one week, she eats \(21 \text{ eggs/week} \times 4 \text{ weeks} = 84 \text{ eggs}\). Finally, let's convert the total number of eggs into dozens: - There are 12 eggs in a dozen. - Therefore, \(84 \text{ eggs} \div 12 \text{ eggs/dozen} = 7 \text{ dozens}\). So, Claire will eat 7 dozens of eggs in 4 weeks.
+
+##############################################################################################################
+二、STRICT 翻转：答案级对照
+##############################################################################################################
+doc_id=0    category=v2_only  target='Janet sells 16 - 3 - 4 = <<16-3-4=9>>9 duck eggs a day. She makes 9 * 2 = $<<9*2=18>>18 every day at the farmer’s market. #### 18' v2='18' i2='[invalid]'
+doc_id=3    category=i2_only  target='He sprints 3*3=<<3*3=9>>9 times So he runs 9*60=<<9*60=540>>540 meters #### 540' v2='[invalid]' i2='540'
+doc_id=4    category=i2_only  target='If each chicken eats 3 cups of feed per day, then for 20 chickens they would need 3*20=<<3*20=60>>60 cups of feed per day. If she feeds the flock 15 cups of feed in the morning, and 25 cups in the afternoon, then the final meal would require 60-15-25=<<60-15-25=20>>20 cups of chicken feed. #### 20' v2='[invalid]' i2='20'
+doc_id=9    category=v2_only  target="Eliza is entitled to 45 -40 = <<45-40=5>>5 hours overtime pay. Her hourly rate for the overtime pay is $10 x 1.2 = $<<10*1.2=12>>12. So, Eliza will receive $12 x 5 =$<<12*5=60>>60 for overtime pay. Her regular weekly earning is $10 x 40 = $<<10*40=400>>400. Thus, Eliza will receive a total of $400 + $60 = $<<400+60=460>>460 for this week's work. #### 460" v2='460' i2='[invalid]'
+doc_id=10   category=i2_only  target='The number of downloads of the program in the second month increased to 3*60 = <<3*60=180>>180 In the first two months, the total number of downloads of the program was 180+60 = <<180+60=240>>240 In the third month, the number of downloads of the program reduced by 30/100*180 = <<30/100*180=54>>54 There were 180-54 = <<180-54=126>>126 downloads in the third month. In the three months, the total number of downloads of the program was 126+240 = <<126+240=366>>366 #### 366' v2='[invalid]' i2='366'
+doc_id=11   category=v2_only  target='The total charge for the doughnuts was 3 x $68 = $<<3*68=204>>204. The total charge for the mini cupcakes was 2 x $80 = $<<2*80=160>>160. The total charge for the mini cheesecakes was 6 x $55 = $<<6*55=330>>330. Therefore the total amount Toula paid for the pastries was $204 + $160 + $330 = $<<204+160+330=694>>694. #### 694' v2='694' i2='[invalid]'
+doc_id=12   category=i2_only  target='He makes $10.5 selling lemons each year because 7 x 1.5 = <<7*1.5=10.5>>10.5 He earns $7.5 each year from the lemon tree because 10.5 - 3 = <<10.5-3=7.5>>7.5 It will take 12 years to earn enough to pay off the tree because 90 / 7.5 = <<90/7.5=12>>12 He will make money in year 13 because 12 + 1 = <<12+1=13>>13 #### 13' v2='12' i2='13'
+doc_id=14   category=v2_only  target='There are 20 x 20/100 = <<20*20/100=4>>4 students who enrolled in contemporary dance. So, 20 - 4 = <<20-4=16>>16 students are enrolled in either jazz or hip-hop dance. There are 16 x 25/100 = <<16*25/100=4>>4 students who enrolled in jazz dance. Hence, 16 - 4 = <<16-4=12>>12 students enrolled in hip-hop dance. This is 12/20 x 100% = 60% of the entire students. #### 60' v2='60' i2='[invalid]'
+doc_id=18   category=v2_only  target="She eats 3 eggs every day and there are 7 days in a week so she eats 3*7 = <<3*7=21>>21 eggs a week After 4 weeks she will have eaten 4*21 = <<4*21=84>>84 eggs There are 12 eggs in 1 dozen and she'll eat 84 eggs so that's 84/12 = <<84/12=7>>7 dozen eggs #### 7" v2='7' i2='[invalid]'
+doc_id=28   category=v2_only  target='He traveled 20 miles + 15 miles = <<20+15=35>>35 miles not counting the distance between stops. Henry traveled 60 miles - 35 miles = <<60-35=25>>25 miles between his first and second stop. #### 25' v2='25' i2='[invalid]'
+doc_id=29   category=v2_only  target='The second pair of heels costs 33 * 2 = $<<33*2=66>>66. The heels together cost 66 + 33 = $<<66+33=99>>99. The boots cost $5 more than both pairs of heels together, so the boots cost 99 + 5 = $104. #### 104' v2='104' i2='[invalid]'
+doc_id=31   category=v2_only  target='The second person guessed 60 because 20 + (80/2)= <<20+(80/2)=60>>60 The second guessed 100 because 80 x 1.25 = <<80*1.25=100>>100 The total amount guessed is 240 because 80 + 60 + 100 = <<80+60+100=240>>240 The average amount guessed is 80 because 240 / 3 = <<240/3=80>>80 #### 80' v2='80' i2='[invalid]'
+doc_id=32   category=i2_only  target='He spends 10*.5=<<10*.5=5>>5 hours per day That means he spends 5*7=<<5*7=35>>35 hours per week #### 35' v2='[invalid]' i2='35'
+doc_id=33   category=v2_only  target='Let x be the number of silver coins Gretchen has Gretchen has x+30 gold coins. x+x+30=110 2*x=80 x=<<40=40>>40 Gretchen has 40+30=<<40+30=70>>70 gold coins #### 70' v2='70' i2='[invalid]'
+
+##############################################################################################################
+三、自动复读检测命中样本：完整输出
+##############################################################################################################
+
+==============================================================================================================
+doc_id=5
+==============================================================================================================
+
+CONFIG=interval=2 | tokens≈433 | full_budget=0 | repetition=0 | mask=0
+--------------------------------------------------------------------------------------------------------------
+To determine how much Kylar needs to pay for 16 glasses, we need to calculate the cost of each type of glass and then sum them up. 1. **Cost of the first 8 glasses:** - The first glass costs $5. - Every second glass costs 60% of the price of the first glass. - Therefore, the cost of each second glass is \( 0.6 \times 5 = 3 \) dollars. - The first 8 glasses are: - 1st glass: $5 - 2nd glass: $3 - 3rd glass: $5 - 4th glass: $3 - 5th glass: $5 - 6th glass: $3 - 7th glass: $5 - 8th glass: $3 - Total cost for the first 8 glasses: \[ 5 + 3 + 5 + 3 + 5 + 3 + 5 + 3 = 36 \text{ dollars} \] 2. **Cost of the next 8 glasses:** - The first glass after the 8th glass is the 9th glass, which costs $5. - The second glass after the 8th glass is the 10th glass, which also costs $3. - The next 8 glasses are: - 9th glass: $5 - 10th glass: $3 - 11th glass: $5 - 12th glass: $3 - 13th glass: $5 - 14th glass: $3 - 15th glass: $5 - 16th glass: $3 - Total cost for the next 8 glasses: \[ 5 + 3 + 5 + 3 + 5 + 3 + 5 + 3 = 32 \text{ dollars} \] 3. **Total cost for all 16 glasses:** \[ 36 + 36 = 72 \text{ dollars} \] **Answer: $72**
+
+CONFIG=v2 | tokens≈374 | full_budget=0 | repetition=1 | mask=0
+--------------------------------------------------------------------------------------------------------------
+To determine how much Kylar needs to pay for 16 glasses, we need to calculate the cost of each type of glass and then sum them up. 1. **Cost of the first glass:** - The first glass costs $5. 2. **Cost of every second glass:** - Every second glass costs 60% of the price of the first glass. - Therefore, the cost of every second glass is \( 0.6 \times 5 = 3 \) dollars. 3. **Total number of glasses:** - Kylar wants to buy 16 glasses. 4. **Number of glasses at each price:** - The first glass costs $5. - Every second glass costs $3. - The third glass costs $5. - The fourth glass costs $3. - The fifth glass costs $5. - The sixth glass costs $3. - The seventh glass costs $5. - The eighth glass costs $3. - The ninth glass costs $5. - The tenth glass costs $3. - The eleventh glass costs $5. - The twelfth glass costs $3. - The thirteenth costs $5. - The fourteenth glass costs $3. - The fifteenth glass costs $5. - The sixteenth glass costs $3. 5. **Total cost calculation:** - The first glass costs $5. - The next 8 glasses cost $3 each. - The cost for the first glass is $5. - The cost for the next 8 glasses is \( 8 \times 3 = 24 \) dollars. - Therefore, the total cost for all 16 glasses is \( 5 + 24 = 29 \) dollars. So, Kylar needs to pay $29 for 16 glasses.
+
+==============================================================================================================
+doc_id=20
+==============================================================================================================
+
+CONFIG=interval=2 | tokens≈483 | full_budget=0 | repetition=1 | mask=0
+--------------------------------------------------------------------------------------------------------------
+To determine the amount of water in the remaining 24 liters of drink, we need to follow these steps: 1. Calculate the amount of water in the orange drink. 2. Calculate the amount of water in the pineapple drink. 3. Determine the total amount of water in the remaining mixture after the spill. 4. Calculate the total amount of water in the remaining 24 liters of drink. **Step 1: Calculate the amount of water in the orange drink.** The orange drink is 10 liters and is two-thirds water. \[ \text{Water in orange drink} = \frac{2}{3} \times 10 = \frac{20}{3} \approx 6.67 \text{ liters} \] **Step 2: Calculate the amount of water in the pineapple drink.** The pineapple drink is 15 liters and is three-fifths water. \[ \text{Water in pineapple drink} = \frac{3}{5} \times 15 = \frac{45}{5} = 9 \text{ liters} \] **Step 3: Determine the total amount of water in the remaining mixture after the spill.** After spilling 1 liter of the orange drink, the remaining orange drink is 9 liters. \[ \text{Water in remaining orange drink} = \frac{2}{3} \times 9 = \frac{18}{3} \approx 5.67 \text{ liters} \] **Step 4: Calculate the total amount of water in the remaining 24 liters of drink.** The total volume of the remaining mixture is 24 liters. \[ \text{Total water in remaining mixture} = \text{Water in remaining orange drink} + \text{Water in pineapple drink} \] \[ \text{Total water in remaining mixture} = 5.67 \text{ liters} + 9 \text{ liters} = 14.67 \text{ liters} \] \[ \boxed{14.67} \] So, the amount of water in the remaining 24 liters of drink is approximately 14.67 liters. Since the problem does not specify the need for a box, the final answer is 14.67 liters.
+
+CONFIG=v2 | tokens≈483 | full_budget=0 | repetition=1 | mask=0
+--------------------------------------------------------------------------------------------------------------
+To determine the amount of water in the remaining 24 liters of drink, we need to follow these steps: 1. Calculate the amount of water in the orange drink. 2. Calculate the amount of water in the pineapple drink. 3. Combine the amounts of water from both drinks. 4. Adjust for the spilled orange drink. 5. Calculate the final amount of water in the remaining drink. **Step 1: Calculate the amount of water in the orange drink.** The orange drink is 10 liters and is two-thirds water. \[ \text{Amount of water in orange drink} = \frac{2}{3} \times 10 = \frac{20}{3} \approx 6.67 \text{ liters} \] **Step 2: Calculate the amount of water in the pineapple drink.** The pineapple drink is 15 liters and is three-fifths water. \[ \text{Amount of water in pineapple drink} = \frac{3}{5} \times 15 = \frac{45}{5} = 9 \ \text{ liters} \] **Step 3: Combine the amounts of water from both drinks.** \[ \text{Total amount of water} = 6.67 \text{ liters} + 9 \text{ liters} = 15.67 \text{ liters} \] **Step 4: Adjust for the spilled orange drink.** One liter of the orange drink is spilled, so the amount of water in the remaining orange drink is: \[ \text{Amount of water in remaining orange drink} = \frac{2}{3} \times 9 = \frac{18}{3} \approx 6.67 \text{ liters} \] **Step 5: Calculate the final amount of water in the remaining drink.** The total amount of the remaining drink is the sum of the water from the remaining orange drink and the water from the pineapple drink. \[ \text{Final amount of water} = 6.67 \text{ liters} + 9 \text{ liters} = 15.67 \text{ liters} \] Therefore, the amount of water in the remaining 24 liters of drink is \boxed{15.67} liters.
+
+##############################################################################################################
+四、审计包结束
+##############################################################################################################

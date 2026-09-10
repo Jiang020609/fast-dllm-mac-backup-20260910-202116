@@ -1,0 +1,3 @@
+length,num_pairs,raw_exact_match_rate,normalized_exact_match_rate,final_signature_match_rate,mean_text_similarity,nocache_deterministic_prompts,prefix_deterministic_prompts,num_prompts,prompt_consensus_normalized_match_rate,prompt_consensus_signature_match_rate
+64,36,0,0,0.4166666666666667,0.5500477093017749,12,12,12,0.0,0.4166666666666667
+128,36,0.08333333333333333,0.08333333333333333,0.75,0.5414114297270559,12,12,12,0.08333333333333333,0.75

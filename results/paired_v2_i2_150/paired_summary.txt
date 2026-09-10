@@ -1,0 +1,61 @@
+============================================================================================
+Paired analysis: Rotated-K v2 vs Cache Refresh interval=2
+============================================================================================
+v2 samples: /Users/z33/Fast-dLLM/results/rotated_k_v2_gsm8k_150_20260722_030255/eval/__Users__z33__models__LLaDA-8B-Instruct/samples_gsm8k_2026-07-22T03-47-49.478718.jsonl
+i2 samples: /Users/z33/Fast-dLLM/results/cache_refresh_i2_150_20260722_173813/eval/__Users__z33__models__LLaDA-8B-Instruct/samples_gsm8k_2026-07-22T18-08-37.239552.jsonl
+Hash pairing check: PASS
+
+Filter: flexible-extract
+--------------------------------------------------------------------------------------------
+N:                         150
+Both correct:              103
+v2 correct / i2 wrong:     10
+v2 wrong / i2 correct:     14
+Both wrong:                23
+v2 exact match:            0.7533
+i2 exact match:            0.7800
+Delta:                     +0.0267
+Final-answer agreement:    0.6533
+Discordant pairs:          24
+McNemar exact two-sided p: 0.541256
+
+Filter: strict-match
+--------------------------------------------------------------------------------------------
+N:                         150
+Both correct:              25
+v2 correct / i2 wrong:     26
+v2 wrong / i2 correct:     32
+Both wrong:                67
+v2 exact match:            0.3400
+i2 exact match:            0.3800
+Delta:                     +0.0400
+Final-answer agreement:    0.5200
+Discordant pairs:          58
+McNemar exact two-sided p: 0.511842
+
+Degradation gate: v2
+--------------------------------------------------------------------------------------------
+Residual-mask samples:     0 []
+Empty-response samples:    0 []
+Replacement-char samples: 0 []
+
+Degradation gate: interval=2
+--------------------------------------------------------------------------------------------
+Residual-mask samples:     0 []
+Empty-response samples:    0 []
+Replacement-char samples: 0 []
+
+Per-sample NFE
+--------------------------------------------------------------------------------------------
+v2 NFE records:            150
+i2 NFE records:            150
+v2 mean NFE:               59.693
+i2 mean NFE:               65.107
+Mean paired delta:          +5.413
+Median paired delta:        +4.000
+Delta P10:                  -7.000
+Delta P90:                  +20.000
+i2 lower NFE samples:       32
+Equal NFE samples:          7
+i2 higher NFE samples:      111
+NFE CSV:                    /Users/z33/Fast-dLLM/results/paired_v2_i2_150/paired_nfe.csv

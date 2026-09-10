@@ -1,0 +1,139 @@
+================================================================================
+Rotated-K v2b enabled
+Explicit block bounds + request-local ContextVar
+No replace_position/nonzero/global POSITION_CONTEXT
+================================================================================
+Loading tokenizer...
+Loading model...
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 3/6 [00:00<00:00, 20.36it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 21.79it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 21.55it/s]
+
+============================================================================
+BLOCK_LENGTH=8  THRESHOLD=0.9
+============================================================================
+WARMUP 1/1
+captured_transfer_calls=115, transfer_counts=[1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 3, 1, 4]
+RUN 1: time=8174.423 ms, NFE=115, tok/NFE=1.113, generated_tok/s=15.659, hash=87c5017777f8
+captured_transfer_calls=115, transfer_counts=[1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 3, 1, 4]
+RUN 2: time=8184.056 ms, NFE=115, tok/NFE=1.113, generated_tok/s=15.640, hash=87c5017777f8
+captured_transfer_calls=115, transfer_counts=[1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 3, 1, 4]
+RUN 3: time=8177.181 ms, NFE=115, tok/NFE=1.113, generated_tok/s=15.653, hash=87c5017777f8
+
+PER-BLOCK TRANSFERS (first measured run)
+block  1: rounds= 7, transfers=[1, 1, 1, 1, 1, 2, 1], mean=1.14, max=2
+block  2: rounds= 8, transfers=[1, 1, 1, 1, 1, 1, 1, 1], mean=1.00, max=1
+block  3: rounds= 8, transfers=[1, 1, 1, 1, 1, 1, 1, 1], mean=1.00, max=1
+block  4: rounds= 8, transfers=[1, 1, 1, 1, 1, 1, 1, 1], mean=1.00, max=1
+block  5: rounds= 7, transfers=[1, 1, 1, 1, 1, 2, 1], mean=1.14, max=2
+block  6: rounds= 7, transfers=[1, 2, 1, 1, 1, 1, 1], mean=1.14, max=2
+block  7: rounds= 8, transfers=[1, 1, 1, 1, 1, 1, 1, 1], mean=1.00, max=1
+block  8: rounds= 7, transfers=[1, 1, 1, 1, 1, 1, 2], mean=1.14, max=2
+block  9: rounds= 8, transfers=[1, 1, 1, 1, 1, 1, 1, 1], mean=1.00, max=1
+block 10: rounds= 7, transfers=[1, 1, 1, 2, 1, 1, 1], mean=1.14, max=2
+block 11: rounds= 8, transfers=[1, 1, 1, 1, 1, 1, 1, 1], mean=1.00, max=1
+block 12: rounds= 8, transfers=[1, 1, 1, 1, 1, 1, 1, 1], mean=1.00, max=1
+block 13: rounds= 6, transfers=[1, 1, 2, 1, 1, 2], mean=1.33, max=2
+block 14: rounds= 8, transfers=[1, 1, 1, 1, 1, 1, 1, 1], mean=1.00, max=1
+block 15: rounds= 7, transfers=[1, 2, 1, 1, 1, 1, 1], mean=1.14, max=2
+block 16: rounds= 3, transfers=[3, 1, 4], mean=2.67, max=4
+
+SUMMARY
+block_length       : 8
+mean_time_ms       : 8178.553
+median_time_ms     : 8177.181
+mean_NFE           : 115.000
+mean_tokens_per_NFE: 1.113
+mean_generated_tps : 15.651
+output_hash        : 87c5017777f8
+answer_preview     : 'KV cache (Key-Value cache) is a technique used to accelerate Transformer inference by reducing the overhead of attention computation. In a Transformer model, attention mechanisms a'
+
+============================================================================
+BLOCK_LENGTH=16  THRESHOLD=0.9
+============================================================================
+WARMUP 1/1
+captured_transfer_calls=119, transfer_counts=[1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1]
+RUN 1: time=9334.612 ms, NFE=119, tok/NFE=1.076, generated_tok/s=13.712, hash=fe236bd53470
+captured_transfer_calls=119, transfer_counts=[1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1]
+RUN 2: time=9329.565 ms, NFE=119, tok/NFE=1.076, generated_tok/s=13.720, hash=fe236bd53470
+captured_transfer_calls=119, transfer_counts=[1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1]
+RUN 3: time=9344.418 ms, NFE=119, tok/NFE=1.076, generated_tok/s=13.698, hash=fe236bd53470
+
+PER-BLOCK TRANSFERS (first measured run)
+block  1: rounds=14, transfers=[1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1], mean=1.14, max=3
+block  2: rounds=15, transfers=[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1], mean=1.07, max=2
+block  3: rounds=15, transfers=[1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], mean=1.07, max=2
+block  4: rounds=16, transfers=[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], mean=1.00, max=1
+block  5: rounds=15, transfers=[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1], mean=1.07, max=2
+block  6: rounds=15, transfers=[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1], mean=1.07, max=2
+block  7: rounds=16, transfers=[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], mean=1.00, max=1
+block  8: rounds=13, transfers=[3, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1], mean=1.23, max=3
+
+SUMMARY
+block_length       : 16
+mean_time_ms       : 9336.198
+median_time_ms     : 9334.612
+mean_NFE           : 119.000
+mean_tokens_per_NFE: 1.076
+mean_generated_tps : 13.710
+output_hash        : fe236bd53470
+answer_preview     : 'KV cache (Key-Value Cache) is a technique used to speed up the inference process in Transformer models, particularly in the context of attention computation. In a Transformer, the '
+
+============================================================================
+BLOCK_LENGTH=32  THRESHOLD=0.9
+============================================================================
+WARMUP 1/1
+captured_transfer_calls=94, transfer_counts=[1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 32]
+RUN 1: time=8477.276 ms, NFE=94, tok/NFE=1.362, generated_tok/s=15.099, hash=0a64032b77e4
+captured_transfer_calls=94, transfer_counts=[1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 32]
+RUN 2: time=8482.164 ms, NFE=94, tok/NFE=1.362, generated_tok/s=15.090, hash=0a64032b77e4
+captured_transfer_calls=94, transfer_counts=[1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 32]
+RUN 3: time=8479.421 ms, NFE=94, tok/NFE=1.362, generated_tok/s=15.095, hash=0a64032b77e4
+
+PER-BLOCK TRANSFERS (first measured run)
+block  1: rounds=29, transfers=[1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], mean=1.10, max=3
+block  2: rounds=32, transfers=[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], mean=1.00, max=1
+block  3: rounds=32, transfers=[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], mean=1.00, max=1
+block  4: rounds= 1, transfers=[32], mean=32.00, max=32
+
+SUMMARY
+block_length       : 32
+mean_time_ms       : 8479.620
+median_time_ms     : 8479.421
+mean_NFE           : 94.000
+mean_tokens_per_NFE: 1.362
+mean_generated_tps : 15.095
+output_hash        : 0a64032b77e4
+answer_preview     : 'KV cache (Key-Value Cache) is a technique used to accelerate Transformer inference by precomputing and storing the results of attention computations. This allows for faster retriev'
+
+============================================================================
+BLOCK_LENGTH=64  THRESHOLD=0.9
+============================================================================
+WARMUP 1/1
+captured_transfer_calls=115, transfer_counts=[1, 1, 1, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1]
+RUN 1: time=13621.935 ms, NFE=115, tok/NFE=1.113, generated_tok/s=9.397, hash=3f59ca6362c7
+captured_transfer_calls=115, transfer_counts=[1, 1, 1, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1]
+RUN 2: time=13606.239 ms, NFE=115, tok/NFE=1.113, generated_tok/s=9.407, hash=3f59ca6362c7
+captured_transfer_calls=115, transfer_counts=[1, 1, 1, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1]
+RUN 3: time=13618.746 ms, NFE=115, tok/NFE=1.113, generated_tok/s=9.399, hash=3f59ca6362c7
+
+PER-BLOCK TRANSFERS (first measured run)
+block  1: rounds=58, transfers=[1, 1, 1, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], mean=1.10, max=3
+block  2: rounds=57, transfers=[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1], mean=1.12, max=3
+
+SUMMARY
+block_length       : 64
+mean_time_ms       : 13615.640
+median_time_ms     : 13618.746
+mean_NFE           : 115.000
+mean_tokens_per_NFE: 1.113
+mean_generated_tps : 9.401
+output_hash        : 3f59ca6362c7
+answer_preview     : 'KV cache (Key-Value Cache) accelerates Transformer inference by reducing the number of computations required during attention computation. In a Transformer model, attention is a cr'
+
+============================================================================================
+FINAL COMPARISON
+============================================================================================
+  Block      Mean ms    Median ms       NFE     Tok/NFE     Gen tok/s
+      8     8178.553     8177.181    115.00       1.113        15.651
+     16     9336.198     9334.612    119.00       1.076        13.710
+     32     8479.620     8479.421     94.00       1.362        15.095
+     64    13615.640    13618.746    115.00       1.113         9.401

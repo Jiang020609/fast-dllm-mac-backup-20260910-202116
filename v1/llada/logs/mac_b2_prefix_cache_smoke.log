@@ -1,0 +1,35 @@
+Loading tokenizer...
+Loading cache-enabled model...
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 3/6 [00:00<00:00, 25.58it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 25.98it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 25.90it/s]
+Model device: mps:0
+Model dtype: torch.bfloat16
+Load time: 2.066 s
+Prompt tokens: 47
+Starting Prefix KV Cache generation...
+
+===== Result =====
+On Tuesday, the bookstore sold $2 \times 27 = 54$ books. On Wednesday, it sold 19 books. Therefore, the total number of books sold over the three days is $27 + 54 + 19 = \boxed{100}$.
+
+Latency: 6.933 s
+NFE: 64
+Effective slots/s: 9.231
+MPS driver memory: 16.167 GiB
+Prefix cache smoke test passed
+       10.28 real         1.61 user         1.88 sys
+           482705408  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+               31849  page reclaims
+               18918  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                  75  voluntary context switches
+               15482  involuntary context switches
+         41300365830  instructions retired
+         15227595197  cycles elapsed
+         17844061312  peak memory footprint

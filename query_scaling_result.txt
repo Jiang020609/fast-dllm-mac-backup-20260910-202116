@@ -1,0 +1,66 @@
+===== QUERY_LEN=1 =====
+================================================================================
+Rotated-K v2b enabled
+Explicit block bounds + request-local ContextVar
+No replace_position/nonzero/global POSITION_CONTEXT
+================================================================================
+Loading model...
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 3/6 [00:00<00:00, 22.20it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 23.40it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 23.20it/s]
+
+past_len,query_len,mean_ms,allocated_gib,driver_allocated_gib
+2048,1,39.333,15.963,16.946
+===== QUERY_LEN=4 =====
+================================================================================
+Rotated-K v2b enabled
+Explicit block bounds + request-local ContextVar
+No replace_position/nonzero/global POSITION_CONTEXT
+================================================================================
+Loading model...
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 3/6 [00:00<00:00, 21.99it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 23.14it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 22.95it/s]
+
+past_len,query_len,mean_ms,allocated_gib,driver_allocated_gib
+2048,4,41.504,15.964,16.946
+===== QUERY_LEN=8 =====
+================================================================================
+Rotated-K v2b enabled
+Explicit block bounds + request-local ContextVar
+No replace_position/nonzero/global POSITION_CONTEXT
+================================================================================
+Loading model...
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 3/6 [00:00<00:00, 22.04it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 23.09it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 22.92it/s]
+
+past_len,query_len,mean_ms,allocated_gib,driver_allocated_gib
+2048,8,44.593,15.964,16.946
+===== QUERY_LEN=16 =====
+================================================================================
+Rotated-K v2b enabled
+Explicit block bounds + request-local ContextVar
+No replace_position/nonzero/global POSITION_CONTEXT
+================================================================================
+Loading model...
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 3/6 [00:00<00:00, 21.04it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 22.16it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 21.97it/s]
+
+past_len,query_len,mean_ms,allocated_gib,driver_allocated_gib
+2048,16,69.126,15.964,17.010
+===== QUERY_LEN=32 =====
+================================================================================
+Rotated-K v2b enabled
+Explicit block bounds + request-local ContextVar
+No replace_position/nonzero/global POSITION_CONTEXT
+================================================================================
+Loading model...
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 3/6 [00:00<00:00, 21.53it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 22.99it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 22.75it/s]
+
+past_len,query_len,mean_ms,allocated_gib,driver_allocated_gib
+2048,32,83.741,15.964,17.010
+===== QUERY_LEN=64 =====
+================================================================================
+Rotated-K v2b enabled
+Explicit block bounds + request-local ContextVar
+No replace_position/nonzero/global POSITION_CONTEXT
+================================================================================
+Loading model...
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 3/6 [00:00<00:00, 21.86it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 23.29it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 23.05it/s]
+
+past_len,query_len,mean_ms,allocated_gib,driver_allocated_gib
+2048,64,115.021,15.965,17.018

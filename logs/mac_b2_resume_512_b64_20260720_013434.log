@@ -1,0 +1,40 @@
+===== Resume L=512, B=64 =====
+Already completed: 19 / 36
+Missing: 17
+Missing keys: [(6, 1), (6, 2), (7, 0), (7, 1), (7, 2), (8, 0), (8, 1), (8, 2), (9, 0), (9, 1), (9, 2), (10, 0), (10, 1), (10, 2), (11, 0), (11, 1), (11, 2)]
+
+Loading tokenizer...
+Loading cache-enabled BF16 model...
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  67%|██████▋   | 4/6 [00:00<00:00, 33.26it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 35.91it/s]
+Model device: mps:0
+Model dtype: torch.bfloat16
+Model load time: 7.929 s
+
+Warm-up...
+Warm-up finished, NFE = 512
+[01/17] prompt=06 repeat=1 NFE=512 latency=200.315s slots/s=2.556 ETA≈53.4min
+[02/17] prompt=06 repeat=2 NFE=512 latency=200.276s slots/s=2.556 ETA≈50.1min
+[03/17] prompt=07 repeat=0 NFE=512 latency=200.526s slots/s=2.553 ETA≈46.8min
+[04/17] prompt=07 repeat=1 NFE=512 latency=200.443s slots/s=2.554 ETA≈43.4min
+[05/17] prompt=07 repeat=2 NFE=512 latency=200.448s slots/s=2.554 ETA≈40.1min
+[06/17] prompt=08 repeat=0 NFE=512 latency=199.908s slots/s=2.561 ETA≈36.7min
+[07/17] prompt=08 repeat=1 NFE=512 latency=199.895s slots/s=2.561 ETA≈33.4min
+[08/17] prompt=08 repeat=2 NFE=512 latency=199.895s slots/s=2.561 ETA≈30.0min
+[09/17] prompt=09 repeat=0 NFE=512 latency=199.786s slots/s=2.563 ETA≈26.7min
+[10/17] prompt=09 repeat=1 NFE=512 latency=199.763s slots/s=2.563 ETA≈23.4min
+[11/17] prompt=09 repeat=2 NFE=512 latency=199.768s slots/s=2.563 ETA≈20.0min
+[12/17] prompt=10 repeat=0 NFE=512 latency=199.848s slots/s=2.562 ETA≈16.7min
+[13/17] prompt=10 repeat=1 NFE=512 latency=199.830s slots/s=2.562 ETA≈13.3min
+[14/17] prompt=10 repeat=2 NFE=512 latency=199.827s slots/s=2.562 ETA≈10.0min
+[15/17] prompt=11 repeat=0 NFE=512 latency=199.835s slots/s=2.562 ETA≈6.7min
+[16/17] prompt=11 repeat=1 NFE=512 latency=199.763s slots/s=2.563 ETA≈3.3min
+[17/17] prompt=11 repeat=2 NFE=512 latency=199.820s slots/s=2.562 ETA≈0.0min
+
+Final unique rows: 36 / 36
+
+===== Resume completed =====
+Mean latency: 200.447 s
+P50 latency: 200.379 s
+P90 latency: 201.187 s
+Mean slots/s: 2.554
+Updated summary: /Users/z33/Fast-dLLM/results/20260720_013434/mac_b2_matrix_20260720_013434_summary.csv

@@ -1,0 +1,80 @@
+{
+  "0": {
+    "forward_index": 0,
+    "input_shape": [
+      1,
+      1331,
+      4096
+    ],
+    "past_length_at_layer0": 0,
+    "replace_count": 0,
+    "profiled_phase_total_seconds": 1.7549338763928972,
+    "phases_seconds": {
+      "attn_norm": 0.029029666184214875,
+      "qkv_projections": 0.36927837596158497,
+      "head_reshape": 0.000632335984846577,
+      "position_build": 0.008090126008028165,
+      "q_rope": 0.06542004109360278,
+      "new_k_rope": 0.06353046000003815,
+      "cache_update": 2.9080983949825168e-05,
+      "sdpa": 0.08001724607311189,
+      "attn_out_residual": 0.11755758503568359,
+      "ff_norm": 0.028006669046590105,
+      "gate_up_projections": 0.6426507080614101,
+      "silu_multiply": 0.032877413992537186,
+      "ff_out_residual": 0.317814167967299
+    }
+  },
+  "8": {
+    "forward_index": 8,
+    "input_shape": [
+      1,
+      32,
+      4096
+    ],
+    "past_length_at_layer0": 1331,
+    "replace_count": 32,
+    "profiled_phase_total_seconds": 0.16715574960107915,
+    "phases_seconds": {
+      "attn_norm": 0.006697999982861802,
+      "qkv_projections": 0.020320708950748667,
+      "head_reshape": 0.0003298768715467304,
+      "position_build": 0.031493329064687714,
+      "q_rope": 0.010186500003328547,
+      "new_k_rope": 0.009555083903251216,
+      "cache_update": 0.005642209987854585,
+      "sdpa": 0.010889503930229694,
+      "attn_out_residual": 0.010167538974201307,
+      "ff_norm": 0.0062438760651275516,
+      "gate_up_projections": 0.028899536962853745,
+      "silu_multiply": 0.005493831995408982,
+      "ff_out_residual": 0.02123575290897861
+    }
+  },
+  "32": {
+    "forward_index": 32,
+    "input_shape": [
+      1,
+      32,
+      4096
+    ],
+    "past_length_at_layer0": 1331,
+    "replace_count": 32,
+    "profiled_phase_total_seconds": 0.16882563318358734,
+    "phases_seconds": {
+      "attn_norm": 0.006649253831710666,
+      "qkv_projections": 0.020439124084077775,
+      "head_reshape": 0.00041000015335157514,
+      "position_build": 0.03262029099278152,
+      "q_rope": 0.010022373957326636,
+      "new_k_rope": 0.009676420100731775,
+      "cache_update": 0.005344040953787044,
+      "sdpa": 0.011070413020206615,
+      "attn_out_residual": 0.010084920999361202,
+      "ff_norm": 0.006308539042947814,
+      "gate_up_projections": 0.02913883505971171,
+      "silu_multiply": 0.005515543947694823,
+      "ff_out_residual": 0.021545877039898187
+    }
+  }
+}

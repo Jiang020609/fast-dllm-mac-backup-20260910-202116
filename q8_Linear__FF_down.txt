@@ -1,0 +1,55 @@
+================================================================================
+Rotated-K v2b enabled
+Explicit block bounds + request-local ContextVar
+No replace_position/nonzero/global POSITION_CONTEXT
+================================================================================
+Loading model...
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 3/6 [00:00<00:00, 22.23it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 23.34it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 23.16it/s]
+MATCHED Linear: FF down: model.transformer.blocks.0.ff_out
+MATCHED Linear: FF down: model.transformer.blocks.1.ff_out
+MATCHED Linear: FF down: model.transformer.blocks.2.ff_out
+MATCHED Linear: FF down: model.transformer.blocks.3.ff_out
+MATCHED Linear: FF down: model.transformer.blocks.4.ff_out
+MATCHED Linear: FF down: model.transformer.blocks.5.ff_out
+MATCHED Linear: FF down: model.transformer.blocks.6.ff_out
+MATCHED Linear: FF down: model.transformer.blocks.7.ff_out
+MATCHED Linear: FF down: model.transformer.blocks.8.ff_out
+MATCHED Linear: FF down: model.transformer.blocks.9.ff_out
+MATCHED Linear: FF down: model.transformer.blocks.10.ff_out
+MATCHED Linear: FF down: model.transformer.blocks.11.ff_out
+MATCHED Linear: FF down: model.transformer.blocks.12.ff_out
+MATCHED Linear: FF down: model.transformer.blocks.13.ff_out
+MATCHED Linear: FF down: model.transformer.blocks.14.ff_out
+MATCHED Linear: FF down: model.transformer.blocks.15.ff_out
+MATCHED Linear: FF down: model.transformer.blocks.16.ff_out
+MATCHED Linear: FF down: model.transformer.blocks.17.ff_out
+MATCHED Linear: FF down: model.transformer.blocks.18.ff_out
+MATCHED Linear: FF down: model.transformer.blocks.19.ff_out
+MATCHED Linear: FF down: model.transformer.blocks.20.ff_out
+MATCHED Linear: FF down: model.transformer.blocks.21.ff_out
+MATCHED Linear: FF down: model.transformer.blocks.22.ff_out
+MATCHED Linear: FF down: model.transformer.blocks.23.ff_out
+MATCHED Linear: FF down: model.transformer.blocks.24.ff_out
+MATCHED Linear: FF down: model.transformer.blocks.25.ff_out
+MATCHED Linear: FF down: model.transformer.blocks.26.ff_out
+MATCHED Linear: FF down: model.transformer.blocks.27.ff_out
+MATCHED Linear: FF down: model.transformer.blocks.28.ff_out
+MATCHED Linear: FF down: model.transformer.blocks.29.ff_out
+MATCHED Linear: FF down: model.transformer.blocks.30.ff_out
+MATCHED Linear: FF down: model.transformer.blocks.31.ff_out
+
+INSTRUMENTED MODULES
+Linear: FF down         : 32
+
+Warmup...
+
+========== MPS MODULE BREAKDOWN ==========
+Wall total                       204.870 ms
+Wall mean / forward               40.974 ms
+Event model total                  0.000 ms
+------------------------------------------
+Category                       Calls     Total ms      Mean us     Share
+Linear: FF down                  160       30.107      188.168    14.70%
+------------------------------------------
+Residual / other                            0.000                  0.00%
+==========================================

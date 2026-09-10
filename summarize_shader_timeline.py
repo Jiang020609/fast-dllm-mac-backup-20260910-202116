@@ -1,0 +1,454 @@
+from __future__ import annotations
+
+import re
+import sys
+import xml.etree.ElementTree as ET
+from collections import defaultdict
+from pathlib import Path
+
+
+def local_name(tag: str) -> str:
+    return tag.rsplit("}", 1)[-1]
+
+
+def descendant_text(element: ET.Element, tag_name: str) -> str:
+    for child in element.iter():
+        if local_name(child.tag) == tag_name:
+            return (
+                child.attrib.get("fmt")
+                or (child.text or "").strip()
+            )
+    return ""
+
+
+def build_references(
+    root: ET.Element,
+) -> dict[str, tuple[str, str]]:
+    references: dict[str, tuple[str, str]] = {}
+
+    for element in root.iter():
+        element_id = element.attrib.get("id")
+
+        if element_id is None:
+            continue
+
+        display = element.attrib.get("fmt", "").strip()
+        raw = (element.text or "").strip()
+
+        if not display:
+            values = []
+
+            for child in element.iter():
+                if child is element:
+                    continue
+
+                value = (
+                    child.attrib.get("fmt")
+                    or (child.text or "").strip()
+                )
+
+                if value:
+                    values.append(value)
+
+            display = " ".join(
+                dict.fromkeys(values)
+            )
+
+        references[element_id] = (
+            display or raw,
+            raw,
+        )
+
+    return references
+
+
+def resolve_value(
+    element: ET.Element,
+    references: dict[str, tuple[str, str]],
+) -> tuple[str, str]:
+    reference = element.attrib.get("ref")
+
+    if reference is not None:
+        return references.get(
+            reference,
+            (f"<ref:{reference}>", ""),
+        )
+
+    display = element.attrib.get("fmt", "").strip()
+    raw = (element.text or "").strip()
+
+    if not display:
+        values = []
+
+        for child in element.iter():
+            if child is element:
+                continue
+
+            value = (
+                child.attrib.get("fmt")
+                or (child.text or "").strip()
+            )
+
+            if value:
+                values.append(value)
+
+        display = " ".join(
+            dict.fromkeys(values)
+        )
+
+    return display or raw, raw
+
+
+def parse_duration_ms(
+    display: str,
+    raw: str,
+) -> float:
+    match = re.search(
+        r"([0-9.,]+)\s*(ns|µs|us|ms|s)\b",
+        display,
+        flags=re.IGNORECASE,
+    )
+
+    if match:
+        number = float(
+            match.group(1).replace(",", "")
+        )
+        unit = match.group(2).lower()
+
+        if unit == "ns":
+            return number / 1_000_000.0
+
+        if unit in {"µs", "us"}:
+            return number / 1_000.0
+
+        if unit == "ms":
+            return number
+
+        if unit == "s":
+            return number * 1_000.0
+
+    try:
+        # xctrace 的原始 duration 通常是纳秒。
+        return float(raw) / 1_000_000.0
+    except (TypeError, ValueError):
+        return 0.0
+
+
+def extract_kernel_name(text: str) -> str | None:
+    patterns = [
+        r"\bName=\s*([A-Za-z0-9_.$:+-]+)",
+        r"\bLabel=\s*([A-Za-z0-9_.$:+-]+)",
+    ]
+
+    for pattern in patterns:
+        match = re.search(pattern, text)
+
+        if match:
+            name = match.group(1)
+
+            if name not in {
+                "compute",
+                "fragment",
+                "vertex",
+            }:
+                return name
+
+    fallback = re.search(
+        r"\b("
+        r"(?:mmul|matmul|gemm)[A-Za-z0-9_.$:+-]*"
+        r"|prefill_attention[A-Za-z0-9_.$:+-]*"
+        r"|attention[A-Za-z0-9_.$:+-]*"
+        r"|copy_[A-Za-z0-9_.$:+-]*"
+        r"|[A-Za-z0-9_.$:+-]*cast[A-Za-z0-9_.$:+-]*"
+        r"|[A-Za-z0-9_.$:+-]*softmax[A-Za-z0-9_.$:+-]*"
+        r"|[A-Za-z0-9_.$:+-]*(?:rmsnorm|layernorm)[A-Za-z0-9_.$:+-]*"
+        r"|[A-Za-z0-9_.$:+-]*(?:rotary|rope)[A-Za-z0-9_.$:+-]*"
+        r")\b",
+        text,
+        flags=re.IGNORECASE,
+    )
+
+    return fallback.group(1) if fallback else None
+
+
+def category(name: str) -> str:
+    lowered = name.lower()
+
+    if any(x in lowered for x in ("mmul", "matmul", "gemm")):
+        return "GEMM / Linear"
+
+    if "attention" in lowered:
+        return "Attention"
+
+    if any(
+        x in lowered
+        for x in (
+            "copy",
+            "cast",
+            "strided",
+            "identity",
+        )
+    ):
+        return "Copy / Cast"
+
+    if any(x in lowered for x in ("rmsnorm", "layernorm")):
+        return "Norm"
+
+    if "softmax" in lowered:
+        return "Softmax"
+
+    if any(x in lowered for x in ("rotary", "rope")):
+        return "RoPE"
+
+    return "Other"
+
+
+def main() -> None:
+    path = Path(
+        sys.argv[1]
+        if len(sys.argv) > 1
+        else "os_signpost.xml"
+    )
+
+    if not path.exists():
+        raise SystemExit(
+            f"找不到文件：{path}"
+        )
+
+    root = ET.parse(path).getroot()
+    references = build_references(root)
+
+    statistics = defaultdict(
+        lambda: {
+            "count": 0,
+            "total_ms": 0.0,
+            "max_ms": 0.0,
+        }
+    )
+
+    seen_rows: set[int] = set()
+    timed_rows = 0
+
+    for container in root.iter():
+        children = list(container)
+
+        schema = next(
+            (
+                child
+                for child in children
+                if local_name(child.tag) == "schema"
+            ),
+            None,
+        )
+
+        if schema is None:
+            continue
+
+        rows = [
+            child
+            for child in children
+            if local_name(child.tag) == "row"
+        ]
+
+        if not rows:
+            continue
+
+        columns = []
+
+        for column in schema:
+            if local_name(column.tag) != "col":
+                continue
+
+            mnemonic = descendant_text(
+                column,
+                "mnemonic",
+            )
+
+            name = descendant_text(
+                column,
+                "name",
+            )
+
+            columns.append(
+                mnemonic
+                or name
+                or f"column_{len(columns)}"
+            )
+
+        previous = [
+            ("", "")
+            for _ in columns
+        ]
+
+        for row in rows:
+            row_identity = id(row)
+
+            if row_identity in seen_rows:
+                continue
+
+            seen_rows.add(row_identity)
+
+            elements = list(row)
+            values = []
+
+            for index in range(len(columns)):
+                if index >= len(elements):
+                    values.append(("", ""))
+                    continue
+
+                element = elements[index]
+
+                if local_name(element.tag) == "sentinel":
+                    value = previous[index]
+                else:
+                    value = resolve_value(
+                        element,
+                        references,
+                    )
+
+                values.append(value)
+
+            previous = values
+
+            record = {
+                column: value
+                for column, value in zip(
+                    columns,
+                    values,
+                )
+            }
+
+            duration_ms = 0.0
+
+            for column, (display, raw) in record.items():
+                if "duration" in column.lower():
+                    duration_ms = parse_duration_ms(
+                        display,
+                        raw,
+                    )
+                    break
+
+            if duration_ms <= 0:
+                continue
+
+            combined_text = " ".join(
+                display
+                for display, _ in record.values()
+                if display
+            )
+
+            kernel_name = extract_kernel_name(
+                combined_text
+            )
+
+            if not kernel_name:
+                continue
+
+            entry = statistics[kernel_name]
+            entry["count"] += 1
+            entry["total_ms"] += duration_ms
+            entry["max_ms"] = max(
+                entry["max_ms"],
+                duration_ms,
+            )
+
+            timed_rows += 1
+
+    if not statistics:
+        print(
+            "没有找到同时包含 kernel 名和 duration 的记录。"
+        )
+        print(
+            "这意味着名称可能在 os-signpost-arg，"
+            "而时间在另一张表中。"
+        )
+        return
+
+    total_ms = sum(
+        item["total_ms"]
+        for item in statistics.values()
+    )
+
+    print()
+    print("============== TOP SHADERS ==============")
+    print(
+        f"{'Kernel':58s} "
+        f"{'Count':>8s} "
+        f"{'Total ms':>11s} "
+        f"{'Mean us':>11s} "
+        f"{'Max us':>11s} "
+        f"{'Share':>8s}"
+    )
+
+    sorted_items = sorted(
+        statistics.items(),
+        key=lambda item: item[1]["total_ms"],
+        reverse=True,
+    )
+
+    for name, item in sorted_items[:40]:
+        count = item["count"]
+        total = item["total_ms"]
+        mean_us = total * 1000.0 / count
+        max_us = item["max_ms"] * 1000.0
+        share = total / total_ms * 100.0
+
+        print(
+            f"{name[:58]:58s} "
+            f"{count:8d} "
+            f"{total:11.3f} "
+            f"{mean_us:11.3f} "
+            f"{max_us:11.3f} "
+            f"{share:7.2f}%"
+        )
+
+    category_stats = defaultdict(
+        lambda: {
+            "count": 0,
+            "total_ms": 0.0,
+        }
+    )
+
+    for name, item in statistics.items():
+        group = category(name)
+        category_stats[group]["count"] += item["count"]
+        category_stats[group]["total_ms"] += item["total_ms"]
+
+    print()
+    print("=========== CATEGORY TOTALS ===========")
+    print(
+        f"{'Category':22s} "
+        f"{'Count':>10s} "
+        f"{'Total ms':>12s} "
+        f"{'Share':>10s}"
+    )
+
+    for name, item in sorted(
+        category_stats.items(),
+        key=lambda item: item[1]["total_ms"],
+        reverse=True,
+    ):
+        share = (
+            item["total_ms"]
+            / total_ms
+            * 100.0
+        )
+
+        print(
+            f"{name:22s} "
+            f"{item['count']:10d} "
+            f"{item['total_ms']:12.3f} "
+            f"{share:9.2f}%"
+        )
+
+    print()
+    print(f"Timed shader rows: {timed_rows}")
+    print(f"Summed shader time: {total_ms:.3f} ms")
+    print(
+        "注意：Share 是已匹配 shader interval "
+        "总和中的占比。"
+    )
+
+
+if __name__ == "__main__":
+    main()

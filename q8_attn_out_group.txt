@@ -1,0 +1,22 @@
+================================================================================
+Rotated-K v2b enabled
+Explicit block bounds + request-local ContextVar
+No replace_position/nonzero/global POSITION_CONTEXT
+================================================================================
+Loading model...
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 3/6 [00:00<00:00, 21.88it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 23.27it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 23.04it/s]
+attn_out modules: 32
+input shape: (1, 8, 4096)
+repeat 1: 2.657 ms / 32 layers
+repeat 2: 2.637 ms / 32 layers
+repeat 3: 2.641 ms / 32 layers
+repeat 4: 2.625 ms / 32 layers
+repeat 5: 2.626 ms / 32 layers
+
+========== ATTN OUT GROUP ==========
+mean_ms_per_forward : 2.637
+median_ms           : 2.637
+mean_us_per_layer   : 82.415
+baseline_ms         : 41.000
+estimated_share     : 6.43%
+====================================

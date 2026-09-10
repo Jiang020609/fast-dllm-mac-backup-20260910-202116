@@ -1,0 +1,32 @@
+================================================================================
+Rotated-K v2b enabled
+Explicit block bounds + request-local ContextVar
+No replace_position/nonzero/global POSITION_CONTEXT
+================================================================================
+Loading model...
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 3/6 [00:00<00:00, 20.01it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 20.41it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 20.34it/s]
+Compiling complete model.forward...
+V0805 02:28:43.914000 12890 torch/_dynamo/guards.py:5396] [6/1] [__recompiles] Recompiling function torch_dynamo_resume_in_rotated_k_v2b_attention_at_227 in /Users/z33/Fast-dLLM/v1/llada/rotated_k_v2b_runtime_patch.py:227
+V0805 02:28:43.914000 12890 torch/_dynamo/guards.py:5396] [6/1] [__recompiles]     triggered by the following guard failure(s):
+V0805 02:28:43.914000 12890 torch/_dynamo/guards.py:5396] [6/1] [__recompiles]     - 6/0: ___stack0.position_context is None                       # )  # Fast-dLLM/v1/llada/rotated_k_v2b_runtime_patch.py:282 in torch_dynamo_resume_in_rotated_k_v2b_attention_at_227
+V0805 02:28:43.914000 12890 torch/_dynamo/guards.py:5396] [6/1] [__recompiles]     - User stack trace:
+V0805 02:28:43.914000 12890 torch/_dynamo/guards.py:5396] [6/1] [__recompiles]     -   File "/Users/z33/Fast-dLLM/v1/llada/rotated_k_v2b_runtime_patch.py", line 282, in torch_dynamo_resume_in_rotated_k_v2b_attention_at_227
+V0805 02:28:43.914000 12890 torch/_dynamo/guards.py:5396] [6/1] [__recompiles]     -     )
+V0805 02:28:44.024000 12890 torch/_dynamo/guards.py:5396] [3/1] [__recompiles] Recompiling function get_causal_attention_bias in /Users/z33/Fast-dLLM/v1/llada/model/modeling_llada.py:533
+V0805 02:28:44.024000 12890 torch/_dynamo/guards.py:5396] [3/1] [__recompiles]     triggered by the following guard failure(s):
+V0805 02:28:44.024000 12890 torch/_dynamo/guards.py:5396] [3/1] [__recompiles]     - 3/0: len(cache) != 2
+V0805 02:28:44.026000 12890 torch/_dynamo/guards.py:5396] [6/2] [__recompiles] Recompiling function torch_dynamo_resume_in_rotated_k_v2b_attention_at_227 in /Users/z33/Fast-dLLM/v1/llada/rotated_k_v2b_runtime_patch.py:227
+V0805 02:28:44.026000 12890 torch/_dynamo/guards.py:5396] [6/2] [__recompiles]     triggered by the following guard failure(s):
+V0805 02:28:44.026000 12890 torch/_dynamo/guards.py:5396] [6/2] [__recompiles]     - 6/1: ___check_type_id(___stack0.position_context, 4322848728), type=<class 'dict'>  # )  # Fast-dLLM/v1/llada/rotated_k_v2b_runtime_patch.py:282 in torch_dynamo_resume_in_rotated_k_v2b_attention_at_227 (HINT: type dict)
+V0805 02:28:44.026000 12890 torch/_dynamo/guards.py:5396] [6/2] [__recompiles]     - User stack trace:
+V0805 02:28:44.026000 12890 torch/_dynamo/guards.py:5396] [6/2] [__recompiles]     -   File "/Users/z33/Fast-dLLM/v1/llada/rotated_k_v2b_runtime_patch.py", line 282, in torch_dynamo_resume_in_rotated_k_v2b_attention_at_227
+V0805 02:28:44.026000 12890 torch/_dynamo/guards.py:5396] [6/2] [__recompiles]     -     )
+V0805 02:28:44.026000 12890 torch/_dynamo/guards.py:5396] [6/2] [__recompiles]     - 6/0: tensor 'dict.__getitem__(self._modules['rotary_emb']._RotaryEmbedding__cache, list(dict.keys(self._modules['rotary_emb']._RotaryEmbedding__cache))[0])' dispatch key set mismatch. expected DispatchKeySet(CPU, BackendSelect, ADInplaceOrView, AutogradCPU), actual DispatchKeySet(MPS, BackendSelect, ADInplaceOrView, AutogradMPS)
+W0805 02:28:44.146000 12890 torch/_inductor/utils.py:1953] [6/2] Not enough SMs to use max_autotune_gemm mode
+PROFILE_WINDOW_BEGIN iterations=1
+Traceback (most recent call last):
+  File "/Users/z33/Fast-dLLM/capture_mps_cached_formal5.py", line 255, in <module>
+    main()
+  File "/Users/z33/Fast-dLLM/capture_mps_cached_formal5.py", line 175, in main
+    raise RuntimeError(
+RuntimeError: Metal capture is disabled. Run with MTL_CAPTURE_ENABLED=1.

@@ -1,0 +1,133 @@
+2026-07-22:00:20:53,545 WARNING  [lm_eval.__main__:316]  --limit SHOULD ONLY BE USED FOR TESTING.REAL METRICS SHOULD NOT BE COMPUTED USING LIMIT.
+2026-07-22:00:20:53,546 INFO     [lm_eval.__main__:379] Selected Tasks: ['gsm8k']
+2026-07-22:00:20:53,548 INFO     [lm_eval.evaluator:169] Setting random seed to 0 | Setting numpy seed to 1234 | Setting torch manual seed to 1234 | Setting fewshot manual seed to 1234
+2026-07-22:00:20:53,548 INFO     [lm_eval.evaluator:206] Initializing llada_dist model, with arguments: {'model_path': '/Users/z33/models/LLaDA-8B-Instruct', 'device': 'mps', 'is_check_greedy': False, 'gen_length': 256, 'steps': 256, 'block_length': 32, 'show_speed': True, 'use_cache': True, 'dual_cache': True, 'threshold': 0.75}
+The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 2/6 [00:00<00:00, 19.08it/s]Loading checkpoint shards:  67%|██████▋   | 4/6 [00:00<00:00, 18.45it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 19.45it/s]
+Using the latest cached version of the dataset since openai/gsm8k couldn't be found on the Hugging Face Hub (offline mode is enabled).
+2026-07-22:00:21:02,215 WARNING  [datasets.load:835] Using the latest cached version of the dataset since openai/gsm8k couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'main' at /Users/z33/hf-cache/datasets/openai___gsm8k/main/0.0.0/740312add88f781978c0658806c59bc2815b9866 (last modified on Mon Jul 20 13:47:26 2026).
+2026-07-22:00:21:02,216 WARNING  [datasets.packaged_modules.cache.cache:95] Found the latest cached dataset configuration 'main' at /Users/z33/hf-cache/datasets/openai___gsm8k/main/0.0.0/740312add88f781978c0658806c59bc2815b9866 (last modified on Mon Jul 20 13:47:26 2026).
+2026-07-22:00:21:02,277 WARNING  [lm_eval.evaluator:275] Overwriting default num_fewshot of gsm8k from 5 to 5
+2026-07-22:00:21:02,277 INFO     [lm_eval.api.task:420] Building contexts for gsm8k on rank 0...
+  0%|          | 0/1 [00:00<?, ?it/s]100%|██████████| 1/1 [00:00<00:00, 919.00it/s]
+2026-07-22:00:21:02,279 INFO     [lm_eval.evaluator:517] Running generate_until requests
+Batching...:   0%|          | 0/1 [00:00<?, ?it/s]Batching...: 100%|██████████| 1/1 [00:00<00:00, 91180.52it/s]
+Generating...:   0%|          | 0/1 [00:00<?, ?it/s]Generating...: 100%|██████████| 1/1 [00:26<00:00, 26.58s/it]Generating...: 100%|██████████| 1/1 [00:26<00:00, 26.58s/it]
+2026-07-22:00:21:29,246 INFO     [lm_eval.loggers.evaluation_tracker:209] Saving results aggregated
+2026-07-22:00:21:29,247 INFO     [lm_eval.loggers.evaluation_tracker:290] Saving per-sample results for: gsm8k
+====================
+answer:  To determine how much Janet makes every day at the farmers' market, we need to follow these steps:
+
+1. Calculate the total number of eggs laid by Janet's ducks per day.
+2. Subtract the number of eggs Janet eats for breakfast and bakes for her friends.
+3. Calculate the number of eggs left to sell.
+4. Multiply the number of eggs sold by the price per egg to find the daily earnings.
+
+Let's start with the first step:
+Janet's ducks lay 16 eggs per day.
+
+Next, we subtract the eggs she eats for breakfast and bakes for her friends:
+- She eats 3 eggs for breakfast.
+- She bakes 4 eggs for her friends.
+
+So, the number of eggs left to sell is:
+\[ 16 - 3 - 4 = 9 \]
+
+Janet sells these eggs at $2 per egg. Therefore, her daily earnings are:
+\[ 9 \text{ eggs} \times \$2 \text{ per duck egg} = \$18 \]
+
+Thus, Janet makes $18 every day at the farmers' market.
+
+\(\boxed{18}\)
+nfe:  81
+avg nfe:  81.0
+====================
+
+Total number of tokens generated: 255
+Total time taken: 26.578757286071777 seconds
+Tokens per second: 9.594127655029297
+Total NFE is 81
+llada_dist (model_path=/Users/z33/models/LLaDA-8B-Instruct,device=mps,is_check_greedy=False,gen_length=256,steps=256,block_length=32,show_speed=True,use_cache=True,dual_cache=True,threshold=0.75), gen_kwargs: (None), limit: 1.0, num_fewshot: 5, batch_size: 1
+|Tasks|Version|     Filter     |n-shot|  Metric   |   |Value|   |Stderr|
+|-----|------:|----------------|-----:|-----------|---|----:|---|------|
+|gsm8k|      3|flexible-extract|     5|exact_match|↑  |    1|±  |   N/A|
+|     |       |strict-match    |     5|exact_match|↑  |    0|±  |   N/A|
+
+
+====================================================================================================
+LLaDA component profile
+====================================================================================================
+注意：每个 phase 前后都进行了 MPS synchronize；结果适合比较占比和排序，不等同于无扰动端到端延迟。
+
+----------------------------------------------------------------------------------------------------
+Forward index=0, x=[1, 1331, 4096], past_len=0, replace_count=0
+----------------------------------------------------------------------------------------------------
+Phase                           Total ms    Per layer ms       Share
+gate_up_projections              638.019          19.938      36.64%
+qkv_projections                  375.630          11.738      21.57%
+ff_out_residual                  314.860           9.839      18.08%
+rope                             122.957           3.842       7.06%
+attn_out_residual                117.035           3.657       6.72%
+sdpa                              79.897           2.497       4.59%
+silu_multiply                     34.995           1.094       2.01%
+attn_norm                         29.276           0.915       1.68%
+ff_norm                           28.031           0.876       1.61%
+head_reshape                       0.598           0.019       0.03%
+cache_update                       0.022           0.001       0.00%
+
+Grouped:
+  MLP                         1015.905 ms     58.34%
+  Attention projections        404.907 ms     23.25%
+  Cache + RoPE                 123.577 ms      7.10%
+  Attention output             117.035 ms      6.72%
+  SDPA                          79.897 ms      4.59%
+
+----------------------------------------------------------------------------------------------------
+Forward index=8, x=[1, 32, 4096], past_len=1331, replace_count=32
+----------------------------------------------------------------------------------------------------
+Phase                           Total ms    Per layer ms       Share
+rope                              86.550           2.705      41.33%
+gate_up_projections               29.367           0.918      14.02%
+ff_out_residual                   21.799           0.681      10.41%
+qkv_projections                   20.221           0.632       9.66%
+sdpa                              11.092           0.347       5.30%
+cache_update                      10.763           0.336       5.14%
+attn_out_residual                 10.649           0.333       5.09%
+attn_norm                          6.746           0.211       3.22%
+ff_norm                            6.350           0.198       3.03%
+silu_multiply                      5.539           0.173       2.65%
+head_reshape                       0.333           0.010       0.16%
+
+Grouped:
+  Cache + RoPE                  97.646 ms     46.63%
+  MLP                           63.055 ms     30.11%
+  Attention projections         26.967 ms     12.88%
+  SDPA                          11.092 ms      5.30%
+  Attention output              10.649 ms      5.09%
+
+----------------------------------------------------------------------------------------------------
+Forward index=32, x=[1, 32, 4096], past_len=1331, replace_count=32
+----------------------------------------------------------------------------------------------------
+Phase                           Total ms    Per layer ms       Share
+rope                              87.416           2.732      41.24%
+gate_up_projections               29.107           0.910      13.73%
+ff_out_residual                   21.481           0.671      10.13%
+qkv_projections                   20.765           0.649       9.80%
+sdpa                              11.569           0.362       5.46%
+cache_update                      11.225           0.351       5.30%
+attn_out_residual                 10.577           0.331       4.99%
+attn_norm                          6.907           0.216       3.26%
+ff_norm                            6.461           0.202       3.05%
+silu_multiply                      6.086           0.190       2.87%
+head_reshape                       0.374           0.012       0.18%
+
+Grouped:
+  Cache + RoPE                  99.015 ms     46.71%
+  MLP                           63.135 ms     29.79%
+  Attention projections         27.672 ms     13.05%
+  SDPA                          11.569 ms      5.46%
+  Attention output              10.577 ms      4.99%
+
+Profile JSON:
+/Users/z33/Fast-dLLM/results/component_profile_20260722_002046/component_profile.json

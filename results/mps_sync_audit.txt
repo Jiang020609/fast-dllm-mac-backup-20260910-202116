@@ -1,0 +1,458 @@
+===== Explicit host reads / synchronization candidates =====
+./eval_llada.py:148:        target_len = (l - prompt_index.sum()).item()
+./eval_llada.py:200:            loss_acc.append(loss.item())
+./smoke_prefix_cache_mps.py:16:    torch.mps.synchronize()
+./generate.py:374:    transfer_index = transfer_int.bool() & mask_index  # ensure we never select unmasked
+./generate.py:397:        num_tokens = int(num_transfer_tokens[j].item())
+./eval_llada_rotated_k_v2_wrapper.py:101:                .nonzero(as_tuple=True)[0]
+./eval_llada_rotated_k_v2_wrapper.py:118:        nonzero = replace_position.nonzero(
+./generate_dual_profiled.py:17:    torch.mps.synchronize()
+./generate_dual_profiled.py:212:            if int(remaining.item()) == 0:
+./bench_prefix_matrix_mps.py:110:    torch.mps.synchronize()
+./bench_matched_nocache_mps.py:96:    torch.mps.synchronize()
+./model/modeling_llada.py:447:            # Build tensor indices instead of using .item()
+./model/modeling_llada.py:744:                    batch_replace_indices = replace_position[batch_idx].nonzero(as_tuple=True)[0]
+./model/modeling_llada.py:762:                max_replace_pos = replace_position.nonzero(as_tuple=True)[1].max() + 1 if replace_position.any() else key_len
+./app.py:231:                token = tokenizer.decode([x[0, pos].item()], skip_special_tokens=True)
+./app.py:258:                    token = tokenizer.decode([x[0, pos].item()], skip_special_tokens=True)
+./app.py:385:        if not block_mask_index.any():
+./app.py:397:            if not mask_index.any():
+./app.py:433:                                                  k=min(num_transfer_tokens[j, i].item(), 
+./app.py:460:                    token = tokenizer.decode([x[0, pos].item()], skip_special_tokens=True)
+./smoke_matched_nocache_mps.py:28:torch.mps.synchronize()
+./smoke_matched_nocache_mps.py:47:torch.mps.synchronize()
+./smoke_matched_nocache_mps.py:63:torch.mps.synchronize()
+./generate_profiled.py:18:    torch.mps.synchronize()
+./generate_profiled.py:229:            if int(remaining.item()) == 0:
+./generate_profiled.py:411:            if int(remaining.item()) == 0:
+./eval_llada_rotated_k_wrapper.py:209:                .nonzero(as_tuple=True)[0]
+./eval_llada_rotated_k_wrapper.py:229:        if replace_position.any():
+./eval_llada_rotated_k_wrapper.py:232:                .nonzero(as_tuple=True)[1]
+
+===== Position / replacement / transfer logic =====
+./eval_llada.py:62:        remasking='low_confidence',
+./eval_llada.py:65:        threshold=None,
+./eval_llada.py:129:        self.remasking = remasking
+./eval_llada.py:131:        self.threshold = threshold
+./eval_llada.py:215:            mask_index = (seq == self.mask_id)
+./eval_llada.py:216:            logits = self.get_logits(seq, prompt_index)[mask_index]
+./eval_llada.py:220:            confidence = torch.gather(p, dim=-1, index=torch.unsqueeze(x0, -1)).squeeze(dim=-1)
+./eval_llada.py:221:            _, index = torch.sort(confidence, descending=True)
+./eval_llada.py:223:            seq[mask_index] = x0.clone()
+./eval_llada.py:347:                                        temperature=0, remasking=self.remasking, mask_id=self.mask_id, threshold=self.threshold, factor=self.factor)
+./eval_llada.py:350:                                        temperature=0, remasking=self.remasking, mask_id=self.mask_id, threshold=self.threshold, factor=self.factor)
+./eval_llada.py:353:                                        temperature=0, remasking=self.remasking, mask_id=self.mask_id, threshold=self.threshold, factor=self.factor)
+./resume_512_b64_mps.py:143:                remasking="low_confidence",
+./resume_512_b64_mps.py:144:                threshold=None,
+./resume_512_b64_mps.py:177:                        remasking="low_confidence",
+./resume_512_b64_mps.py:178:                        threshold=None,
+./smoke_prefix_cache_mps.py:76:        remasking="low_confidence",
+./smoke_prefix_cache_mps.py:77:        threshold=None,
+./generate.py:40:# def get_num_transfer_tokens(mask_index, steps):
+./generate.py:48:#     mask_num = mask_index.sum(dim=1, keepdim=True)
+./generate.py:53:#     num_transfer_tokens = torch.zeros(mask_num.size(0), steps, device=mask_index.device, dtype=torch.int64) + base
+./generate.py:56:#         num_transfer_tokens[i, :remainder[i]] += 1
+./generate.py:58:#     return num_transfer_tokens
+./generate.py:60:def get_num_transfer_tokens(block_mask_index: torch.Tensor, steps: int) -> torch.Tensor:
+./generate.py:62:    block_mask_index: (B, L) bool – which positions are masked in the current block
+./generate.py:63:    returns: (B, steps) int – how many tokens to transfer at each step per batch item
+./generate.py:65:    device = block_mask_index.device
+./generate.py:68:    total = block_mask_index.sum(dim=1)                  # (B,)
+./generate.py:73:    num_transfer_tokens = base.unsqueeze(1).expand(-1, steps).to(dtype)  # (B, steps)
+./generate.py:78:    num_transfer_tokens = num_transfer_tokens + add_mask.to(dtype)       # (B, steps)
+./generate.py:80:    return num_transfer_tokens
+./generate.py:86:             remasking='low_confidence', mask_id=126336, threshold=None, factor=None):
+./generate.py:93:        block_length: Block length, less than or equal to gen_length. If less than gen_length, it means using semi_autoregressive remasking.
+./generate.py:96:        remasking: Remasking strategy. 'low_confidence' or 'random'.
+./generate.py:110:        block_mask_index = (x[:, prompt.shape[1] + num_block * block_length: prompt.shape[1] + (num_block + 1) * block_length] == mask_id)
+./generate.py:111:        num_transfer_tokens = get_num_transfer_tokens(block_mask_index, steps)
+./generate.py:115:            mask_index = (x == mask_id)
+./generate.py:117:            mask_index[:, prompt.shape[1] + (num_block + 1) * block_length:] = 0
+./generate.py:119:                x0, transfer_index = get_transfer_index(logits, temperature, remasking, mask_index, x, num_transfer_tokens[:, i] if threshold is None else None, threshold)
+./generate.py:121:                x0, transfer_index = get_transfer_index_dynamic(logits, temperature, remasking, mask_index, x, None, factor)
+./generate.py:122:            x[transfer_index] = x0[transfer_index]
+./generate.py:132:             remasking='low_confidence', mask_id=126336, threshold=None, factor=None):
+./generate.py:139:        block_length: Block length, less than or equal to gen_length. If less than gen_length, it means using semi_autoregressive remasking.
+./generate.py:142:        remasking: Remasking strategy. 'low_confidence' or 'random'.
+./generate.py:157:        current_block_start = prompt.shape[1] + num_block * block_length
+./generate.py:158:        current_block_end = current_block_start + block_length
+./generate.py:160:        block_mask_index = (x[:, current_block_start:current_block_end] == mask_id)
+./generate.py:161:        num_transfer_tokens = get_num_transfer_tokens(block_mask_index, steps)
+./generate.py:166:        mask_index = (x == mask_id)
+./generate.py:167:        mask_index[:, current_block_end:] = 0
+./generate.py:169:            x0, transfer_index = get_transfer_index(output.logits, temperature, remasking, mask_index, x, num_transfer_tokens[:, 0] if threshold is None else None, threshold)
+./generate.py:171:            x0, transfer_index = get_transfer_index_dynamic(output.logits, temperature, remasking, mask_index, x, None, factor)
+./generate.py:172:        x[transfer_index] = x0[transfer_index]
+./generate.py:178:                new_past_key_values[i] += (past_key_values[i][j][:, :, :current_block_start],)
+./generate.py:185:            if (x[:, current_block_start:current_block_end] == mask_id).sum() == 0:
+./generate.py:188:            mask_index = (x[:, current_block_start:] == mask_id)
+./generate.py:189:            mask_index[:, block_length:] = 0
+./generate.py:191:            logits = model(x[:, current_block_start:], past_key_values=past_key_values, use_cache=True).logits
+./generate.py:197:                x0, transfer_index = get_transfer_index(logits, temperature, remasking, mask_index, 
+./generate.py:198:                                                x[:, current_block_start:], num_transfer_tokens[:, i] if threshold is None else None, threshold)
+./generate.py:200:                x0, transfer_index = get_transfer_index_dynamic(logits, temperature, remasking, mask_index, 
+./generate.py:201:                                                x[:, current_block_start:], None, factor)
+./generate.py:202:            x[:, current_block_start:][transfer_index] = x0[transfer_index]
+./generate.py:212:    remasking="low_confidence", mask_id=126336, threshold=None, factor=None
+./generate.py:233:        block_mask_index = (x[:, s:e] == mask_id)  # (B, block_length)
+./generate.py:234:        num_transfer_tokens = get_num_transfer_tokens(block_mask_index, steps_per_block)  # (B, steps_per_block)
+./generate.py:241:        # Build a replace_position tensor indicating the block range (static slice)
+./generate.py:242:        replace_position = torch.zeros_like(x, dtype=torch.bool)
+./generate.py:243:        replace_position[:, s:e] = True  # boolean mask (not a dynamic slice bound)
+./generate.py:245:        # Step 0: do an initial transfer on the full logits
+./generate.py:246:        global_mask_index = (x == mask_id)
+./generate.py:248:        global_mask_index[:, e:] = False
+./generate.py:251:            quota0 = None if threshold is not None else num_transfer_tokens[:, 0]  # (B,)
+./generate.py:252:            x0, transfer_index = get_transfer_index(
+./generate.py:253:                out_full.logits, temperature, remasking, global_mask_index, x, quota0, threshold
+./generate.py:256:            x0, transfer_index = get_transfer_index_dynamic(
+./generate.py:257:                out_full.logits, temperature, remasking, global_mask_index, x, None, factor
+./generate.py:261:        x = torch.where(transfer_index, x0, x)
+./generate.py:264:        #    Each iteration runs on the current block with KV-cache and replace_position
+./generate.py:270:                x[:, s:e], past_key_values=past_key_values, use_cache=True, replace_position=replace_position
+./generate.py:271:            ).logits  # shape expected by get_transfer_index*
+./generate.py:277:                quota_i = None if threshold is not None else num_transfer_tokens[:, i]  # (B,)
+./generate.py:278:                x0_blk, transfer_idx_blk = get_transfer_index(
+./generate.py:279:                    logits_blk, temperature, remasking, mask_blk, x[:, s:e], quota_i, threshold
+./generate.py:282:                x0_blk, transfer_idx_blk = get_transfer_index_dynamic(
+./generate.py:283:                    logits_blk, temperature, remasking, mask_blk, x[:, s:e], None, factor
+./generate.py:288:            blk_new = torch.where(transfer_idx_blk, x0_blk, blk_old)
+./generate.py:297:def get_transfer_index(
+./generate.py:300:    remasking: str,
+./generate.py:301:    mask_index: torch.Tensor,   # (B, L) bool
+./generate.py:303:    num_transfer_tokens,        # (B,) or (B,1) long tensor, or None when threshold is used
+./generate.py:304:    threshold: float = None,
+./generate.py:309:        transfer_index: (B, L) bool — which positions to update this step
+./generate.py:316:    # 2) Confidence for chosen tokens (or random)
+./generate.py:317:    if remasking == "low_confidence":
+./generate.py:321:    elif remasking == "random":
+./generate.py:324:        raise NotImplementedError(remasking)
+./generate.py:326:    # Only modify masked spots; keep others as original x and set their confidence to -inf
+./generate.py:327:    x0 = torch.where(mask_index, x0, x)
+./generate.py:330:    confidence = torch.where(mask_index, x0_p, neg_inf)  # (B, L)
+./generate.py:332:    # 3) Pick positions to transfer (vectorized)
+./generate.py:333:    if threshold is not None:
+./generate.py:334:        # Transfer all masked positions whose confidence >= threshold
+./generate.py:335:        # (No top-k; purely threshold-based)
+./generate.py:336:        transfer_index = mask_index & (confidence >= threshold)
+./generate.py:338:        # at least one token is transferred "always unmask max c^i"
+./generate.py:339:        max_conf_indices = torch.argmax(confidence, dim=1, keepdim=True) # (B, 1)
+./generate.py:340:        force_mask = torch.zeros_like(transfer_index).scatter_(1, max_conf_indices, True)
+./generate.py:342:        # (Above Threshold) OR (Is Max Confidence)
+./generate.py:343:        transfer_index = transfer_index | force_mask
+./generate.py:346:        transfer_index = transfer_index & mask_index
+./generate.py:348:        return x0, transfer_index
+./generate.py:350:    # Else: per-row top-k with varying k (num_transfer_tokens), fully batched
+./generate.py:351:    if num_transfer_tokens is None:
+./generate.py:352:        raise ValueError("num_transfer_tokens must be a tensor when threshold is None.")
+./generate.py:355:    if num_transfer_tokens.dim() == 2 and num_transfer_tokens.size(1) == 1:
+./generate.py:356:        num_transfer_tokens = num_transfer_tokens.squeeze(1)
+./generate.py:357:    num_transfer_tokens = num_transfer_tokens.to(dtype=torch.long, device=confidence.device)
+./generate.py:358:    num_transfer_tokens = torch.clamp(num_transfer_tokens, min=0)
+./generate.py:360:    # Sort confidences descending (masked positions are valid; others are -inf)
+./generate.py:361:    # idx: (B, L) gives positions in original sequence sorted by confidence
+./generate.py:362:    values, idx = torch.sort(confidence, dim=1, descending=True)
+./generate.py:364:    B, L = confidence.shape
+./generate.py:366:    cols = torch.arange(L, device=confidence.device).unsqueeze(0).expand(B, L)   # (B, L)
+./generate.py:367:    k_expanded = num_transfer_tokens.unsqueeze(1).expand(B, L)                   # (B, L)
+./generate.py:372:    transfer_int = torch.zeros(B, L, device=confidence.device, dtype=torch.int8) # (B, L)
+./generate.py:373:    transfer_int = transfer_int.scatter(1, idx, select_sorted.to(torch.int8))
+./generate.py:374:    transfer_index = transfer_int.bool() & mask_index  # ensure we never select unmasked
+./generate.py:376:    return x0, transfer_index
+./generate.py:378:def get_transfer_index_dynamic(logits, temperature, remasking, mask_index, x, num_transfer_tokens, factor=1):
+./generate.py:381:    if remasking == 'low_confidence':
+./generate.py:385:    elif remasking == 'random':
+./generate.py:388:        raise NotImplementedError(remasking)
+./generate.py:390:    x0 = torch.where(mask_index, x0, x)
+./generate.py:391:    confidence = torch.where(mask_index, x0_p, -np.inf)
+./generate.py:393:    transfer_index = torch.zeros_like(x0, dtype=torch.bool, device=x0.device)
+./generate.py:394:    num_transfer_tokens = mask_index.sum(dim=1, keepdim=True)
+./generate.py:396:    for j in range(confidence.shape[0]):
+./generate.py:397:        num_tokens = int(num_transfer_tokens[j].item())
+./generate.py:401:        ns=list(range(1,num_transfer_tokens[j]+1))
+./generate.py:405:        # at least one token is transferred
+./generate.py:407:        sorted_confidence=torch.sort(confidence[j][mask_index[j]],dim=-1,descending=True)[0]
+./generate.py:408:        assert len(sorted_confidence)==len(threshs)
+./generate.py:410:            if sorted_confidence[top_i]<threshs[top_i]:
+./generate.py:416:        _, select_index = torch.topk(confidence[j], k=top_i)
+./generate.py:417:        transfer_index[j, select_index] = True
+./generate.py:419:    return x0, transfer_index
+./generate.py:440:        out = generate_with_dual_cache(model, input_ids, steps=128, gen_length=128, block_length=32, temperature=0., remasking='low_confidence')
+./eval_llada_rotated_k_v2_wrapper.py:52:    replace_position: Optional[torch.Tensor],
+./eval_llada_rotated_k_v2_wrapper.py:75:    elif replace_position is None:
+./eval_llada_rotated_k_v2_wrapper.py:100:                replace_position[batch_index]
+./eval_llada_rotated_k_v2_wrapper.py:118:        nonzero = replace_position.nonzero(
+./eval_llada_rotated_k_v2_wrapper.py:123:            block_end_index = nonzero[1].max() + 1
+./eval_llada_rotated_k_v2_wrapper.py:125:            block_end_index = key_length
+./eval_llada_rotated_k_v2_wrapper.py:128:            block_end_index - query_len,
+./eval_llada_rotated_k_v2_wrapper.py:129:            block_end_index,
+./eval_llada_rotated_k_v2_wrapper.py:233:    replace_position: Optional[torch.Tensor] = None,
+./eval_llada_rotated_k_v2_wrapper.py:273:            replace_position,
+./eval_llada_rotated_k_v2_wrapper.py:304:    elif replace_position is None:
+./chat.py:49:        print(f'use cache: {args.use_cache} use cache position: {args.if_cache_position} threshold: {args.threshold} block size: {args.block_size}')
+./chat.py:52:                out, nfe = generate_with_dual_cache(model, prompt, steps=steps, gen_length=gen_length, block_length=args.block_size, temperature=0., remasking='low_confidence', threshold=args.threshold)
+./chat.py:54:                out, nfe = generate_with_prefix_cache(model, prompt, steps=steps, gen_length=gen_length, block_length=args.block_size, temperature=0., remasking='low_confidence', threshold=args.threshold)
+./chat.py:56:            out, nfe = generate(model, prompt, steps=steps, gen_length=gen_length, block_length=args.block_size, temperature=0., remasking='low_confidence', threshold=args.threshold)
+./chat.py:75:    parser.add_argument("--threshold", type=float, default=None)
+./generate_dual_profiled.py:10:    get_num_transfer_tokens,
+./generate_dual_profiled.py:11:    get_transfer_index,
+./generate_dual_profiled.py:12:    get_transfer_index_dynamic,
+./generate_dual_profiled.py:49:    remasking="low_confidence",
+./generate_dual_profiled.py:51:    threshold=None,
+./generate_dual_profiled.py:95:        block_start = prompt_tokens + block_index * block_length
+./generate_dual_profiled.py:96:        block_end = block_start + block_length
+./generate_dual_profiled.py:98:        def prepare_transfer_schedule():
+./generate_dual_profiled.py:99:            block_mask = x[:, block_start:block_end] == mask_id
+./generate_dual_profiled.py:100:            return get_num_transfer_tokens(
+./generate_dual_profiled.py:105:        num_transfer_tokens, elapsed = timed(
+./generate_dual_profiled.py:106:            prepare_transfer_schedule
+./generate_dual_profiled.py:108:        record_phase("transfer_schedule", elapsed)
+./generate_dual_profiled.py:112:            "prefix_tokens": block_start,
+./generate_dual_profiled.py:119:            "initial_transfer_seconds": 0.0,
+./generate_dual_profiled.py:120:            "iterative_transfer_seconds": 0.0,
+./generate_dual_profiled.py:123:            "replace_position_seconds": 0.0,
+./generate_dual_profiled.py:142:        def make_replace_position():
+./generate_dual_profiled.py:143:            replace_position = torch.zeros_like(
+./generate_dual_profiled.py:147:            replace_position[:, block_start:block_end] = True
+./generate_dual_profiled.py:148:            return replace_position
+./generate_dual_profiled.py:150:        replace_position, elapsed = timed(
+./generate_dual_profiled.py:151:            make_replace_position
+./generate_dual_profiled.py:154:        record_phase("replace_position_setup", elapsed)
+./generate_dual_profiled.py:155:        block_profile["replace_position_seconds"] += elapsed
+./generate_dual_profiled.py:157:        global_mask_index = x == mask_id
+./generate_dual_profiled.py:158:        global_mask_index[:, block_end:] = False
+./generate_dual_profiled.py:160:        def initial_transfer():
+./generate_dual_profiled.py:164:                    if threshold is not None
+./generate_dual_profiled.py:165:                    else num_transfer_tokens[:, 0]
+./generate_dual_profiled.py:168:                x0, transfer_index = get_transfer_index(
+./generate_dual_profiled.py:171:                    remasking,
+./generate_dual_profiled.py:172:                    global_mask_index,
+./generate_dual_profiled.py:175:                    threshold,
+./generate_dual_profiled.py:178:                x0, transfer_index = get_transfer_index_dynamic(
+./generate_dual_profiled.py:181:                    remasking,
+./generate_dual_profiled.py:182:                    global_mask_index,
+./generate_dual_profiled.py:189:                transfer_index,
+./generate_dual_profiled.py:194:        x, elapsed = timed(initial_transfer)
+./generate_dual_profiled.py:196:        record_phase("initial_transfer", elapsed)
+./generate_dual_profiled.py:197:        block_profile["initial_transfer_seconds"] += elapsed
+./generate_dual_profiled.py:205:                    x[:, block_start:block_end] == mask_id
+./generate_dual_profiled.py:217:                    x[:, block_start:block_end],
+./generate_dual_profiled.py:220:                    replace_position=replace_position,
+./generate_dual_profiled.py:232:                x[:, block_start:block_end] == mask_id
+./generate_dual_profiled.py:235:            def iterative_transfer():
+./generate_dual_profiled.py:236:                current_block = x[:, block_start:block_end]
+./generate_dual_profiled.py:241:                        if threshold is not None
+./generate_dual_profiled.py:242:                        else num_transfer_tokens[:, local_step]
+./generate_dual_profiled.py:245:                    x0_block, transfer_index_block = (
+./generate_dual_profiled.py:246:                        get_transfer_index(
+./generate_dual_profiled.py:249:                            remasking,
+./generate_dual_profiled.py:253:                            threshold,
+./generate_dual_profiled.py:257:                    x0_block, transfer_index_block = (
+./generate_dual_profiled.py:258:                        get_transfer_index_dynamic(
+./generate_dual_profiled.py:261:                            remasking,
+./generate_dual_profiled.py:270:                    transfer_index_block,
+./generate_dual_profiled.py:275:            new_block, elapsed = timed(iterative_transfer)
+./generate_dual_profiled.py:277:            record_phase("iterative_transfer", elapsed)
+./generate_dual_profiled.py:278:            block_profile["iterative_transfer_seconds"] += elapsed
+./generate_dual_profiled.py:283:                        x[:, :block_start],
+./generate_dual_profiled.py:285:                        x[:, block_end:],
+./bench_prefix_matrix_mps.py:302:                                remasking="low_confidence",
+./bench_prefix_matrix_mps.py:303:                                threshold=None,
+./bench_prefix_matrix_mps.py:339:                                remasking="low_confidence",
+./bench_prefix_matrix_mps.py:340:                                threshold=None,
+./bench_matched_nocache_mps.py:288:                                remasking="low_confidence",
+./bench_matched_nocache_mps.py:289:                                threshold=None,
+./bench_matched_nocache_mps.py:325:                                remasking="low_confidence",
+./bench_matched_nocache_mps.py:326:                                threshold=None,
+./model/modeling_llada.py:435:                block_end_index: Optional[torch.Tensor] = None) -> Tuple[torch.Tensor, torch.Tensor]:
+./model/modeling_llada.py:448:            if block_end_index is None:
+./model/modeling_llada.py:452:                # block_end_index is a tensor; keep ops tensor-based
+./model/modeling_llada.py:453:                start = (block_end_index - query_len)
+./model/modeling_llada.py:454:                end = block_end_index
+./model/modeling_llada.py:710:        replace_position: Optional[torch.Tensor] = None,
+./model/modeling_llada.py:731:            if replace_position is None:
+./model/modeling_llada.py:735:                # k shape is [B, n_kv_h, selected_length, hs]
+./model/modeling_llada.py:736:                # replace_position shape is [B, L], where L contains 0s and 1s, 0 means no replacement, 1 means replace, with selected_length number of 1s
+./model/modeling_llada.py:738:                # Replace selected_length number of 1s in past_key with k
+./model/modeling_llada.py:740:                # Handle batched replace_position correctly
+./model/modeling_llada.py:741:                B = replace_position.shape[0]
+./model/modeling_llada.py:744:                    batch_replace_indices = replace_position[batch_idx].nonzero(as_tuple=True)[0]
+./model/modeling_llada.py:758:            if replace_position is None:
+./model/modeling_llada.py:761:                # For batched replace_position, use the maximum position across all batches
+./model/modeling_llada.py:762:                max_replace_pos = replace_position.nonzero(as_tuple=True)[1].max() + 1 if replace_position.any() else key_len
+./model/modeling_llada.py:958:        replace_position: Optional[torch.Tensor] = None,
+./model/modeling_llada.py:977:                self.attention, q, k, v, attention_bias, layer_past=layer_past, use_cache=use_cache,replace_position=replace_position
+./model/modeling_llada.py:980:            att, cache = self.attention(q, k, v, attention_bias, layer_past=layer_past, use_cache=use_cache,replace_position=replace_position)
+./model/modeling_llada.py:1348:        replace_position: Optional[torch.Tensor] = None,
+./model/modeling_llada.py:1489:                        block, x, attention_bias=attention_bias, layer_past=layer_past, use_cache=use_cache,replace_position=replace_position
+./model/modeling_llada.py:1493:                    x, cache = block(x, attention_bias=attention_bias, layer_past=layer_past, use_cache=use_cache,replace_position=replace_position)
+./model/modeling_llada.py:1585:        replace_position: Optional[torch.Tensor] = None,  # This is a hack mitigation of an issue in transformers `4.39.x`
+./model/modeling_llada.py:1604:            replace_position=replace_position,
+./app.py:109:def get_num_transfer_tokens(mask_index, steps):
+./app.py:117:    mask_num = mask_index.sum(dim=1, keepdim=True)
+./app.py:122:    num_transfer_tokens = torch.zeros(mask_num.size(0), steps, device=mask_index.device, dtype=torch.int64) + base
+./app.py:125:        num_transfer_tokens[i, :remainder[i]] += 1
+./app.py:127:    return num_transfer_tokens
+./app.py:131:                                         remasking='low_confidence', threshold=0.9):
+./app.py:142:        remasking: Remasking strategy ('low_confidence' or 'random')
+./app.py:200:        current_block_start = prompt_length + num_block * block_length
+./app.py:201:        current_block_end = current_block_start + block_length
+./app.py:203:        block_mask_index = (x[:, current_block_start:current_block_end] == MASK_ID)
+./app.py:204:        num_transfer_tokens = get_num_transfer_tokens(block_mask_index, steps)
+./app.py:209:        mask_index = (x == MASK_ID)
+./app.py:210:        mask_index[:, current_block_end:] = 0
+./app.py:211:        x0, transfer_index = get_transfer_index(output.logits, temperature, remasking, mask_index, x, num_transfer_tokens[:, 0] if threshold is None else None, threshold)
+./app.py:212:        x[transfer_index] = x0[transfer_index]
+./app.py:218:                new_past_key_values[i] += (past_key_values[i][j][:, :, :current_block_start],)
+./app.py:237:            mask_index = (x[:, current_block_start:] == MASK_ID)
+./app.py:238:            mask_index[:, block_length:] = 0
+./app.py:240:            logits = model(x[:, current_block_start:], past_key_values=past_key_values, use_cache=True).logits
+./app.py:245:            x0, transfer_index = get_transfer_index(logits, temperature, remasking, mask_index, 
+./app.py:246:                                            x[:, current_block_start:], num_transfer_tokens[:, i] if threshold is None else None, threshold)
+./app.py:247:            x[:, current_block_start:][transfer_index] = x0[transfer_index]
+./app.py:262:            if (x[:, current_block_start:current_block_end] == MASK_ID).sum() == 0:
+./app.py:275:def get_transfer_index(logits, temperature, remasking, mask_index, x, num_transfer_tokens, threshold=None):
+./app.py:279:    if remasking == 'low_confidence':
+./app.py:283:    elif remasking == 'random':
+./app.py:286:        raise NotImplementedError(remasking)
+./app.py:288:    x0 = torch.where(mask_index, x0, x)
+./app.py:289:    confidence = torch.where(mask_index, x0_p, -np.inf)
+./app.py:291:    transfer_index = torch.zeros_like(x0, dtype=torch.bool, device=x0.device)
+./app.py:292:    if threshold is not None:
+./app.py:293:        num_transfer_tokens = mask_index.sum(dim=1, keepdim=True)
+./app.py:294:    for j in range(confidence.shape[0]):
+./app.py:295:        _, select_index = torch.topk(confidence[j], k=num_transfer_tokens[j])
+./app.py:296:        transfer_index[j, select_index] = True
+./app.py:297:        if threshold is not None:
+./app.py:298:            for k in range(1, num_transfer_tokens[j]):
+./app.py:299:                if confidence[j, select_index[k]] < threshold:
+./app.py:300:                    transfer_index[j, select_index[k]] = False
+./app.py:301:    return x0, transfer_index
+./app.py:305:                                         remasking='low_confidence'):
+./app.py:316:        remasking: Remasking strategy ('low_confidence' or 'random')
+./app.py:378:        block_start = prompt_length + num_block * block_length
+./app.py:379:        block_end = min(prompt_length + (num_block + 1) * block_length, x.shape[1])
+./app.py:382:        block_mask_index = (x[:, block_start:block_end] == MASK_ID)
+./app.py:385:        if not block_mask_index.any():
+./app.py:389:        num_transfer_tokens = get_num_transfer_tokens(block_mask_index, steps_per_block)
+./app.py:394:            mask_index = (x == MASK_ID)
+./app.py:397:            if not mask_index.any():
+./app.py:407:            # Calculate confidence scores for remasking
+./app.py:408:            if remasking == 'low_confidence':
+./app.py:412:            elif remasking == 'random':
+./app.py:415:                raise NotImplementedError(f"Remasking strategy '{remasking}' not implemented")
+./app.py:418:            x0_p[:, block_end:] = -float('inf')
+./app.py:422:            x0 = torch.where(mask_index, x0, x)
+./app.py:423:            confidence = torch.where(mask_index, x0_p, -float('inf'))
+./app.py:425:            # Select tokens to unmask based on confidence
+./app.py:426:            transfer_index = torch.zeros_like(x0, dtype=torch.bool, device=x0.device)
+./app.py:427:            for j in range(confidence.shape[0]):
+./app.py:429:                block_confidence = confidence[j, block_start:block_end]
+./app.py:431:                    # Take top-k confidences
+./app.py:432:                    _, select_indices = torch.topk(block_confidence, 
+./app.py:433:                                                  k=min(num_transfer_tokens[j, i].item(), 
+./app.py:434:                                                       block_confidence.numel()))
+./app.py:436:                    select_indices = select_indices + block_start
+./app.py:437:                    transfer_index[j, select_indices] = True
+./app.py:439:                    transfer_index[j, block_start:block_end] = mask_index[j, block_start:block_end]
+./app.py:442:            x = torch.where(transfer_index, x0, x)
+./app.py:573:                threshold = gr.Slider(
+./app.py:575:                    label="Threshold"
+./app.py:582:                remasking_strategy = gr.Radio(
+./app.py:583:                    choices=["low_confidence", "random"],
+./app.py:584:                    value="low_confidence",
+./app.py:585:                    label="Remasking Strategy"
+./app.py:634:        def bot_response(history_baseline, history_cache, gen_length, steps, constraints, delay, temperature, block_length, remasking, threshold):
+./app.py:664:                    remasking=remasking,
+./app.py:687:                    remasking=remasking,
+./app.py:688:                    threshold=threshold
+./app.py:776:                remasking_strategy, threshold
+./app.py:786:                remasking_strategy, threshold
+./smoke_matched_nocache_mps.py:58:        remasking="low_confidence",
+./smoke_matched_nocache_mps.py:59:        threshold=None,
+./eval_llada_rotated_k_v3_wrapper.py:215:    replace_position: torch.Tensor | None = None,
+./eval_llada_rotated_k_v3_wrapper.py:241:        replace_position=replace_position,
+./generate_profiled.py:11:    get_num_transfer_tokens,
+./generate_profiled.py:12:    get_transfer_index,
+./generate_profiled.py:13:    get_transfer_index_dynamic,
+./generate_profiled.py:100:    remasking="low_confidence",
+./generate_profiled.py:102:    threshold=None,
+./generate_profiled.py:144:        block_mask_index = (
+./generate_profiled.py:148:        num_transfer_tokens, elapsed = timed(
+./generate_profiled.py:149:            lambda: get_num_transfer_tokens(
+./generate_profiled.py:150:                block_mask_index,
+./generate_profiled.py:155:        phase_seconds["transfer_schedule"] += elapsed
+./generate_profiled.py:156:        phase_calls["transfer_schedule"] += 1
+./generate_profiled.py:166:            "transfer_seconds": 0.0,
+./generate_profiled.py:173:            mask_index = x == mask_id
+./generate_profiled.py:184:            mask_index[:, current_end:] = False
+./generate_profiled.py:188:                    x0, transfer_index = get_transfer_index(
+./generate_profiled.py:191:                        remasking,
+./generate_profiled.py:192:                        mask_index,
+./generate_profiled.py:195:                            num_transfer_tokens[:, local_step]
+./generate_profiled.py:196:                            if threshold is None
+./generate_profiled.py:199:                        threshold,
+./generate_profiled.py:202:                    x0, transfer_index = (
+./generate_profiled.py:203:                        get_transfer_index_dynamic(
+./generate_profiled.py:206:                            remasking,
+./generate_profiled.py:207:                            mask_index,
+./generate_profiled.py:214:                x[transfer_index] = x0[transfer_index]
+./generate_profiled.py:218:            phase_seconds["transfer_update"] += elapsed
+./generate_profiled.py:219:            phase_calls["transfer_update"] += 1
+./generate_profiled.py:220:            block_profile["transfer_seconds"] += elapsed
+./generate_profiled.py:262:    remasking="low_confidence",
+./generate_profiled.py:264:    threshold=None,
+./generate_profiled.py:306:        block_mask_index = (
+./generate_profiled.py:310:        num_transfer_tokens, elapsed = timed(
+./generate_profiled.py:311:            lambda: get_num_transfer_tokens(
+./generate_profiled.py:312:                block_mask_index,
+./generate_profiled.py:317:        phase_seconds["transfer_schedule"] += elapsed
+./generate_profiled.py:318:        phase_calls["transfer_schedule"] += 1
+./generate_profiled.py:332:            "transfer_seconds": 0.0,
+./generate_profiled.py:346:        mask_index = x == mask_id
+./generate_profiled.py:347:        mask_index[:, current_end:] = False
+./generate_profiled.py:349:        def first_transfer():
+./generate_profiled.py:351:                x0, transfer_index = get_transfer_index(
+./generate_profiled.py:354:                    remasking,
+./generate_profiled.py:355:                    mask_index,
+./generate_profiled.py:358:                        num_transfer_tokens[:, 0]
+./generate_profiled.py:359:                        if threshold is None
+./generate_profiled.py:362:                    threshold,
+./generate_profiled.py:365:                x0, transfer_index = (
+./generate_profiled.py:366:                    get_transfer_index_dynamic(
+./generate_profiled.py:369:                        remasking,
+./generate_profiled.py:370:                        mask_index,
+./generate_profiled.py:377:            x[transfer_index] = x0[transfer_index]
+./generate_profiled.py:379:        _, elapsed = timed(first_transfer)
+./generate_profiled.py:381:        phase_seconds["transfer_update"] += elapsed
+./generate_profiled.py:382:        phase_calls["transfer_update"] += 1
+./generate_profiled.py:383:        block_profile["transfer_seconds"] += elapsed
+./generate_profiled.py:417:            mask_index = suffix == mask_id
+./generate_profiled.py:418:            mask_index[:, block_length:] = False
+./generate_profiled.py:433:            def cached_transfer():
+./generate_profiled.py:435:                    x0, transfer_index = get_transfer_index(
+./generate_profiled.py:438:                        remasking,
+./generate_profiled.py:439:                        mask_index,
+./generate_profiled.py:442:                            num_transfer_tokens[:, local_step]
+./generate_profiled.py:443:                            if threshold is None
+./generate_profiled.py:446:                        threshold,
+./generate_profiled.py:449:                    x0, transfer_index = (
+./generate_profiled.py:450:                        get_transfer_index_dynamic(
+./generate_profiled.py:453:                            remasking,
+./generate_profiled.py:454:                            mask_index,
+./generate_profiled.py:461:                x[:, current_start:][transfer_index] = (
+./generate_profiled.py:462:                    x0[transfer_index]
+./generate_profiled.py:465:            _, elapsed = timed(cached_transfer)
+./generate_profiled.py:467:            phase_seconds["transfer_update"] += elapsed
+./generate_profiled.py:468:            phase_calls["transfer_update"] += 1
+./generate_profiled.py:469:            block_profile["transfer_seconds"] += elapsed
+./eval_llada_rotated_k_wrapper.py:116:    replace_position: Optional[torch.Tensor] = None,
+./eval_llada_rotated_k_wrapper.py:178:    elif replace_position is None:
+./eval_llada_rotated_k_wrapper.py:208:                replace_position[batch_index]
+./eval_llada_rotated_k_wrapper.py:229:        if replace_position.any():
+./eval_llada_rotated_k_wrapper.py:230:            block_end_index = (
+./eval_llada_rotated_k_wrapper.py:231:                replace_position
+./eval_llada_rotated_k_wrapper.py:237:            block_end_index = key_length
+./eval_llada_rotated_k_wrapper.py:240:            block_end_index - query_len,
+./eval_llada_rotated_k_wrapper.py:241:            block_end_index,
+./eval_llada_rotated_k_wrapper.py:279:    elif replace_position is None:

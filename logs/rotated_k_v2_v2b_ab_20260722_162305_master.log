@@ -1,0 +1,679 @@
+
+==================================================
+Mode=v2 Repeat=1
+Target=/Users/z33/Fast-dLLM/v1/llada/eval_llada_rotated_k_v2_reference.py
+Started=2026年 7月22日 星期三 16时23分05秒 CST
+==================================================
+2026-07-22:16:23:12,839 WARNING  [lm_eval.__main__:316]  --limit SHOULD ONLY BE USED FOR TESTING.REAL METRICS SHOULD NOT BE COMPUTED USING LIMIT.
+2026-07-22:16:23:12,839 INFO     [lm_eval.__main__:379] Selected Tasks: ['gsm8k']
+2026-07-22:16:23:12,840 INFO     [lm_eval.evaluator:169] Setting random seed to 0 | Setting numpy seed to 1234 | Setting torch manual seed to 1234 | Setting fewshot manual seed to 1234
+2026-07-22:16:23:12,840 INFO     [lm_eval.evaluator:206] Initializing llada_dist model, with arguments: {'model_path': '/Users/z33/models/LLaDA-8B-Instruct', 'device': 'mps', 'is_check_greedy': False, 'gen_length': 256, 'steps': 256, 'block_length': 32, 'show_speed': True, 'use_cache': True, 'dual_cache': True, 'threshold': 0.75}
+The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+================================================================================
+Experimental Rotated-K Cache v2 enabled
+Position metadata and RoPE slices are reused across 32 layers
+================================================================================
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 2/6 [00:00<00:00, 19.60it/s]Loading checkpoint shards:  67%|██████▋   | 4/6 [00:00<00:00, 19.65it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 19.97it/s]
+Using the latest cached version of the dataset since openai/gsm8k couldn't be found on the Hugging Face Hub (offline mode is enabled).
+2026-07-22:16:23:14,686 WARNING  [datasets.load:835] Using the latest cached version of the dataset since openai/gsm8k couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'main' at /Users/z33/hf-cache/datasets/openai___gsm8k/main/0.0.0/740312add88f781978c0658806c59bc2815b9866 (last modified on Mon Jul 20 13:47:26 2026).
+2026-07-22:16:23:14,686 WARNING  [datasets.packaged_modules.cache.cache:95] Found the latest cached dataset configuration 'main' at /Users/z33/hf-cache/datasets/openai___gsm8k/main/0.0.0/740312add88f781978c0658806c59bc2815b9866 (last modified on Mon Jul 20 13:47:26 2026).
+2026-07-22:16:23:14,740 WARNING  [lm_eval.evaluator:275] Overwriting default num_fewshot of gsm8k from 5 to 5
+2026-07-22:16:23:14,740 INFO     [lm_eval.api.task:420] Building contexts for gsm8k on rank 0...
+  0%|          | 0/1 [00:00<?, ?it/s]100%|██████████| 1/1 [00:00<00:00, 868.03it/s]
+2026-07-22:16:23:14,741 INFO     [lm_eval.evaluator:517] Running generate_until requests
+Batching...:   0%|          | 0/1 [00:00<?, ?it/s]Batching...: 100%|██████████| 1/1 [00:00<00:00, 107546.26it/s]
+Generating...:   0%|          | 0/1 [00:00<?, ?it/s]Generating...: 100%|██████████| 1/1 [00:20<00:00, 20.01s/it]Generating...: 100%|██████████| 1/1 [00:20<00:00, 20.01s/it]
+2026-07-22:16:23:35,129 INFO     [lm_eval.loggers.evaluation_tracker:209] Saving results aggregated
+2026-07-22:16:23:35,130 INFO     [lm_eval.loggers.evaluation_tracker:290] Saving per-sample results for: gsm8k
+====================
+answer:  To determine how much Janet makes every day at the farmers' market, we need to follow these steps:
+
+1. Calculate the total number of eggs laid by Janet's ducks per day.
+2. Subtract the number of eggs Janet eats for breakfast and bakes for her friends.
+3. Calculate the number of eggs left to sell.
+4. Multiply the number of eggs sold by the price per egg to find the daily earnings.
+
+Let's start with the first step:
+Janet's ducks lay 16 eggs per day.
+
+Next, we subtract the eggs she eats for breakfast and bakes for her friends:
+- She eats 3 eggs for breakfast.
+- She bakes 4 eggs for her friends.
+
+So, the number of eggs left to sell is:
+\[ 16 - 3 - 4 = 9 \]
+
+Janet sells these eggs at $2 per egg. Therefore, her daily earnings are:
+\[ 9 \text{ eggs} \times \$2 \text{ per duck egg} = \$18 \]
+
+Thus, Janet makes $18 every day at the farmers' market.
+
+\(\boxed{18}\)
+nfe:  81
+avg nfe:  81.0
+====================
+
+Total number of tokens generated: 255
+Total time taken: 20.006561040878296 seconds
+Tokens per second: 12.745818138122559
+Total NFE is 81
+llada_dist (model_path=/Users/z33/models/LLaDA-8B-Instruct,device=mps,is_check_greedy=False,gen_length=256,steps=256,block_length=32,show_speed=True,use_cache=True,dual_cache=True,threshold=0.75), gen_kwargs: (None), limit: 1.0, num_fewshot: 5, batch_size: 1
+|Tasks|Version|     Filter     |n-shot|  Metric   |   |Value|   |Stderr|
+|-----|------:|----------------|-----:|-----------|---|----:|---|------|
+|gsm8k|      3|flexible-extract|     5|exact_match|↑  |    1|±  |   N/A|
+|     |       |strict-match    |     5|exact_match|↑  |    0|±  |   N/A|
+
+v2 repeat=1 completed
+
+==================================================
+Mode=v2b Repeat=1
+Target=/Users/z33/Fast-dLLM/v1/llada/eval_llada_rotated_k_v2b_wrapper.py
+Started=2026年 7月22日 星期三 16时23分35秒 CST
+==================================================
+2026-07-22:16:23:43,173 WARNING  [lm_eval.__main__:316]  --limit SHOULD ONLY BE USED FOR TESTING.REAL METRICS SHOULD NOT BE COMPUTED USING LIMIT.
+2026-07-22:16:23:43,174 INFO     [lm_eval.__main__:379] Selected Tasks: ['gsm8k']
+2026-07-22:16:23:43,175 INFO     [lm_eval.evaluator:169] Setting random seed to 0 | Setting numpy seed to 1234 | Setting torch manual seed to 1234 | Setting fewshot manual seed to 1234
+2026-07-22:16:23:43,175 INFO     [lm_eval.evaluator:206] Initializing llada_dist model, with arguments: {'model_path': '/Users/z33/models/LLaDA-8B-Instruct', 'device': 'mps', 'is_check_greedy': False, 'gen_length': 256, 'steps': 256, 'block_length': 32, 'show_speed': True, 'use_cache': True, 'dual_cache': True, 'threshold': 0.75}
+The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+================================================================================
+Rotated-K v2b enabled
+Explicit block bounds + request-local ContextVar
+No replace_position/nonzero/global POSITION_CONTEXT
+================================================================================
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 2/6 [00:00<00:00, 19.23it/s]Loading checkpoint shards:  67%|██████▋   | 4/6 [00:00<00:00, 19.39it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 19.90it/s]
+Using the latest cached version of the dataset since openai/gsm8k couldn't be found on the Hugging Face Hub (offline mode is enabled).
+2026-07-22:16:23:45,021 WARNING  [datasets.load:835] Using the latest cached version of the dataset since openai/gsm8k couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'main' at /Users/z33/hf-cache/datasets/openai___gsm8k/main/0.0.0/740312add88f781978c0658806c59bc2815b9866 (last modified on Mon Jul 20 13:47:26 2026).
+2026-07-22:16:23:45,021 WARNING  [datasets.packaged_modules.cache.cache:95] Found the latest cached dataset configuration 'main' at /Users/z33/hf-cache/datasets/openai___gsm8k/main/0.0.0/740312add88f781978c0658806c59bc2815b9866 (last modified on Mon Jul 20 13:47:26 2026).
+2026-07-22:16:23:45,078 WARNING  [lm_eval.evaluator:275] Overwriting default num_fewshot of gsm8k from 5 to 5
+2026-07-22:16:23:45,079 INFO     [lm_eval.api.task:420] Building contexts for gsm8k on rank 0...
+  0%|          | 0/1 [00:00<?, ?it/s]100%|██████████| 1/1 [00:00<00:00, 849.05it/s]
+2026-07-22:16:23:45,080 INFO     [lm_eval.evaluator:517] Running generate_until requests
+Batching...:   0%|          | 0/1 [00:00<?, ?it/s]Batching...: 100%|██████████| 1/1 [00:00<00:00, 99864.38it/s]
+Generating...:   0%|          | 0/1 [00:00<?, ?it/s]Generating...: 100%|██████████| 1/1 [00:19<00:00, 20.00s/it]Generating...: 100%|██████████| 1/1 [00:19<00:00, 20.00s/it]
+2026-07-22:16:24:05,466 INFO     [lm_eval.loggers.evaluation_tracker:209] Saving results aggregated
+2026-07-22:16:24:05,466 INFO     [lm_eval.loggers.evaluation_tracker:290] Saving per-sample results for: gsm8k
+====================
+answer:  To determine how much Janet makes every day at the farmers' market, we need to follow these steps:
+
+1. Calculate the total number of eggs laid by Janet's ducks per day.
+2. Subtract the number of eggs Janet eats for breakfast and bakes for her friends.
+3. Calculate the number of eggs left to sell.
+4. Multiply the number of eggs sold by the price per egg to find the daily earnings.
+
+Let's start with the first step:
+Janet's ducks lay 16 eggs per day.
+
+Next, we subtract the eggs she eats for breakfast and bakes for her friends:
+- She eats 3 eggs for breakfast.
+- She bakes 4 eggs for her friends.
+
+So, the number of eggs left to sell is:
+\[ 16 - 3 - 4 = 9 \]
+
+Janet sells these eggs at $2 per egg. Therefore, her daily earnings are:
+\[ 9 \text{ eggs} \times \$2 \text{ per duck egg} = \$18 \]
+
+Thus, Janet makes $18 every day at the farmers' market.
+
+\(\boxed{18}\)
+nfe:  81
+avg nfe:  81.0
+====================
+
+Total number of tokens generated: 255
+Total time taken: 19.999112844467163 seconds
+Tokens per second: 12.750565528869629
+Total NFE is 81
+llada_dist (model_path=/Users/z33/models/LLaDA-8B-Instruct,device=mps,is_check_greedy=False,gen_length=256,steps=256,block_length=32,show_speed=True,use_cache=True,dual_cache=True,threshold=0.75), gen_kwargs: (None), limit: 1.0, num_fewshot: 5, batch_size: 1
+|Tasks|Version|     Filter     |n-shot|  Metric   |   |Value|   |Stderr|
+|-----|------:|----------------|-----:|-----------|---|----:|---|------|
+|gsm8k|      3|flexible-extract|     5|exact_match|↑  |    1|±  |   N/A|
+|     |       |strict-match    |     5|exact_match|↑  |    0|±  |   N/A|
+
+v2b repeat=1 completed
+
+==================================================
+Mode=v2 Repeat=2
+Target=/Users/z33/Fast-dLLM/v1/llada/eval_llada_rotated_k_v2_reference.py
+Started=2026年 7月22日 星期三 16时24分06秒 CST
+==================================================
+2026-07-22:16:24:13,616 WARNING  [lm_eval.__main__:316]  --limit SHOULD ONLY BE USED FOR TESTING.REAL METRICS SHOULD NOT BE COMPUTED USING LIMIT.
+2026-07-22:16:24:13,616 INFO     [lm_eval.__main__:379] Selected Tasks: ['gsm8k']
+2026-07-22:16:24:13,617 INFO     [lm_eval.evaluator:169] Setting random seed to 0 | Setting numpy seed to 1234 | Setting torch manual seed to 1234 | Setting fewshot manual seed to 1234
+2026-07-22:16:24:13,617 INFO     [lm_eval.evaluator:206] Initializing llada_dist model, with arguments: {'model_path': '/Users/z33/models/LLaDA-8B-Instruct', 'device': 'mps', 'is_check_greedy': False, 'gen_length': 256, 'steps': 256, 'block_length': 32, 'show_speed': True, 'use_cache': True, 'dual_cache': True, 'threshold': 0.75}
+The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+================================================================================
+Experimental Rotated-K Cache v2 enabled
+Position metadata and RoPE slices are reused across 32 layers
+================================================================================
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 2/6 [00:00<00:00, 19.21it/s]Loading checkpoint shards:  67%|██████▋   | 4/6 [00:00<00:00, 19.30it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 19.87it/s]
+Using the latest cached version of the dataset since openai/gsm8k couldn't be found on the Hugging Face Hub (offline mode is enabled).
+2026-07-22:16:24:15,465 WARNING  [datasets.load:835] Using the latest cached version of the dataset since openai/gsm8k couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'main' at /Users/z33/hf-cache/datasets/openai___gsm8k/main/0.0.0/740312add88f781978c0658806c59bc2815b9866 (last modified on Mon Jul 20 13:47:26 2026).
+2026-07-22:16:24:15,466 WARNING  [datasets.packaged_modules.cache.cache:95] Found the latest cached dataset configuration 'main' at /Users/z33/hf-cache/datasets/openai___gsm8k/main/0.0.0/740312add88f781978c0658806c59bc2815b9866 (last modified on Mon Jul 20 13:47:26 2026).
+2026-07-22:16:24:15,523 WARNING  [lm_eval.evaluator:275] Overwriting default num_fewshot of gsm8k from 5 to 5
+2026-07-22:16:24:15,523 INFO     [lm_eval.api.task:420] Building contexts for gsm8k on rank 0...
+  0%|          | 0/1 [00:00<?, ?it/s]100%|██████████| 1/1 [00:00<00:00, 848.88it/s]
+2026-07-22:16:24:15,524 INFO     [lm_eval.evaluator:517] Running generate_until requests
+Batching...:   0%|          | 0/1 [00:00<?, ?it/s]Batching...: 100%|██████████| 1/1 [00:00<00:00, 113359.57it/s]
+Generating...:   0%|          | 0/1 [00:00<?, ?it/s]Generating...: 100%|██████████| 1/1 [00:20<00:00, 20.02s/it]Generating...: 100%|██████████| 1/1 [00:20<00:00, 20.02s/it]
+2026-07-22:16:24:35,930 INFO     [lm_eval.loggers.evaluation_tracker:209] Saving results aggregated
+2026-07-22:16:24:35,930 INFO     [lm_eval.loggers.evaluation_tracker:290] Saving per-sample results for: gsm8k
+====================
+answer:  To determine how much Janet makes every day at the farmers' market, we need to follow these steps:
+
+1. Calculate the total number of eggs laid by Janet's ducks per day.
+2. Subtract the number of eggs Janet eats for breakfast and bakes for her friends.
+3. Calculate the number of eggs left to sell.
+4. Multiply the number of eggs sold by the price per egg to find the daily earnings.
+
+Let's start with the first step:
+Janet's ducks lay 16 eggs per day.
+
+Next, we subtract the eggs she eats for breakfast and bakes for her friends:
+- She eats 3 eggs for breakfast.
+- She bakes 4 eggs for her friends.
+
+So, the number of eggs left to sell is:
+\[ 16 - 3 - 4 = 9 \]
+
+Janet sells these eggs at $2 per egg. Therefore, her daily earnings are:
+\[ 9 \text{ eggs} \times \$2 \text{ per duck egg} = \$18 \]
+
+Thus, Janet makes $18 every day at the farmers' market.
+
+\(\boxed{18}\)
+nfe:  81
+avg nfe:  81.0
+====================
+
+Total number of tokens generated: 255
+Total time taken: 20.02103281021118 seconds
+Tokens per second: 12.736605644226074
+Total NFE is 81
+llada_dist (model_path=/Users/z33/models/LLaDA-8B-Instruct,device=mps,is_check_greedy=False,gen_length=256,steps=256,block_length=32,show_speed=True,use_cache=True,dual_cache=True,threshold=0.75), gen_kwargs: (None), limit: 1.0, num_fewshot: 5, batch_size: 1
+|Tasks|Version|     Filter     |n-shot|  Metric   |   |Value|   |Stderr|
+|-----|------:|----------------|-----:|-----------|---|----:|---|------|
+|gsm8k|      3|flexible-extract|     5|exact_match|↑  |    1|±  |   N/A|
+|     |       |strict-match    |     5|exact_match|↑  |    0|±  |   N/A|
+
+v2 repeat=2 completed
+
+==================================================
+Mode=v2b Repeat=2
+Target=/Users/z33/Fast-dLLM/v1/llada/eval_llada_rotated_k_v2b_wrapper.py
+Started=2026年 7月22日 星期三 16时24分36秒 CST
+==================================================
+2026-07-22:16:24:44,102 WARNING  [lm_eval.__main__:316]  --limit SHOULD ONLY BE USED FOR TESTING.REAL METRICS SHOULD NOT BE COMPUTED USING LIMIT.
+2026-07-22:16:24:44,102 INFO     [lm_eval.__main__:379] Selected Tasks: ['gsm8k']
+2026-07-22:16:24:44,103 INFO     [lm_eval.evaluator:169] Setting random seed to 0 | Setting numpy seed to 1234 | Setting torch manual seed to 1234 | Setting fewshot manual seed to 1234
+2026-07-22:16:24:44,103 INFO     [lm_eval.evaluator:206] Initializing llada_dist model, with arguments: {'model_path': '/Users/z33/models/LLaDA-8B-Instruct', 'device': 'mps', 'is_check_greedy': False, 'gen_length': 256, 'steps': 256, 'block_length': 32, 'show_speed': True, 'use_cache': True, 'dual_cache': True, 'threshold': 0.75}
+The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+================================================================================
+Rotated-K v2b enabled
+Explicit block bounds + request-local ContextVar
+No replace_position/nonzero/global POSITION_CONTEXT
+================================================================================
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 2/6 [00:00<00:00, 18.83it/s]Loading checkpoint shards:  67%|██████▋   | 4/6 [00:00<00:00, 19.00it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 19.52it/s]
+Using the latest cached version of the dataset since openai/gsm8k couldn't be found on the Hugging Face Hub (offline mode is enabled).
+2026-07-22:16:24:46,007 WARNING  [datasets.load:835] Using the latest cached version of the dataset since openai/gsm8k couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'main' at /Users/z33/hf-cache/datasets/openai___gsm8k/main/0.0.0/740312add88f781978c0658806c59bc2815b9866 (last modified on Mon Jul 20 13:47:26 2026).
+2026-07-22:16:24:46,007 WARNING  [datasets.packaged_modules.cache.cache:95] Found the latest cached dataset configuration 'main' at /Users/z33/hf-cache/datasets/openai___gsm8k/main/0.0.0/740312add88f781978c0658806c59bc2815b9866 (last modified on Mon Jul 20 13:47:26 2026).
+2026-07-22:16:24:46,067 WARNING  [lm_eval.evaluator:275] Overwriting default num_fewshot of gsm8k from 5 to 5
+2026-07-22:16:24:46,067 INFO     [lm_eval.api.task:420] Building contexts for gsm8k on rank 0...
+  0%|          | 0/1 [00:00<?, ?it/s]100%|██████████| 1/1 [00:00<00:00, 830.72it/s]
+2026-07-22:16:24:46,069 INFO     [lm_eval.evaluator:517] Running generate_until requests
+Batching...:   0%|          | 0/1 [00:00<?, ?it/s]Batching...: 100%|██████████| 1/1 [00:00<00:00, 89240.51it/s]
+Generating...:   0%|          | 0/1 [00:00<?, ?it/s]Generating...: 100%|██████████| 1/1 [00:19<00:00, 19.99s/it]Generating...: 100%|██████████| 1/1 [00:19<00:00, 19.99s/it]
+2026-07-22:16:25:06,437 INFO     [lm_eval.loggers.evaluation_tracker:209] Saving results aggregated
+2026-07-22:16:25:06,438 INFO     [lm_eval.loggers.evaluation_tracker:290] Saving per-sample results for: gsm8k
+====================
+answer:  To determine how much Janet makes every day at the farmers' market, we need to follow these steps:
+
+1. Calculate the total number of eggs laid by Janet's ducks per day.
+2. Subtract the number of eggs Janet eats for breakfast and bakes for her friends.
+3. Calculate the number of eggs left to sell.
+4. Multiply the number of eggs sold by the price per egg to find the daily earnings.
+
+Let's start with the first step:
+Janet's ducks lay 16 eggs per day.
+
+Next, we subtract the eggs she eats for breakfast and bakes for her friends:
+- She eats 3 eggs for breakfast.
+- She bakes 4 eggs for her friends.
+
+So, the number of eggs left to sell is:
+\[ 16 - 3 - 4 = 9 \]
+
+Janet sells these eggs at $2 per egg. Therefore, her daily earnings are:
+\[ 9 \text{ eggs} \times \$2 \text{ per duck egg} = \$18 \]
+
+Thus, Janet makes $18 every day at the farmers' market.
+
+\(\boxed{18}\)
+nfe:  81
+avg nfe:  81.0
+====================
+
+Total number of tokens generated: 255
+Total time taken: 19.98617696762085 seconds
+Tokens per second: 12.758817672729492
+Total NFE is 81
+llada_dist (model_path=/Users/z33/models/LLaDA-8B-Instruct,device=mps,is_check_greedy=False,gen_length=256,steps=256,block_length=32,show_speed=True,use_cache=True,dual_cache=True,threshold=0.75), gen_kwargs: (None), limit: 1.0, num_fewshot: 5, batch_size: 1
+|Tasks|Version|     Filter     |n-shot|  Metric   |   |Value|   |Stderr|
+|-----|------:|----------------|-----:|-----------|---|----:|---|------|
+|gsm8k|      3|flexible-extract|     5|exact_match|↑  |    1|±  |   N/A|
+|     |       |strict-match    |     5|exact_match|↑  |    0|±  |   N/A|
+
+v2b repeat=2 completed
+
+==================================================
+Mode=v2 Repeat=3
+Target=/Users/z33/Fast-dLLM/v1/llada/eval_llada_rotated_k_v2_reference.py
+Started=2026年 7月22日 星期三 16时25分07秒 CST
+==================================================
+2026-07-22:16:25:14,757 WARNING  [lm_eval.__main__:316]  --limit SHOULD ONLY BE USED FOR TESTING.REAL METRICS SHOULD NOT BE COMPUTED USING LIMIT.
+2026-07-22:16:25:14,758 INFO     [lm_eval.__main__:379] Selected Tasks: ['gsm8k']
+2026-07-22:16:25:14,758 INFO     [lm_eval.evaluator:169] Setting random seed to 0 | Setting numpy seed to 1234 | Setting torch manual seed to 1234 | Setting fewshot manual seed to 1234
+2026-07-22:16:25:14,758 INFO     [lm_eval.evaluator:206] Initializing llada_dist model, with arguments: {'model_path': '/Users/z33/models/LLaDA-8B-Instruct', 'device': 'mps', 'is_check_greedy': False, 'gen_length': 256, 'steps': 256, 'block_length': 32, 'show_speed': True, 'use_cache': True, 'dual_cache': True, 'threshold': 0.75}
+The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+================================================================================
+Experimental Rotated-K Cache v2 enabled
+Position metadata and RoPE slices are reused across 32 layers
+================================================================================
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 2/6 [00:00<00:00, 18.69it/s]Loading checkpoint shards:  67%|██████▋   | 4/6 [00:00<00:00, 18.89it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 19.48it/s]
+Using the latest cached version of the dataset since openai/gsm8k couldn't be found on the Hugging Face Hub (offline mode is enabled).
+2026-07-22:16:25:16,657 WARNING  [datasets.load:835] Using the latest cached version of the dataset since openai/gsm8k couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'main' at /Users/z33/hf-cache/datasets/openai___gsm8k/main/0.0.0/740312add88f781978c0658806c59bc2815b9866 (last modified on Mon Jul 20 13:47:26 2026).
+2026-07-22:16:25:16,657 WARNING  [datasets.packaged_modules.cache.cache:95] Found the latest cached dataset configuration 'main' at /Users/z33/hf-cache/datasets/openai___gsm8k/main/0.0.0/740312add88f781978c0658806c59bc2815b9866 (last modified on Mon Jul 20 13:47:26 2026).
+2026-07-22:16:25:16,715 WARNING  [lm_eval.evaluator:275] Overwriting default num_fewshot of gsm8k from 5 to 5
+2026-07-22:16:25:16,715 INFO     [lm_eval.api.task:420] Building contexts for gsm8k on rank 0...
+  0%|          | 0/1 [00:00<?, ?it/s]100%|██████████| 1/1 [00:00<00:00, 811.75it/s]
+2026-07-22:16:25:16,716 INFO     [lm_eval.evaluator:517] Running generate_until requests
+Batching...:   0%|          | 0/1 [00:00<?, ?it/s]Batching...: 100%|██████████| 1/1 [00:00<00:00, 91180.52it/s]
+Generating...:   0%|          | 0/1 [00:00<?, ?it/s]Generating...: 100%|██████████| 1/1 [00:20<00:00, 20.05s/it]Generating...: 100%|██████████| 1/1 [00:20<00:00, 20.05s/it]
+2026-07-22:16:25:37,150 INFO     [lm_eval.loggers.evaluation_tracker:209] Saving results aggregated
+2026-07-22:16:25:37,151 INFO     [lm_eval.loggers.evaluation_tracker:290] Saving per-sample results for: gsm8k
+====================
+answer:  To determine how much Janet makes every day at the farmers' market, we need to follow these steps:
+
+1. Calculate the total number of eggs laid by Janet's ducks per day.
+2. Subtract the number of eggs Janet eats for breakfast and bakes for her friends.
+3. Calculate the number of eggs left to sell.
+4. Multiply the number of eggs sold by the price per egg to find the daily earnings.
+
+Let's start with the first step:
+Janet's ducks lay 16 eggs per day.
+
+Next, we subtract the eggs she eats for breakfast and bakes for her friends:
+- She eats 3 eggs for breakfast.
+- She bakes 4 eggs for her friends.
+
+So, the number of eggs left to sell is:
+\[ 16 - 3 - 4 = 9 \]
+
+Janet sells these eggs at $2 per egg. Therefore, her daily earnings are:
+\[ 9 \text{ eggs} \times \$2 \text{ per duck egg} = \$18 \]
+
+Thus, Janet makes $18 every day at the farmers' market.
+
+\(\boxed{18}\)
+nfe:  81
+avg nfe:  81.0
+====================
+
+Total number of tokens generated: 255
+Total time taken: 20.04516100883484 seconds
+Tokens per second: 12.721275329589844
+Total NFE is 81
+llada_dist (model_path=/Users/z33/models/LLaDA-8B-Instruct,device=mps,is_check_greedy=False,gen_length=256,steps=256,block_length=32,show_speed=True,use_cache=True,dual_cache=True,threshold=0.75), gen_kwargs: (None), limit: 1.0, num_fewshot: 5, batch_size: 1
+|Tasks|Version|     Filter     |n-shot|  Metric   |   |Value|   |Stderr|
+|-----|------:|----------------|-----:|-----------|---|----:|---|------|
+|gsm8k|      3|flexible-extract|     5|exact_match|↑  |    1|±  |   N/A|
+|     |       |strict-match    |     5|exact_match|↑  |    0|±  |   N/A|
+
+v2 repeat=3 completed
+
+==================================================
+Mode=v2b Repeat=3
+Target=/Users/z33/Fast-dLLM/v1/llada/eval_llada_rotated_k_v2b_wrapper.py
+Started=2026年 7月22日 星期三 16时25分37秒 CST
+==================================================
+2026-07-22:16:25:45,408 WARNING  [lm_eval.__main__:316]  --limit SHOULD ONLY BE USED FOR TESTING.REAL METRICS SHOULD NOT BE COMPUTED USING LIMIT.
+2026-07-22:16:25:45,409 INFO     [lm_eval.__main__:379] Selected Tasks: ['gsm8k']
+2026-07-22:16:25:45,410 INFO     [lm_eval.evaluator:169] Setting random seed to 0 | Setting numpy seed to 1234 | Setting torch manual seed to 1234 | Setting fewshot manual seed to 1234
+2026-07-22:16:25:45,410 INFO     [lm_eval.evaluator:206] Initializing llada_dist model, with arguments: {'model_path': '/Users/z33/models/LLaDA-8B-Instruct', 'device': 'mps', 'is_check_greedy': False, 'gen_length': 256, 'steps': 256, 'block_length': 32, 'show_speed': True, 'use_cache': True, 'dual_cache': True, 'threshold': 0.75}
+The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+================================================================================
+Rotated-K v2b enabled
+Explicit block bounds + request-local ContextVar
+No replace_position/nonzero/global POSITION_CONTEXT
+================================================================================
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 2/6 [00:00<00:00, 18.89it/s]Loading checkpoint shards:  67%|██████▋   | 4/6 [00:00<00:00, 19.34it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 19.52it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 19.42it/s]
+Using the latest cached version of the dataset since openai/gsm8k couldn't be found on the Hugging Face Hub (offline mode is enabled).
+2026-07-22:16:25:47,325 WARNING  [datasets.load:835] Using the latest cached version of the dataset since openai/gsm8k couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'main' at /Users/z33/hf-cache/datasets/openai___gsm8k/main/0.0.0/740312add88f781978c0658806c59bc2815b9866 (last modified on Mon Jul 20 13:47:26 2026).
+2026-07-22:16:25:47,325 WARNING  [datasets.packaged_modules.cache.cache:95] Found the latest cached dataset configuration 'main' at /Users/z33/hf-cache/datasets/openai___gsm8k/main/0.0.0/740312add88f781978c0658806c59bc2815b9866 (last modified on Mon Jul 20 13:47:26 2026).
+2026-07-22:16:25:47,383 WARNING  [lm_eval.evaluator:275] Overwriting default num_fewshot of gsm8k from 5 to 5
+2026-07-22:16:25:47,383 INFO     [lm_eval.api.task:420] Building contexts for gsm8k on rank 0...
+  0%|          | 0/1 [00:00<?, ?it/s]100%|██████████| 1/1 [00:00<00:00, 823.70it/s]
+2026-07-22:16:25:47,385 INFO     [lm_eval.evaluator:517] Running generate_until requests
+Batching...:   0%|          | 0/1 [00:00<?, ?it/s]Batching...: 100%|██████████| 1/1 [00:00<00:00, 91180.52it/s]
+Generating...:   0%|          | 0/1 [00:00<?, ?it/s]Generating...: 100%|██████████| 1/1 [00:20<00:00, 20.01s/it]Generating...: 100%|██████████| 1/1 [00:20<00:00, 20.01s/it]
+2026-07-22:16:26:07,778 INFO     [lm_eval.loggers.evaluation_tracker:209] Saving results aggregated
+2026-07-22:16:26:07,778 INFO     [lm_eval.loggers.evaluation_tracker:290] Saving per-sample results for: gsm8k
+====================
+answer:  To determine how much Janet makes every day at the farmers' market, we need to follow these steps:
+
+1. Calculate the total number of eggs laid by Janet's ducks per day.
+2. Subtract the number of eggs Janet eats for breakfast and bakes for her friends.
+3. Calculate the number of eggs left to sell.
+4. Multiply the number of eggs sold by the price per egg to find the daily earnings.
+
+Let's start with the first step:
+Janet's ducks lay 16 eggs per day.
+
+Next, we subtract the eggs she eats for breakfast and bakes for her friends:
+- She eats 3 eggs for breakfast.
+- She bakes 4 eggs for her friends.
+
+So, the number of eggs left to sell is:
+\[ 16 - 3 - 4 = 9 \]
+
+Janet sells these eggs at $2 per egg. Therefore, her daily earnings are:
+\[ 9 \text{ eggs} \times \$2 \text{ per duck egg} = \$18 \]
+
+Thus, Janet makes $18 every day at the farmers' market.
+
+\(\boxed{18}\)
+nfe:  81
+avg nfe:  81.0
+====================
+
+Total number of tokens generated: 255
+Total time taken: 20.006727933883667 seconds
+Tokens per second: 12.745713233947754
+Total NFE is 81
+llada_dist (model_path=/Users/z33/models/LLaDA-8B-Instruct,device=mps,is_check_greedy=False,gen_length=256,steps=256,block_length=32,show_speed=True,use_cache=True,dual_cache=True,threshold=0.75), gen_kwargs: (None), limit: 1.0, num_fewshot: 5, batch_size: 1
+|Tasks|Version|     Filter     |n-shot|  Metric   |   |Value|   |Stderr|
+|-----|------:|----------------|-----:|-----------|---|----:|---|------|
+|gsm8k|      3|flexible-extract|     5|exact_match|↑  |    1|±  |   N/A|
+|     |       |strict-match    |     5|exact_match|↑  |    0|±  |   N/A|
+
+v2b repeat=3 completed
+
+==================================================
+Mode=v2 Repeat=4
+Target=/Users/z33/Fast-dLLM/v1/llada/eval_llada_rotated_k_v2_reference.py
+Started=2026年 7月22日 星期三 16时26分08秒 CST
+==================================================
+2026-07-22:16:26:16,093 WARNING  [lm_eval.__main__:316]  --limit SHOULD ONLY BE USED FOR TESTING.REAL METRICS SHOULD NOT BE COMPUTED USING LIMIT.
+2026-07-22:16:26:16,094 INFO     [lm_eval.__main__:379] Selected Tasks: ['gsm8k']
+2026-07-22:16:26:16,095 INFO     [lm_eval.evaluator:169] Setting random seed to 0 | Setting numpy seed to 1234 | Setting torch manual seed to 1234 | Setting fewshot manual seed to 1234
+2026-07-22:16:26:16,095 INFO     [lm_eval.evaluator:206] Initializing llada_dist model, with arguments: {'model_path': '/Users/z33/models/LLaDA-8B-Instruct', 'device': 'mps', 'is_check_greedy': False, 'gen_length': 256, 'steps': 256, 'block_length': 32, 'show_speed': True, 'use_cache': True, 'dual_cache': True, 'threshold': 0.75}
+The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+================================================================================
+Experimental Rotated-K Cache v2 enabled
+Position metadata and RoPE slices are reused across 32 layers
+================================================================================
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 2/6 [00:00<00:00, 18.56it/s]Loading checkpoint shards:  67%|██████▋   | 4/6 [00:00<00:00, 19.02it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 19.35it/s]
+Using the latest cached version of the dataset since openai/gsm8k couldn't be found on the Hugging Face Hub (offline mode is enabled).
+2026-07-22:16:26:17,970 WARNING  [datasets.load:835] Using the latest cached version of the dataset since openai/gsm8k couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'main' at /Users/z33/hf-cache/datasets/openai___gsm8k/main/0.0.0/740312add88f781978c0658806c59bc2815b9866 (last modified on Mon Jul 20 13:47:26 2026).
+2026-07-22:16:26:17,971 WARNING  [datasets.packaged_modules.cache.cache:95] Found the latest cached dataset configuration 'main' at /Users/z33/hf-cache/datasets/openai___gsm8k/main/0.0.0/740312add88f781978c0658806c59bc2815b9866 (last modified on Mon Jul 20 13:47:26 2026).
+2026-07-22:16:26:18,028 WARNING  [lm_eval.evaluator:275] Overwriting default num_fewshot of gsm8k from 5 to 5
+2026-07-22:16:26:18,028 INFO     [lm_eval.api.task:420] Building contexts for gsm8k on rank 0...
+  0%|          | 0/1 [00:00<?, ?it/s]100%|██████████| 1/1 [00:00<00:00, 818.88it/s]
+2026-07-22:16:26:18,029 INFO     [lm_eval.evaluator:517] Running generate_until requests
+Batching...:   0%|          | 0/1 [00:00<?, ?it/s]Batching...: 100%|██████████| 1/1 [00:00<00:00, 97541.95it/s]
+Generating...:   0%|          | 0/1 [00:00<?, ?it/s]Generating...: 100%|██████████| 1/1 [00:20<00:00, 20.02s/it]Generating...: 100%|██████████| 1/1 [00:20<00:00, 20.02s/it]
+2026-07-22:16:26:38,442 INFO     [lm_eval.loggers.evaluation_tracker:209] Saving results aggregated
+2026-07-22:16:26:38,442 INFO     [lm_eval.loggers.evaluation_tracker:290] Saving per-sample results for: gsm8k
+====================
+answer:  To determine how much Janet makes every day at the farmers' market, we need to follow these steps:
+
+1. Calculate the total number of eggs laid by Janet's ducks per day.
+2. Subtract the number of eggs Janet eats for breakfast and bakes for her friends.
+3. Calculate the number of eggs left to sell.
+4. Multiply the number of eggs sold by the price per egg to find the daily earnings.
+
+Let's start with the first step:
+Janet's ducks lay 16 eggs per day.
+
+Next, we subtract the eggs she eats for breakfast and bakes for her friends:
+- She eats 3 eggs for breakfast.
+- She bakes 4 eggs for her friends.
+
+So, the number of eggs left to sell is:
+\[ 16 - 3 - 4 = 9 \]
+
+Janet sells these eggs at $2 per egg. Therefore, her daily earnings are:
+\[ 9 \text{ eggs} \times \$2 \text{ per duck egg} = \$18 \]
+
+Thus, Janet makes $18 every day at the farmers' market.
+
+\(\boxed{18}\)
+nfe:  81
+avg nfe:  81.0
+====================
+
+Total number of tokens generated: 255
+Total time taken: 20.02391505241394 seconds
+Tokens per second: 12.734772682189941
+Total NFE is 81
+llada_dist (model_path=/Users/z33/models/LLaDA-8B-Instruct,device=mps,is_check_greedy=False,gen_length=256,steps=256,block_length=32,show_speed=True,use_cache=True,dual_cache=True,threshold=0.75), gen_kwargs: (None), limit: 1.0, num_fewshot: 5, batch_size: 1
+|Tasks|Version|     Filter     |n-shot|  Metric   |   |Value|   |Stderr|
+|-----|------:|----------------|-----:|-----------|---|----:|---|------|
+|gsm8k|      3|flexible-extract|     5|exact_match|↑  |    1|±  |   N/A|
+|     |       |strict-match    |     5|exact_match|↑  |    0|±  |   N/A|
+
+v2 repeat=4 completed
+
+==================================================
+Mode=v2b Repeat=4
+Target=/Users/z33/Fast-dLLM/v1/llada/eval_llada_rotated_k_v2b_wrapper.py
+Started=2026年 7月22日 星期三 16时26分39秒 CST
+==================================================
+2026-07-22:16:26:46,728 WARNING  [lm_eval.__main__:316]  --limit SHOULD ONLY BE USED FOR TESTING.REAL METRICS SHOULD NOT BE COMPUTED USING LIMIT.
+2026-07-22:16:26:46,728 INFO     [lm_eval.__main__:379] Selected Tasks: ['gsm8k']
+2026-07-22:16:26:46,729 INFO     [lm_eval.evaluator:169] Setting random seed to 0 | Setting numpy seed to 1234 | Setting torch manual seed to 1234 | Setting fewshot manual seed to 1234
+2026-07-22:16:26:46,729 INFO     [lm_eval.evaluator:206] Initializing llada_dist model, with arguments: {'model_path': '/Users/z33/models/LLaDA-8B-Instruct', 'device': 'mps', 'is_check_greedy': False, 'gen_length': 256, 'steps': 256, 'block_length': 32, 'show_speed': True, 'use_cache': True, 'dual_cache': True, 'threshold': 0.75}
+The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+================================================================================
+Rotated-K v2b enabled
+Explicit block bounds + request-local ContextVar
+No replace_position/nonzero/global POSITION_CONTEXT
+================================================================================
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 2/6 [00:00<00:00, 18.66it/s]Loading checkpoint shards:  67%|██████▋   | 4/6 [00:00<00:00, 19.15it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 19.66it/s]
+Using the latest cached version of the dataset since openai/gsm8k couldn't be found on the Hugging Face Hub (offline mode is enabled).
+2026-07-22:16:26:48,610 WARNING  [datasets.load:835] Using the latest cached version of the dataset since openai/gsm8k couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'main' at /Users/z33/hf-cache/datasets/openai___gsm8k/main/0.0.0/740312add88f781978c0658806c59bc2815b9866 (last modified on Mon Jul 20 13:47:26 2026).
+2026-07-22:16:26:48,610 WARNING  [datasets.packaged_modules.cache.cache:95] Found the latest cached dataset configuration 'main' at /Users/z33/hf-cache/datasets/openai___gsm8k/main/0.0.0/740312add88f781978c0658806c59bc2815b9866 (last modified on Mon Jul 20 13:47:26 2026).
+2026-07-22:16:26:48,669 WARNING  [lm_eval.evaluator:275] Overwriting default num_fewshot of gsm8k from 5 to 5
+2026-07-22:16:26:48,670 INFO     [lm_eval.api.task:420] Building contexts for gsm8k on rank 0...
+  0%|          | 0/1 [00:00<?, ?it/s]100%|██████████| 1/1 [00:00<00:00, 827.28it/s]
+2026-07-22:16:26:48,671 INFO     [lm_eval.evaluator:517] Running generate_until requests
+Batching...:   0%|          | 0/1 [00:00<?, ?it/s]Batching...: 100%|██████████| 1/1 [00:00<00:00, 110376.42it/s]
+Generating...:   0%|          | 0/1 [00:00<?, ?it/s]Generating...: 100%|██████████| 1/1 [00:20<00:00, 20.02s/it]Generating...: 100%|██████████| 1/1 [00:20<00:00, 20.02s/it]
+2026-07-22:16:27:09,083 INFO     [lm_eval.loggers.evaluation_tracker:209] Saving results aggregated
+2026-07-22:16:27:09,084 INFO     [lm_eval.loggers.evaluation_tracker:290] Saving per-sample results for: gsm8k
+====================
+answer:  To determine how much Janet makes every day at the farmers' market, we need to follow these steps:
+
+1. Calculate the total number of eggs laid by Janet's ducks per day.
+2. Subtract the number of eggs Janet eats for breakfast and bakes for her friends.
+3. Calculate the number of eggs left to sell.
+4. Multiply the number of eggs sold by the price per egg to find the daily earnings.
+
+Let's start with the first step:
+Janet's ducks lay 16 eggs per day.
+
+Next, we subtract the eggs she eats for breakfast and bakes for her friends:
+- She eats 3 eggs for breakfast.
+- She bakes 4 eggs for her friends.
+
+So, the number of eggs left to sell is:
+\[ 16 - 3 - 4 = 9 \]
+
+Janet sells these eggs at $2 per egg. Therefore, her daily earnings are:
+\[ 9 \text{ eggs} \times \$2 \text{ per duck egg} = \$18 \]
+
+Thus, Janet makes $18 every day at the farmers' market.
+
+\(\boxed{18}\)
+nfe:  81
+avg nfe:  81.0
+====================
+
+Total number of tokens generated: 255
+Total time taken: 20.02356791496277 seconds
+Tokens per second: 12.734993934631348
+Total NFE is 81
+llada_dist (model_path=/Users/z33/models/LLaDA-8B-Instruct,device=mps,is_check_greedy=False,gen_length=256,steps=256,block_length=32,show_speed=True,use_cache=True,dual_cache=True,threshold=0.75), gen_kwargs: (None), limit: 1.0, num_fewshot: 5, batch_size: 1
+|Tasks|Version|     Filter     |n-shot|  Metric   |   |Value|   |Stderr|
+|-----|------:|----------------|-----:|-----------|---|----:|---|------|
+|gsm8k|      3|flexible-extract|     5|exact_match|↑  |    1|±  |   N/A|
+|     |       |strict-match    |     5|exact_match|↑  |    0|±  |   N/A|
+
+v2b repeat=4 completed
+
+==================================================
+Mode=v2 Repeat=5
+Target=/Users/z33/Fast-dLLM/v1/llada/eval_llada_rotated_k_v2_reference.py
+Started=2026年 7月22日 星期三 16时27分09秒 CST
+==================================================
+2026-07-22:16:27:17,389 WARNING  [lm_eval.__main__:316]  --limit SHOULD ONLY BE USED FOR TESTING.REAL METRICS SHOULD NOT BE COMPUTED USING LIMIT.
+2026-07-22:16:27:17,390 INFO     [lm_eval.__main__:379] Selected Tasks: ['gsm8k']
+2026-07-22:16:27:17,390 INFO     [lm_eval.evaluator:169] Setting random seed to 0 | Setting numpy seed to 1234 | Setting torch manual seed to 1234 | Setting fewshot manual seed to 1234
+2026-07-22:16:27:17,390 INFO     [lm_eval.evaluator:206] Initializing llada_dist model, with arguments: {'model_path': '/Users/z33/models/LLaDA-8B-Instruct', 'device': 'mps', 'is_check_greedy': False, 'gen_length': 256, 'steps': 256, 'block_length': 32, 'show_speed': True, 'use_cache': True, 'dual_cache': True, 'threshold': 0.75}
+The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+================================================================================
+Experimental Rotated-K Cache v2 enabled
+Position metadata and RoPE slices are reused across 32 layers
+================================================================================
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 2/6 [00:00<00:00, 18.20it/s]Loading checkpoint shards:  67%|██████▋   | 4/6 [00:00<00:00, 18.71it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 19.19it/s]
+Using the latest cached version of the dataset since openai/gsm8k couldn't be found on the Hugging Face Hub (offline mode is enabled).
+2026-07-22:16:27:19,319 WARNING  [datasets.load:835] Using the latest cached version of the dataset since openai/gsm8k couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'main' at /Users/z33/hf-cache/datasets/openai___gsm8k/main/0.0.0/740312add88f781978c0658806c59bc2815b9866 (last modified on Mon Jul 20 13:47:26 2026).
+2026-07-22:16:27:19,319 WARNING  [datasets.packaged_modules.cache.cache:95] Found the latest cached dataset configuration 'main' at /Users/z33/hf-cache/datasets/openai___gsm8k/main/0.0.0/740312add88f781978c0658806c59bc2815b9866 (last modified on Mon Jul 20 13:47:26 2026).
+2026-07-22:16:27:19,377 WARNING  [lm_eval.evaluator:275] Overwriting default num_fewshot of gsm8k from 5 to 5
+2026-07-22:16:27:19,377 INFO     [lm_eval.api.task:420] Building contexts for gsm8k on rank 0...
+  0%|          | 0/1 [00:00<?, ?it/s]100%|██████████| 1/1 [00:00<00:00, 829.08it/s]
+2026-07-22:16:27:19,379 INFO     [lm_eval.evaluator:517] Running generate_until requests
+Batching...:   0%|          | 0/1 [00:00<?, ?it/s]Batching...: 100%|██████████| 1/1 [00:00<00:00, 110376.42it/s]
+Generating...:   0%|          | 0/1 [00:00<?, ?it/s]Generating...: 100%|██████████| 1/1 [00:20<00:00, 20.03s/it]Generating...: 100%|██████████| 1/1 [00:20<00:00, 20.03s/it]
+2026-07-22:16:27:39,799 INFO     [lm_eval.loggers.evaluation_tracker:209] Saving results aggregated
+2026-07-22:16:27:39,800 INFO     [lm_eval.loggers.evaluation_tracker:290] Saving per-sample results for: gsm8k
+====================
+answer:  To determine how much Janet makes every day at the farmers' market, we need to follow these steps:
+
+1. Calculate the total number of eggs laid by Janet's ducks per day.
+2. Subtract the number of eggs Janet eats for breakfast and bakes for her friends.
+3. Calculate the number of eggs left to sell.
+4. Multiply the number of eggs sold by the price per egg to find the daily earnings.
+
+Let's start with the first step:
+Janet's ducks lay 16 eggs per day.
+
+Next, we subtract the eggs she eats for breakfast and bakes for her friends:
+- She eats 3 eggs for breakfast.
+- She bakes 4 eggs for her friends.
+
+So, the number of eggs left to sell is:
+\[ 16 - 3 - 4 = 9 \]
+
+Janet sells these eggs at $2 per egg. Therefore, her daily earnings are:
+\[ 9 \text{ eggs} \times \$2 \text{ per duck egg} = \$18 \]
+
+Thus, Janet makes $18 every day at the farmers' market.
+
+\(\boxed{18}\)
+nfe:  81
+avg nfe:  81.0
+====================
+
+Total number of tokens generated: 255
+Total time taken: 20.030412673950195 seconds
+Tokens per second: 12.73064136505127
+Total NFE is 81
+llada_dist (model_path=/Users/z33/models/LLaDA-8B-Instruct,device=mps,is_check_greedy=False,gen_length=256,steps=256,block_length=32,show_speed=True,use_cache=True,dual_cache=True,threshold=0.75), gen_kwargs: (None), limit: 1.0, num_fewshot: 5, batch_size: 1
+|Tasks|Version|     Filter     |n-shot|  Metric   |   |Value|   |Stderr|
+|-----|------:|----------------|-----:|-----------|---|----:|---|------|
+|gsm8k|      3|flexible-extract|     5|exact_match|↑  |    1|±  |   N/A|
+|     |       |strict-match    |     5|exact_match|↑  |    0|±  |   N/A|
+
+v2 repeat=5 completed
+
+==================================================
+Mode=v2b Repeat=5
+Target=/Users/z33/Fast-dLLM/v1/llada/eval_llada_rotated_k_v2b_wrapper.py
+Started=2026年 7月22日 星期三 16时27分40秒 CST
+==================================================
+2026-07-22:16:27:47,994 WARNING  [lm_eval.__main__:316]  --limit SHOULD ONLY BE USED FOR TESTING.REAL METRICS SHOULD NOT BE COMPUTED USING LIMIT.
+2026-07-22:16:27:47,995 INFO     [lm_eval.__main__:379] Selected Tasks: ['gsm8k']
+2026-07-22:16:27:47,996 INFO     [lm_eval.evaluator:169] Setting random seed to 0 | Setting numpy seed to 1234 | Setting torch manual seed to 1234 | Setting fewshot manual seed to 1234
+2026-07-22:16:27:47,996 INFO     [lm_eval.evaluator:206] Initializing llada_dist model, with arguments: {'model_path': '/Users/z33/models/LLaDA-8B-Instruct', 'device': 'mps', 'is_check_greedy': False, 'gen_length': 256, 'steps': 256, 'block_length': 32, 'show_speed': True, 'use_cache': True, 'dual_cache': True, 'threshold': 0.75}
+The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+================================================================================
+Rotated-K v2b enabled
+Explicit block bounds + request-local ContextVar
+No replace_position/nonzero/global POSITION_CONTEXT
+================================================================================
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 2/6 [00:00<00:00, 18.32it/s]Loading checkpoint shards:  67%|██████▋   | 4/6 [00:00<00:00, 18.74it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 19.20it/s]
+Using the latest cached version of the dataset since openai/gsm8k couldn't be found on the Hugging Face Hub (offline mode is enabled).
+2026-07-22:16:27:49,927 WARNING  [datasets.load:835] Using the latest cached version of the dataset since openai/gsm8k couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'main' at /Users/z33/hf-cache/datasets/openai___gsm8k/main/0.0.0/740312add88f781978c0658806c59bc2815b9866 (last modified on Mon Jul 20 13:47:26 2026).
+2026-07-22:16:27:49,928 WARNING  [datasets.packaged_modules.cache.cache:95] Found the latest cached dataset configuration 'main' at /Users/z33/hf-cache/datasets/openai___gsm8k/main/0.0.0/740312add88f781978c0658806c59bc2815b9866 (last modified on Mon Jul 20 13:47:26 2026).
+2026-07-22:16:27:49,986 WARNING  [lm_eval.evaluator:275] Overwriting default num_fewshot of gsm8k from 5 to 5
+2026-07-22:16:27:49,986 INFO     [lm_eval.api.task:420] Building contexts for gsm8k on rank 0...
+  0%|          | 0/1 [00:00<?, ?it/s]100%|██████████| 1/1 [00:00<00:00, 835.35it/s]
+2026-07-22:16:27:49,988 INFO     [lm_eval.evaluator:517] Running generate_until requests
+Batching...:   0%|          | 0/1 [00:00<?, ?it/s]Batching...: 100%|██████████| 1/1 [00:00<00:00, 113359.57it/s]
+Generating...:   0%|          | 0/1 [00:00<?, ?it/s]Generating...: 100%|██████████| 1/1 [00:20<00:00, 20.06s/it]Generating...: 100%|██████████| 1/1 [00:20<00:00, 20.06s/it]
+2026-07-22:16:28:10,440 INFO     [lm_eval.loggers.evaluation_tracker:209] Saving results aggregated
+2026-07-22:16:28:10,440 INFO     [lm_eval.loggers.evaluation_tracker:290] Saving per-sample results for: gsm8k
+====================
+answer:  To determine how much Janet makes every day at the farmers' market, we need to follow these steps:
+
+1. Calculate the total number of eggs laid by Janet's ducks per day.
+2. Subtract the number of eggs Janet eats for breakfast and bakes for her friends.
+3. Calculate the number of eggs left to sell.
+4. Multiply the number of eggs sold by the price per egg to find the daily earnings.
+
+Let's start with the first step:
+Janet's ducks lay 16 eggs per day.
+
+Next, we subtract the eggs she eats for breakfast and bakes for her friends:
+- She eats 3 eggs for breakfast.
+- She bakes 4 eggs for her friends.
+
+So, the number of eggs left to sell is:
+\[ 16 - 3 - 4 = 9 \]
+
+Janet sells these eggs at $2 per egg. Therefore, her daily earnings are:
+\[ 9 \text{ eggs} \times \$2 \text{ per duck egg} = \$18 \]
+
+Thus, Janet makes $18 every day at the farmers' market.
+
+\(\boxed{18}\)
+nfe:  81
+avg nfe:  81.0
+====================
+
+Total number of tokens generated: 255
+Total time taken: 20.064738035202026 seconds
+Tokens per second: 12.708863258361816
+Total NFE is 81
+llada_dist (model_path=/Users/z33/models/LLaDA-8B-Instruct,device=mps,is_check_greedy=False,gen_length=256,steps=256,block_length=32,show_speed=True,use_cache=True,dual_cache=True,threshold=0.75), gen_kwargs: (None), limit: 1.0, num_fewshot: 5, batch_size: 1
+|Tasks|Version|     Filter     |n-shot|  Metric   |   |Value|   |Stderr|
+|-----|------:|----------------|-----:|-----------|---|----:|---|------|
+|gsm8k|      3|flexible-extract|     5|exact_match|↑  |    1|±  |   N/A|
+|     |       |strict-match    |     5|exact_match|↑  |    0|±  |   N/A|
+
+v2b repeat=5 completed
+
+A/B completed
+Failures=0
+OUTROOT=/Users/z33/Fast-dLLM/results/rotated_k_v2_v2b_ab_20260722_162305

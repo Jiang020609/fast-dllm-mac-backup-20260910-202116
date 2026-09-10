@@ -1,0 +1,307 @@
+from __future__ import annotations
+
+import argparse
+import time
+from pathlib import Path
+
+import torch
+from torch.profiler import (
+    ProfilerActivity,
+    profile,
+    record_function,
+    schedule,
+    tensorboard_trace_handler,
+)
+from transformers import AutoConfig
+
+# 只应用 Rotated-K v2b patch，不启动 lm-eval。
+import rotated_k_v2b_runtime_patch  # noqa: F401
+
+from model.modeling_llada import LLaDAModelLM
+from rotated_k_position_context import position_forward_scope
+
+
+DEVICE = torch.device("mps")
+DTYPE = torch.bfloat16
+
+
+def sync() -> None:
+    torch.mps.synchronize()
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--warmups", type=int, default=8)
+    parser.add_argument("--iterations", type=int, default=30)
+    parser.add_argument("--query-len", type=int, default=32)
+    parser.add_argument("--past-len", type=int, default=1331)
+    parser.add_argument(
+        "--compile",
+        action="store_true",
+        help="Compile the complete model forward with torch.compile.",
+    )
+    parser.add_argument(
+        "--compile-static",
+        action="store_true",
+        help="Compile with fullgraph=True and dynamic=False.",
+    )
+    parser.add_argument(
+        "--benchmark-only",
+        action="store_true",
+        help="Measure steady-state latency without Metal capture.",
+    )
+    args = parser.parse_args()
+
+    if not torch.backends.mps.is_available():
+        raise RuntimeError("MPS is unavailable")
+
+    torch.set_grad_enabled(False)
+
+    model_path = (
+        Path.home()
+        / "models"
+        / "LLaDA-8B-Instruct"
+    )
+
+    config = AutoConfig.from_pretrained(
+        model_path,
+        local_files_only=True,
+        trust_remote_code=True,
+    )
+
+    if not hasattr(config, "train_max_sequence_length"):
+        config.train_max_sequence_length = int(
+            config.max_sequence_length
+        )
+
+    print("Loading model...", flush=True)
+
+    model = LLaDAModelLM.from_pretrained(
+        model_path,
+        config=config,
+        torch_dtype=DTYPE,
+        local_files_only=True,
+    ).to(DEVICE)
+
+    model.eval()
+
+    if args.compile:
+        compile_kwargs = {
+            "fullgraph": bool(args.compile_static),
+        }
+
+        if args.compile_static:
+            compile_kwargs["dynamic"] = False
+
+        print(
+            "Compiling complete model.forward "
+            f"(fullgraph={compile_kwargs['fullgraph']}, "
+            f"dynamic={compile_kwargs.get('dynamic', None)})...",
+            flush=True,
+        )
+
+        model = torch.compile(
+            model,
+            **compile_kwargs,
+        )
+
+    sync()
+
+    batch_size = 1
+    query_len = int(args.query_len)
+    past_len = int(args.past_len)
+
+    n_layers = int(config.n_layers)
+    n_heads = int(config.n_heads)
+    d_model = int(config.d_model)
+
+    kv_heads = int(
+        getattr(config, "n_kv_heads", None)
+        or n_heads
+    )
+    head_dim = d_model // n_heads
+
+    mask_token_id = int(
+        getattr(config, "mask_token_id", None)
+        or 126336
+    )
+
+    input_ids = torch.full(
+        (batch_size, query_len),
+        mask_token_id,
+        dtype=torch.long,
+        device=DEVICE,
+    )
+
+    cache_shape = (
+        batch_size,
+        kv_heads,
+        past_len,
+        head_dim,
+    )
+
+    past_key_values = []
+
+    for _ in range(n_layers):
+        key = torch.zeros(
+            cache_shape,
+            dtype=DTYPE,
+            device=DEVICE,
+        )
+        value = torch.zeros_like(key)
+        past_key_values.append((key, value))
+
+    sync()
+
+    block_start = past_len - query_len
+    block_end = past_len
+
+    if block_start < 0:
+        raise ValueError("query_len cannot exceed past_len")
+
+    def forward():
+        nonlocal past_key_values
+
+        with position_forward_scope(
+            block_start=block_start,
+            block_end=block_end,
+        ) as position_state:
+            output = model(
+                input_ids=input_ids,
+                past_key_values=past_key_values,
+                use_cache=True,
+                return_dict=True,
+                position_state=position_state,
+            )
+
+        if output.past_key_values is not None:
+            past_key_values = list(
+                output.past_key_values
+            )
+
+        return output
+
+    # 首次 graph 编译和缓存建立不进入 profile window。
+    for _ in range(args.warmups):
+        output = forward()
+        del output
+
+    sync()
+
+    if args.benchmark_only:
+        start = time.perf_counter()
+
+        for _ in range(args.iterations):
+            output = forward()
+            del output
+
+        sync()
+        elapsed = time.perf_counter() - start
+        mean_ms = elapsed * 1000.0 / args.iterations
+
+        print(
+            "BENCHMARK_ONLY mode={} total_s={:.6f} mean_ms={:.3f}".format(
+                "compiled" if args.compile else "eager",
+                elapsed,
+                mean_ms,
+            ),
+            flush=True,
+        )
+        print(
+            "MPS allocated GiB: {:.3f}".format(
+                torch.mps.current_allocated_memory()
+                / (1024 ** 3)
+            ),
+            flush=True,
+        )
+        return
+
+    print(
+        "PROFILE_WINDOW_BEGIN iterations={}".format(
+            args.iterations
+        ),
+        flush=True,
+    )
+
+    if not torch.mps.profiler.is_metal_capture_enabled():
+        raise RuntimeError(
+            "Metal capture is disabled. "
+            "Run with MTL_CAPTURE_ENABLED=1."
+        )
+
+    execution_mode = "compiled" if args.compile else "eager"
+    capture_stem = "mps_cached_{}_formal5_{}".format(
+        execution_mode,
+        time.strftime("%Y%m%d_%H%M%S"),
+    )
+
+    capture_dir = Path("./traces")
+    capture_dir.mkdir(parents=True, exist_ok=True)
+
+    start = time.perf_counter()
+
+    # 这里只捕获 warm-up 之后的正式 iterations。
+    with torch.mps.profiler.metal_capture(capture_stem):
+        for iteration in range(args.iterations):
+            print(
+                "CAPTURE_ITERATION {}/{}".format(
+                    iteration + 1,
+                    args.iterations,
+                ),
+                flush=True,
+            )
+
+            output = forward()
+            del output
+
+    # metal_capture 退出时会同步并结束 GPU capture。
+    elapsed = time.perf_counter() - start
+
+    matches = sorted(
+        Path(".").glob(
+            "*-{}.gputrace".format(capture_stem)
+        )
+    )
+
+    if len(matches) != 1:
+        raise RuntimeError(
+            "Expected one gputrace, found: {}".format(
+                matches
+            )
+        )
+
+    capture_path = capture_dir / matches[0].name
+    matches[0].replace(capture_path)
+
+    print(
+        "GPU_TRACE_SAVED {}".format(capture_path),
+        flush=True,
+    )
+
+    mean_ms = (
+        elapsed * 1000.0 / args.iterations
+    )
+
+    print(
+        "PROFILE_WINDOW_END total_s={:.6f} mean_ms={:.3f}".format(
+            elapsed,
+            mean_ms,
+        ),
+        flush=True,
+    )
+
+    allocated_gib = (
+        torch.mps.current_allocated_memory()
+        / (1024 ** 3)
+    )
+
+    print(
+        "MPS allocated GiB: {:.3f}".format(
+            allocated_gib
+        ),
+        flush=True,
+    )
+
+
+if __name__ == "__main__":
+    main()

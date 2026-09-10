@@ -1,0 +1,548 @@
+2026-07-22:17:08:26,514 WARNING  [lm_eval.__main__:316]  --limit SHOULD ONLY BE USED FOR TESTING.REAL METRICS SHOULD NOT BE COMPUTED USING LIMIT.
+2026-07-22:17:08:26,515 INFO     [lm_eval.__main__:379] Selected Tasks: ['gsm8k']
+2026-07-22:17:08:26,515 INFO     [lm_eval.evaluator:169] Setting random seed to 0 | Setting numpy seed to 1234 | Setting torch manual seed to 1234 | Setting fewshot manual seed to 1234
+2026-07-22:17:08:26,515 INFO     [lm_eval.evaluator:206] Initializing llada_dist model, with arguments: {'model_path': '/Users/z33/models/LLaDA-8B-Instruct', 'device': 'mps', 'is_check_greedy': False, 'gen_length': 256, 'steps': 256, 'block_length': 32, 'show_speed': True, 'use_cache': True, 'dual_cache': True, 'threshold': 0.75}
+The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+================================================================================
+Rotated-K v2b cache-refresh enabled
+Explicit block bounds + request-local ContextVar
+No replace_position/nonzero/global POSITION_CONTEXT
+================================================================================
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 2/6 [00:00<00:00, 18.28it/s]Loading checkpoint shards:  67%|██████▋   | 4/6 [00:00<00:00, 18.41it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 18.96it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 18.79it/s]
+Using the latest cached version of the dataset since openai/gsm8k couldn't be found on the Hugging Face Hub (offline mode is enabled).
+2026-07-22:17:08:28,328 WARNING  [datasets.load:835] Using the latest cached version of the dataset since openai/gsm8k couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'main' at /Users/z33/hf-cache/datasets/openai___gsm8k/main/0.0.0/740312add88f781978c0658806c59bc2815b9866 (last modified on Mon Jul 20 13:47:26 2026).
+2026-07-22:17:08:28,328 WARNING  [datasets.packaged_modules.cache.cache:95] Found the latest cached dataset configuration 'main' at /Users/z33/hf-cache/datasets/openai___gsm8k/main/0.0.0/740312add88f781978c0658806c59bc2815b9866 (last modified on Mon Jul 20 13:47:26 2026).
+2026-07-22:17:08:28,386 WARNING  [lm_eval.evaluator:275] Overwriting default num_fewshot of gsm8k from 5 to 5
+2026-07-22:17:08:28,386 INFO     [lm_eval.api.task:420] Building contexts for gsm8k on rank 0...
+  0%|          | 0/20 [00:00<?, ?it/s]100%|██████████| 20/20 [00:00<00:00, 962.88it/s]
+2026-07-22:17:08:28,407 INFO     [lm_eval.evaluator:517] Running generate_until requests
+Batching...:   0%|          | 0/20 [00:00<?, ?it/s]Batching...: 100%|██████████| 20/20 [00:00<00:00, 1582756.23it/s]
+Generating...:   0%|          | 0/20 [00:00<?, ?it/s]Generating...:   5%|▌         | 1/20 [00:19<06:18, 19.93s/it]Generating...:  10%|█         | 2/20 [00:37<05:33, 18.55s/it]Generating...:  15%|█▌        | 3/20 [00:56<05:19, 18.82s/it]Generating...:  20%|██        | 4/20 [01:11<04:37, 17.35s/it]Generating...:  25%|██▌       | 5/20 [01:31<04:32, 18.14s/it]Generating...:  30%|███       | 6/20 [01:47<04:03, 17.37s/it]Generating...:  35%|███▌      | 7/20 [02:04<03:44, 17.26s/it]Generating...:  40%|████      | 8/20 [02:22<03:31, 17.64s/it]Generating...:  45%|████▌     | 9/20 [02:44<03:28, 18.98s/it]Generating...:  50%|█████     | 10/20 [02:59<02:58, 17.88s/it]Generating...:  55%|█████▌    | 11/20 [03:17<02:39, 17.71s/it]Generating...:  60%|██████    | 12/20 [03:36<02:24, 18.10s/it]Generating...:  65%|██████▌   | 13/20 [03:59<02:18, 19.75s/it]Generating...:  70%|███████   | 14/20 [04:17<01:54, 19.04s/it]Generating...:  75%|███████▌  | 15/20 [04:33<01:30, 18.10s/it]Generating...:  80%|████████  | 16/20 [04:53<01:15, 18.89s/it]Generating...:  85%|████████▌ | 17/20 [05:15<00:58, 19.67s/it]Generating...:  90%|█████████ | 18/20 [05:30<00:36, 18.37s/it]Generating...:  95%|█████████▌| 19/20 [05:45<00:17, 17.17s/it]Generating...: 100%|██████████| 20/20 [06:03<00:00, 17.55s/it]Generating...: 100%|██████████| 20/20 [06:03<00:00, 18.18s/it]
+2026-07-22:17:14:32,351 INFO     [lm_eval.loggers.evaluation_tracker:209] Saving results aggregated
+2026-07-22:17:14:32,352 INFO     [lm_eval.loggers.evaluation_tracker:290] Saving per-sample results for: gsm8k
+CACHE_REFRESH interval=1 full_refreshes=8 reused_block_starts=0 nfe=81
+====================
+answer:  To determine how much Janet makes every day at the farmers' market, we need to follow these steps:
+
+1. Calculate the total number of eggs laid by Janet's ducks per day.
+2. Subtract the number of eggs Janet eats for breakfast and bakes for her friends.
+3. Calculate the number of eggs left to sell.
+4. Multiply the number of eggs sold by the price per egg to find the daily earnings.
+
+Let's start with the first step:
+Janet's ducks lay 16 eggs per day.
+
+Next, we subtract the eggs she eats for breakfast and bakes for her friends:
+- She eats 3 eggs for breakfast.
+- She bakes 4 eggs for her friends.
+
+So, the number of eggs left to sell is:
+\[ 16 - 3 - 4 = 9 \]
+
+Janet sells these eggs at $2 per egg. Therefore, her daily earnings are:
+\[ 9 \text{ eggs} \times \$2 \text{ per duck egg} = \$18 \]
+
+Thus, Janet makes $18 every day at the farmers' market.
+
+\(\boxed{18}\)
+nfe:  81
+avg nfe:  81.0
+====================
+
+CACHE_REFRESH interval=1 full_refreshes=8 reused_block_starts=0 nfe=55
+====================
+answer:  The robe takes 2 bolts of blue fiber and half that much white fiber. 
+
+First, let's calculate the amount of white fiber:
+- Since the white fiber is half as much as the blue fiber, we have:
+- White fiber = (1/2) * 2 bolts = 1 bolt
+
+Now, let's find the total number of bolts:
+- Total bolts = Blue fiber + White fiber
+- Total bolts = 2 bolts + 1 bolt = 3 bolts
+
+Therefore, the robe takes a total of 3 bolts.
+
+ 3
+nfe:  55
+avg nfe:  68.0
+====================
+
+CACHE_REFRESH interval=1 full_refreshes=8 reused_block_starts=0 nfe=68
+====================
+answer:  To determine Josh's profit, we need to follow these steps:
+
+1. Calculate the new value of the house after repairs.
+2. Determine the selling price of the house.
+3. Calculate the profit by subtracting the original cost from the selling price.
+
+First, let's calculate the new value of the house after repairs:
+- The original value of the house is $80,000.
+- The repairs increased the value by 150%.
+- 150% of $80,000 is $120,000.
+- Therefore, the new value of the house is $80,000 + $120,000 = $200,000.
+
+Next, let's determine the selling price of the house:
+- The selling price is $200,000.
+
+Finally, we calculate the profit by subtracting the original cost from the selling price:
+- Profit = $200,000 - $80,000 = $120,000.
+
+Josh made a profit of $120,000.
+nfe:  68
+avg nfe:  68.0
+====================
+
+CACHE_REFRESH interval=1 full_refreshes=8 reused_block_starts=0 nfe=56
+====================
+answer:  To determine the total distance James runs in a week, we need to break down the problem into smaller steps:
+
+1. Calculate the distance James runs in one sprint.
+2. Calculate the distance James runs in one day.
+3. Calculate the distance James runs in one week.
+
+First, let's find the distance James runs in one sprint:
+- James runs 60 meters each sprint.
+
+Next, let's calculate the distance James runs in one day:
+- James runs 3 sprints each day.
+- Each sprint is 60 meters.
+- Therefore, the daily distance is \( 3 \times 60 = 180 \) meters.
+
+Now, let's calculate the distance James runs in one week:
+- James runs 3 times a week.
+- Each day he runs 180 meters.
+- Therefore, the weekly distance is \( 3 \times 180 = 540 \) meters.
+
+So, James runs a total of 540 meters in a week.
+nfe:  56
+avg nfe:  65.0
+====================
+
+CACHE_REFRESH interval=1 full_refreshes=8 reused_block_starts=0 nfe=71
+====================
+answer:  First, let's determine the total amount of feed Wendi needs to give to her chickens in a day. Each chicken gets 3 cups of feed per day, and she has 20 chickens:
+
+\[ 3 \text{ cups/chicken} \times 20 \text{ chickens} = 60 \text{ cups} \]
+
+Next, we know the amount of feed given in the morning and afternoon meals:
+- Morning: 15 cups
+- Afternoon: 25 cups
+
+Let's add these amounts together to find out how much feed has been given so far:
+
+\[ 15 \text{ cups} + 25 \text{ cups} = 40 \text{ cups} \]
+
+Now, we subtract the amount of feed given so far from the total amount needed to find out how much feed is left for the final meal:
+
+\[ 60 \text{ cups} - 40 \text{ cups} = 20 \text{ cups} \]
+
+Therefore, Wendi needs to give her chickens 20 cups of feed in the final meal of the day.
+
+#### 20 cups.
+nfe:  71
+avg nfe:  66.2
+====================
+
+CACHE_REFRESH interval=1 full_refreshes=8 reused_block_starts=0 nfe=69
+====================
+answer:  To determine how much Kylar needs to pay for 16 glasses, we need to calculate the cost of the first 8 glasses at the regular price and the cost of the next 8 glasses at the discounted price.
+
+1. **Cost of the first 8 glasses:**
+   - Each regular glass costs $5.
+   - Cost for 8 regular glasses: \( 8 \times 5 = 40 \) dollars.
+
+2. **Cost of the next 8 glasses:**
+   - Each discounted glass costs 60% of the regular price.
+   - Discounted price per glass: \( 5 \times 0.60 = 3 \) dollars.
+   - Cost for 8 discounted glasses: \( 8 \times 3 = 24 \) dollars.
+
+3. **Total cost:**
+   - Total cost = Cost of the first 8 glasses + Cost of the next 8 glasses
+   - Total cost = \( 40 + 24 = 64 \) dollars.
+
+Therefore, Kylar needs to pay $64 = $<<64=64=64>>64.
+
+#### 64
+nfe:  69
+avg nfe:  66.66666666666667
+====================
+
+CACHE_REFRESH interval=1 full_refreshes=8 reused_block_starts=0 nfe=66
+====================
+answer:  To determine the total number of sheep that Toulouse, Charleston, and Seattle have together, we need to follow these steps:
+
+1. Identify the number of sheep in each location.
+2. Calculate the number of sheep in each location based on the given relationships.
+3. Sum the number of sheep from all three locations.
+
+Given:
+- Seattle has 20 sheep.
+- Charleston has 4 times as many sheep as Seattle.
+- Toulouse has twice as many sheep as Charleston.
+
+First, calculate the number of sheep in each location:
+- Seattle: 20 sheep
+- Charleston: 4 times as many sheep as Seattle = 4 * 20 = 80 sheep
+- Toulouse: twice as many sheep as Charleston = 2 * 80 = 160 sheep
+
+Now, sum the number of sheep from all three locations:
+- Total sheep = Seattle's sheep + Charleston's sheep + Toulouse's sheep
+- Total sheep = 20 + 80 + 160 = 260 sheep
+
+Therefore, Toulouse, Charleston, and Seattle have 260 sheep together.
+#### 260
+nfe:  66
+avg nfe:  66.57142857142857
+====================
+
+CACHE_REFRESH interval=1 full_refreshes=8 reused_block_starts=0 nfe=67
+====================
+answer:  First, let's calculate the time it takes to download the first 40% of the file.
+
+40% of 200 GB = 0.4 * 200 GB = 80 GB
+
+Carla's download speed is 2 GB/minute, so the time to download 80 GB is:
+
+80 GB / 2 GB/minute = 40 minutes
+
+After the restart, Carla needs to download the remaining 60% of the file.
+
+60% of 200 GB = 0.6 * 200 GB = 120 GB
+
+Again, Carla's download speed is 2 GB/minute, so the time to download 120 GB is:
+
+120 GB / 2 GB/minute = 60 minutes
+
+Now, let's add the time for the restart:
+
+40 minutes (first part) + 60 minutes (second part) + 20 minutes (restart) = 120 minutes
+
+Therefore, the total time it takes to download the file is 120 minutes.
+
+#### 120 minutes
+nfe:  67
+avg nfe:  66.625
+====================
+
+CACHE_REFRESH interval=1 full_refreshes=8 reused_block_starts=0 nfe=97
+====================
+answer:  John drives for 3 hours at a speed of 60 mph, so he covers a distance of 3 hours * 60 mph = 180 miles.
+He then turns around and drives back, so he covers the same distance of 180 miles.
+After turning around, he spends the first 2 hours in standstill traffic, so he doesn't cover any distance during that time.
+He then spends the next half-hour driving at a speed of 30 mph, so he covers a distance of 0.5 hours * 30 mph = 15 miles.
+Finally, he drives the remaining 1 hour at a speed of 80 mph, so he covers a distance of 1 hour * 80 mph = 80 miles.
+In total, John covers a distance of 180 miles + 180 miles + 15 miles + 80 miles = 455 miles.
+Since he turned around and drove back, he is 455 miles / 2 = 227 miles from home.
+Therefore, John is 227 miles from home at the end of his trip.
+#### 227
+nfe:  97
+avg nfe:  70.0
+====================
+
+CACHE_REFRESH interval=1 full_refreshes=8 reused_block_starts=0 nfe=60
+====================
+answer:  To calculate Eliza's earnings for the week, we need to break down her earnings into regular hours and overtime hours.
+
+1. Regular hours:
+   - Eliza worked 40 hours at her regular rate of $10 per hour.
+   - Earnings from regular hours = 40 hours * $10/hour = $400.
+
+2. Overtime:
+   - Eliza worked 45 hours in total, so she worked 45 hours - 40 hours = 5 hours of overtime.
+   - Her overtime rate is 1.2 times her regular hourly rate, so her overtime rate is 1.2 * $10/hour = $12 per hour.
+   - Earnings from overtime = 5 hours * $12/hour = $60.
+
+3. Total earnings:
+   - Total earnings = Earnings from regular hours + Earnings from overtime = $400 + $60 = $460.
+
+Therefore, Eliza's earnings for this week are $460.
+nfe:  60
+avg nfe:  69.0
+====================
+
+CACHE_REFRESH interval=1 full_refreshes=8 reused_block_starts=0 nfe=62
+====================
+answer:  To find the total number of downloads over the three months, we need to calculate the downloads for each month and then sum them up.
+
+1. **First Month:**
+   - Downloads: 60
+
+2. **Second Month:**
+   - Downloads: Three times as many as the first month
+   - Calculation: \( 3 \times 60 = 180 \)
+
+3. **Third Month:**
+   - Downloads: Reduced by 30% from the second month
+   - Calculation: First, find 30% of 180 and then subtract it from 180.
+   - 30% of 180: \( 0.30 \times 180 = 54 \)
+   - Downloads in the third month: \( 180 - 54 = 126 \)
+
+Now, sum up the downloads for all three months:
+\[ 60 + 180 + 126 = 366 \]
+
+Therefore, the total number of downloads over the three months is 366.
+
+\[
+\boxed{366}
+\]
+nfe:  62
+avg nfe:  68.36363636363636
+====================
+
+CACHE_REFRESH interval=1 full_refreshes=8 reused_block_starts=0 nfe=36
+====================
+answer:  To find the total cost of the pastries Toula bought, we need to calculate the cost of each type of pastry separately and then sum them up.
+
+1. **Cost of donuts:**
+   - Toula bought 3 dozen donuts.
+   - The cost per donuts is $68.
+   - Total cost for donuts = 3 dozen * $68/dozen = $204
+
+2. **Cost of mini cupcakes:**
+   - Toula bought 2 dozen mini cupcakes.
+   - The cost per mini cupcakes is $80.
+   - Total cost for mini cupcakes = 2 dozen * $80/dozen = $160
+
+3. **Cost of mini cheesecakes:**
+   - Toula bought 6 dozen mini cheesecakes.
+   - The cost per mini cheesecakes is $55.
+   - Total cost for mini cheesecakes = 6 dozen * $55/dozen = $330
+
+Now, we sum up the costs of all the pastries:
+Total cost = $204 + $160 + $330 = $694
+#### 694
+nfe:  36
+avg nfe:  65.66666666666667
+====================
+
+CACHE_REFRESH interval=1 full_refreshes=8 reused_block_starts=0 nfe=84
+====================
+answer:  To determine how many years it will take for Carlos to start earning money from the lemon tree, we need to calculate the net profit per year and then find the number of years required to cover the initial cost of planting the tree.
+
+First, let's calculate the annual revenue from selling lemons:
+- Each lemon sells for $1.5.
+- The tree grows 7 lemons each year.
+- Annual revenue = 7 lemons * $1.5/lemon = $10.50.
+
+Next, let's calculate the annual expenses:
+- The cost to water and feed the tree is $3 per year.
+
+Now, let's calculate the annual profit:
+- Annual profit = Annual revenue - Annual expenses = $10.50 - $3 = $7.50.
+
+Finally, we need to determine how many years it will take to cover the initial cost of planting the tree:
+- Initial cost = $90.
+- Number of years required = Initial cost / Annual profit = $90 / $7.50 = 12 years.
+
+Therefore, it will take Carlos 12 years before he starts earning money from the lemon tree.
+nfe:  84
+avg nfe:  67.07692307692308
+====================
+
+CACHE_REFRESH interval=1 full_refreshes=8 reused_block_starts=0 nfe=40
+====================
+answer:  Let \( x \) be the total number of vacuum cleaners Melanie started with.
+
+1. She sold a third of her vacuum cleaners at the green house:
+   \[
+   \frac{x}{3}
+   \]
+
+2. She sold 2 more at the red house:
+   \[
+   \frac{x}{3} - 2
+   \]
+
+3. She sold half of what was left at the orange house:
+   \[
+   \frac{1}{2} \left( \frac{x}{3} - 2 \right) = \frac{x}{6} - 1
+   \]
+
+4. She has 5 vacuum cleaners left:
+   \[
+   \frac{x}{6} - 1 = 5
+   \]
+
+5. Solve for \( x \):
+   \[
+   \frac{x}{6} = 5 + 1
+   \]
+   \[
+   \frac{x}{6} = 6
+   \]
+   \[
+   x = 6 \times 6 = 36
+   \]
+
+So, Melanie started with \( 36 \) vacuum cleaners.
+nfe:  40
+avg nfe:  65.14285714285714
+====================
+
+CACHE_REFRESH interval=1 full_refreshes=8 reused_block_starts=0 nfe=62
+====================
+answer:  First, let's determine the number of students enrolled in contemporary dance:
+\[ 20\% \text{ of } 20 = 0.20 \times 20 = 4 \]
+
+Next, we calculate the number of students remaining after accounting for the contemporary dance students:
+\[ 20 - 4 = 16 \]
+
+Now, we find the number of students enrolled in jazz dance:
+\[ 25\% \text{ of } 16 = 0.25 \times 16 = 4 \]
+
+Finally, we calculate the number of students enrolled in hip-hop dance:
+\[ 20 - 4 - 4 = 12 \]
+
+To find the percentage of the entire students enrolled in hip-hop dance, we divide the number of hip-hop dance students by the total number of students and multiply by 100:
+\[ \left( \frac{12}{20} \right) \times 100 = 60\% \]
+
+Therefore, the percentage of the entire students enrolled in hip-hop dance is 60%.
+
+\( \boxed{60} \)
+nfe:  62
+avg nfe:  64.93333333333334
+====================
+
+CACHE_REFRESH interval=1 full_refreshes=8 reused_block_starts=0 nfe=105
+====================
+answer:  To determine the profit from each purchase plan, we need to calculate the new value of each item after the expected market increase.
+
+1. **Jewelry:**
+   - Current value: $5,000
+   - Market increase: 2.5%
+   - New value: $5,000 * 0.025 = $125
+   - Profit from jewelry: $125
+
+2. **Electronic Gadgets:**
+   - Current value: $8,000
+   - Market increase: 1.2%
+   - New value: $8,000 * 0.012 = $96
+   - Profit from electronic gadgets: $96
+
+To maximize profit, the merchant should choose the purchase plan that yields the higher profit. In this case, the profit from jewelry is $125, and the profit from electronic gadgets is $96.
+
+Therefore, the merchant should choose the purchase plan with the electronic gadgets, as it will yield a higher profit.
+
+The profit at the end of the month is the profit from the electronic gadgets, which is $96.
+
+#### 96
+nfe:  105
+avg nfe:  67.4375
+====================
+
+CACHE_REFRESH interval=1 full_refreshes=8 reused_block_starts=0 nfe=76
+====================
+answer:  To find the total distance covered by each train in the two days, we need to add the distances traveled on each day.
+
+1. **First Day:**
+   - Each train travels 80 miles westward.
+
+2. **Second Day:**
+   - Each train travels 150 miles northward.
+
+Now, let's calculate the total distance covered by each train:
+
+\[ \text{Total distance by each train} = \text{Distance traveled on the first day} + \text{Distance traveled on the second day} \]
+
+\[ \text{Total distance by each train} = 80 \, \text{miles} + 150 \, \text{miles} \]
+
+\[ \text{Total distance by each train} = 230 \, \text{miles} \]
+
+So, each train covers a total distance of 230 miles in the two days.
+
+Since there are two trains, the total distance covered by both trains together is:
+
+\[ 2 \times 230 \, \text{miles} = 460 \, \text{miles} \]
+
+**460 miles
+nfe:  76
+avg nfe:  67.94117647058823
+====================
+
+CACHE_REFRESH interval=1 full_refreshes=8 reused_block_starts=0 nfe=54
+====================
+answer:  First, calculate Jill's weekly earnings as a teacher:
+- Hours worked per week: 35
+- Hourly rate: $20
+- Weekly earnings as a teacher: 35 hours * $20/hour = $<<35*20=700>>700
+
+Next, calculate Jill's weekly earnings as a cheer:
+- Hours worked per week: 15
+- Hourly rate: $30
+- Weekly earnings as a coach: 15 hours * $30/hour = $<<15*30=450>>450
+
+Now, calculate her total weekly earnings:
+- Total weekly earnings: $700 (teaching) + $450 (coaching) = $<<700+450=1150>>1150
+
+Finally, calculate her annual salary:
+- Annual salary: $1150/week * 50 weeks/year = $<<1150*50=57500>>57,500
+
+So, Jill's annual salary is $57,500.
+
+Answer: $57,500
+nfe:  54
+avg nfe:  67.16666666666667
+====================
+
+CACHE_REFRESH interval=1 full_refreshes=8 reused_block_starts=0 nfe=49
+====================
+answer:  To determine how many dozens of eggs Claire will eat in 4 weeks, we need to follow these steps:
+
+1. Calculate the total number of eggs Claire eats in one week.
+2. Calculate the total number of eggs Claire eats in 4 weeks.
+3. Convert the total number of eggs into dozens.
+
+First, let's find out how many eggs Claire eats in one week:
+- Claire makes a 3 egg omelet every morning.
+- There are 7 days in a week.
+- Therefore, in one week, she eats 3 eggs/day * 7 days/week = 21 eggs/week.
+
+Next, let's calculate the number of eggs she eats in 4 weeks:
+- If she eats 21 eggs per week, in 4 weeks she will eat 21 eggs/week * 4 weeks = 84 eggs.
+
+Finally, let's convert the total number of eggs into dozens:
+- There are 12 eggs in a dozen.
+- Therefore, 84 eggs / 12 eggs/dozen = 7 dozens.
+
+So, Claire will eat 7 dozens of eggs in 4 weeks.
+#### 7
+nfe:  49
+avg nfe:  66.21052631578948
+====================
+
+CACHE_REFRESH interval=1 full_refreshes=8 reused_block_starts=0 nfe=80
+====================
+answer:  First, let's determine the total time Marissa has already spent hiking:
+- She took 1 hour to walk the first 4 miles.
+- She took another 1 hour to walk the next 2 miles.
+- Total time spent so far = 1 hour + 1 hour = 2 hours.
+
+Next, let's calculate the remaining distance she needs to walk:
+- Total distance = 12 miles
+- Distance already walked = 4 miles + 2 miles = 6 miles
+- Remaining distance = 12 miles - 6 miles = 6 miles
+
+Marissa wants her average speed to be 4 miles per hour for the entire trail. Therefore, the total time she needs to complete the trail is:
+- Total time = Total distance / Average speed = 12 miles / 4 miles per hour = 3 hours
+
+Now, let's determine the speed she needs to walk the remaining 6 miles in 1 hour:
+- Speed = Remaining distance / Remaining time = 6 miles / 1 hour = 6 miles per hour
+
+Thus, Marissa needs to walk the remaining distance at a speed of 6 miles per hour.
+#### 6
+nfe:  80
+avg nfe:  66.9
+====================
+
+Total number of tokens generated: 4911
+Total time taken: 363.5295481681824 seconds
+Tokens per second: 13.509218215942383
+Total NFE is 1338
+llada_dist (model_path=/Users/z33/models/LLaDA-8B-Instruct,device=mps,is_check_greedy=False,gen_length=256,steps=256,block_length=32,show_speed=True,use_cache=True,dual_cache=True,threshold=0.75), gen_kwargs: (None), limit: 20.0, num_fewshot: 5, batch_size: 1
+|Tasks|Version|     Filter     |n-shot|  Metric   |   |Value|   |Stderr|
+|-----|------:|----------------|-----:|-----------|---|----:|---|-----:|
+|gsm8k|      3|flexible-extract|     5|exact_match|↑  | 0.65|±  |0.1094|
+|     |       |strict-match    |     5|exact_match|↑  | 0.30|±  |0.1051|
+

@@ -1,0 +1,6 @@
+没有找到同时包含 kernel 名和 duration 的记录。
+这意味着名称可能在 os-signpost-arg，而时间在另一张表中。
+Traceback (most recent call last):
+  File "/Users/z33/Fast-dLLM/summarize_shader_timeline.py", line 455, in <module>
+    PYcat > summarize_shader_timeline.py <<'PY'
+NameError: name 'PYcat' is not defined

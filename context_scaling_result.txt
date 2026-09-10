@@ -1,0 +1,14 @@
+================================================================================
+Rotated-K v2b enabled
+Explicit block bounds + request-local ContextVar
+No replace_position/nonzero/global POSITION_CONTEXT
+================================================================================
+Loading model...
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 3/6 [00:00<00:00, 22.14it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 23.28it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 23.09it/s]
+
+past_len,query_len,mean_ms,allocated_gib,driver_allocated_gib
+256,32,76.211,15.059,15.167
+512,32,78.341,15.186,15.292
+1024,32,79.842,15.438,15.573
+1331,32,80.748,15.592,16.073
+2048,32,84.196,15.950,17.073

@@ -1,0 +1,39 @@
+====================================================================================================
+MBPP paired audit: Rotated-K v2 vs interval=2
+====================================================================================================
+v2 samples: /Users/z33/Fast-dLLM/results/mbpp_v2_i2_gate_20260723_214319/v2/eval/__Users__z33__models__LLaDA-8B-Instruct/samples_mbpp_2026-07-23T22-13-39.225026.jsonl
+i2 samples: /Users/z33/Fast-dLLM/results/mbpp_v2_i2_gate_20260723_214319/i2/eval/__Users__z33__models__LLaDA-8B-Instruct/samples_mbpp_2026-07-23T22-36-55.827780.jsonl
+Hash pairing check: PASS
+
+Paired pass/fail table
+----------------------------------------------------------------------------------------------------
+N:                         50
+Both pass:                 6
+v2 pass / i2 fail:         2
+v2 fail / i2 pass:         1
+Both fail:                 41
+Net pass change:           -1/50
+Discordant pairs:          3
+McNemar exact p:           1.000000
+Exact-output agreement:    0.0800
+
+Output degradation gate
+----------------------------------------------------------------------------------------------------
+v2 empty:                  0 []
+i2 empty:                  0 []
+v2 residual mask:          0 []
+i2 residual mask:          0 []
+v2 unparseable output:     2 [29, 43]
+i2 unparseable output:     6 [1, 20, 21, 31, 42, 43]
+v2 full-budget proxy:      12 [9, 12, 17, 18, 21, 25, 26, 28, 29, 36, 43, 49]
+i2 full-budget proxy:      14 [9, 12, 14, 17, 20, 21, 25, 28, 29, 33, 36, 37, 38, 49]
+
+Paired NFE
+----------------------------------------------------------------------------------------------------
+v2 records:                50
+i2 records:                50
+v2 mean NFE:               86.420
+i2 mean NFE:               98.840
+Mean paired delta:          +12.420
+Median paired delta:        +7.000
+i2 lower/equal/higher:      15 / 5 / 30

@@ -1,0 +1,1878 @@
+TRACE: traces/mps_cached_natural_20260724_024139.trace
+
+==========================================================================================
+TABLE: metal-gpu-intervals
+ROWS : 10199
+COLUMNS:
+  start
+  duration
+  channel-name
+  frame-number
+  start-latency
+  event-depth
+  event-label
+  state
+  connection-UUID
+  color
+  process
+  gpu
+  channel-subtitle
+  iosurface-accesses
+  bytes
+  cmdbuffer-id
+  encoder-id
+  gpu-submission-id
+
+TOP 30 BY DURATION
+
+[1]
+  start                            = 00:04.242.496
+  duration                         = 15.82 ms
+  channel-name                     = Compute
+  frame-number                     = Frame 295
+  start-latency                    = 12.48 ms
+  event-depth                      = 0
+  event-label                      = Command Buffer 0:Compute Command 0 ( env (46385) ) 0xaf0d0447
+  state                            = Active
+  connection-UUID                  = 15579
+  color                            = 0
+  process                          = <ref:48584>
+  gpu                              = M4 Max
+  bytes                            = 0 Bytes
+  cmdbuffer-id                     = 0xae0cfdc0
+  encoder-id                       = 0xae0cfdc2
+  gpu-submission-id                = 2,936,865,863
+
+[2]
+  start                            = 00:04.790.692
+  duration                         = 15.56 ms
+  channel-name                     = Compute
+  frame-number                     = Frame 296
+  start-latency                    = 533.86 ms
+  event-depth                      = 0
+  event-label                      = Command Buffer 0:Compute Command 35 ( env (46385) ) 0xaf0d06f5
+  state                            = Active
+  connection-UUID                  = 15774
+  color                            = 0
+  process                          = <ref:48584>
+  gpu                              = M4 Max
+  bytes                            = 0 Bytes
+  cmdbuffer-id                     = 0xae0cfdf3
+  encoder-id                       = 0xae0cfe17
+  gpu-submission-id                = 2,936,866,549
+
+[3]
+  start                            = 00:04.391.819
+  duration                         = 15.49 ms
+  channel-name                     = Compute
+  frame-number                     = Frame 295
+  start-latency                    = 161.81 ms
+  event-depth                      = 0
+  event-label                      = Command Buffer 0:Compute Command 23 ( env (46385) ) 0xaf0d050c
+  state                            = Active
+  connection-UUID                  = 15713
+  color                            = 0
+  process                          = <ref:48584>
+  gpu                              = M4 Max
+  bytes                            = 0 Bytes
+  cmdbuffer-id                     = 0xae0cfdc0
+  encoder-id                       = 0xae0cfdd9
+  gpu-submission-id                = 2,936,866,060
+
+[4]
+  start                            = 00:07.072.229
+  duration                         = 15.48 ms
+  channel-name                     = Compute
+  frame-number                     = Frame 302
+  start-latency                    = 1.83 s
+  event-depth                      = 0
+  event-label                      = Command Buffer 0:Compute Command 47 ( env (46385) ) 0xaf0d116c
+  state                            = Active
+  connection-UUID                  = 17857
+  color                            = 0
+  process                          = <ref:48584>
+  gpu                              = M4 Max
+  bytes                            = 0 Bytes
+  cmdbuffer-id                     = 0xae0cff42
+  encoder-id                       = 0xae0cff72
+  gpu-submission-id                = 2,936,869,228
+
+[5]
+  start                            = 00:05.873.491
+  duration                         = 15.47 ms
+  channel-name                     = Compute
+  frame-number                     = Frame 299
+  start-latency                    = 794.43 ms
+  event-depth                      = 0
+  event-label                      = Command Buffer 0:Compute Command 23 ( env (46385) ) 0xaf0d0d48
+  state                            = Active
+  connection-UUID                  = 16696
+  color                            = 0
+  process                          = <ref:48584>
+  gpu                              = M4 Max
+  bytes                            = 0 Bytes
+  cmdbuffer-id                     = 0xae0cfea0
+  encoder-id                       = 0xae0cfeb8
+  gpu-submission-id                = 2,936,868,168
+
+[6]
+  start                            = 00:06.992.383
+  duration                         = 15.47 ms
+  channel-name                     = Compute
+  frame-number                     = Frame 302
+  start-latency                    = 1.75 s
+  event-depth                      = 0
+  event-label                      = Command Buffer 0:Compute Command 35 ( env (46385) ) 0xaf0d1154
+  state                            = Active
+  connection-UUID                  = 17842
+  color                            = 0
+  process                          = <ref:48584>
+  gpu                              = M4 Max
+  bytes                            = 0 Bytes
+  cmdbuffer-id                     = 0xae0cff42
+  encoder-id                       = 0xae0cff66
+  gpu-submission-id                = 2,936,869,204
+
+[7]
+  start                            = 00:05.071.787
+  duration                         = 15.47 ms
+  channel-name                     = Compute
+  frame-number                     = Frame 297
+  start-latency                    = 145.55 ms
+  event-depth                      = 0
+  event-label                      = Command Buffer 0:Compute Command 23 ( env (46385) ) 0xaf0d0896
+  state                            = Active
+  connection-UUID                  = 16090
+  color                            = 0
+  process                          = <ref:48584>
+  gpu                              = M4 Max
+  bytes                            = 0 Bytes
+  cmdbuffer-id                     = 0xae0cfe24
+  encoder-id                       = 0xae0cfe3c
+  gpu-submission-id                = 2,936,866,966
+
+[8]
+  start                            = 00:06.272.478
+  duration                         = 15.43 ms
+  channel-name                     = Compute
+  frame-number                     = Frame 300
+  start-latency                    = 1.13 s
+  event-depth                      = 0
+  event-label                      = Command Buffer 0:Compute Command 23 ( env (46385) ) 0xaf0d0f21
+  state                            = Active
+  connection-UUID                  = 16803
+  color                            = 0
+  process                          = <ref:48584>
+  gpu                              = M4 Max
+  bytes                            = 0 Bytes
+  cmdbuffer-id                     = 0xae0cfede
+  encoder-id                       = 0xae0cfef6
+  gpu-submission-id                = 2,936,868,641
+
+[9]
+  start                            = 00:05.472.558
+  duration                         = 15.42 ms
+  channel-name                     = Compute
+  frame-number                     = Frame 298
+  start-latency                    = 456.60 ms
+  event-depth                      = 0
+  event-label                      = Command Buffer 0:Compute Command 47 ( env (46385) ) 0xaf0d0bdd
+  state                            = Active
+  connection-UUID                  = 16151
+  color                            = 0
+  process                          = <ref:48584>
+  gpu                              = M4 Max
+  bytes                            = 0 Bytes
+  cmdbuffer-id                     = 0xae0cfe4a
+  encoder-id                       = 0xae0cfe7a
+  gpu-submission-id                = 2,936,867,805
+
+[10]
+  start                            = 00:06.593.034
+  duration                         = 15.41 ms
+  channel-name                     = Compute
+  frame-number                     = Frame 301
+  start-latency                    = 1.40 s
+  event-depth                      = 0
+  event-label                      = Command Buffer 0:Compute Command 11 ( env (46385) ) 0xaf0d0f83
+  state                            = Active
+  connection-UUID                  = 17296
+  color                            = 0
+  process                          = <ref:48584>
+  gpu                              = M4 Max
+  bytes                            = 0 Bytes
+  cmdbuffer-id                     = 0xae0cff1c
+  encoder-id                       = 0xae0cff28
+  gpu-submission-id                = 2,936,868,739
+
+[11]
+  start                            = 00:06.672.838
+  duration                         = 15.40 ms
+  channel-name                     = Compute
+  frame-number                     = Frame 301
+  start-latency                    = 1.48 s
+  event-depth                      = 0
+  event-label                      = Command Buffer 0:Compute Command 23 ( env (46385) ) 0xaf0d10f2
+  state                            = Active
+  connection-UUID                  = 17308
+  color                            = 0
+  process                          = <ref:48584>
+  gpu                              = M4 Max
+  bytes                            = 0 Bytes
+  cmdbuffer-id                     = 0xae0cff1c
+  encoder-id                       = 0xae0cff34
+  gpu-submission-id                = 2,936,869,106
+
+[12]
+  start                            = 00:04.471.550
+  duration                         = 15.36 ms
+  channel-name                     = Compute
+  frame-number                     = Frame 295
+  start-latency                    = 241.54 ms
+  event-depth                      = 0
+  event-label                      = Command Buffer 0:Compute Command 35 ( env (46385) ) 0xaf0d0526
+  state                            = Active
+  connection-UUID                  = 15725
+  color                            = 0
+  process                          = <ref:48584>
+  gpu                              = M4 Max
+  bytes                            = 0 Bytes
+  cmdbuffer-id                     = 0xae0cfdc0
+  encoder-id                       = 0xae0cfde5
+  gpu-submission-id                = 2,936,866,086
+
+[13]
+  start                            = 00:04.870.539
+  duration                         = 15.30 ms
+  channel-name                     = Compute
+  frame-number                     = Frame 296
+  start-latency                    = 613.71 ms
+  event-depth                      = 0
+  event-label                      = Command Buffer 0:Compute Command 47 ( env (46385) ) 0xaf0d070d
+  state                            = Active
+  connection-UUID                  = 16001
+  color                            = 0
+  process                          = <ref:48584>
+  gpu                              = M4 Max
+  bytes                            = 0 Bytes
+  cmdbuffer-id                     = 0xae0cfdf3
+  encoder-id                       = 0xae0cfe23
+  gpu-submission-id                = 2,936,866,573
+
+[14]
+  start                            = 00:06.352.450
+  duration                         = 15.30 ms
+  channel-name                     = Compute
+  frame-number                     = Frame 300
+  start-latency                    = 1.21 s
+  event-depth                      = 0
+  event-label                      = Command Buffer 0:Compute Command 35 ( env (46385) ) 0xaf0d0f39
+  state                            = Active
+  connection-UUID                  = 17031
+  color                            = 0
+  process                          = <ref:48584>
+  gpu                              = M4 Max
+  bytes                            = 0 Bytes
+  cmdbuffer-id                     = 0xae0cfede
+  encoder-id                       = 0xae0cff02
+  gpu-submission-id                = 2,936,868,665
+
+[15]
+  start                            = 00:05.552.902
+  duration                         = 15.27 ms
+  channel-name                     = Compute
+  frame-number                     = Frame 298
+  start-latency                    = 536.94 ms
+  event-depth                      = 0
+  event-label                      = Command Buffer 0:Compute Command 59 ( env (46385) ) 0xaf0d0bf5
+  state                            = Active
+  connection-UUID                  = 16163
+  color                            = 0
+  process                          = <ref:48584>
+  gpu                              = M4 Max
+  bytes                            = 0 Bytes
+  cmdbuffer-id                     = 0xae0cfe4a
+  encoder-id                       = 0xae0cfe86
+  gpu-submission-id                = 2,936,867,829
+
+[16]
+  start                            = 00:06.832.553
+  duration                         = 15.27 ms
+  channel-name                     = Compute
+  frame-number                     = Frame 302
+  start-latency                    = 1.59 s
+  event-depth                      = 0
+  event-label                      = Command Buffer 0:Compute Command 11 ( env (46385) ) 0xaf0d1124
+  state                            = Active
+  connection-UUID                  = 17747
+  color                            = 0
+  process                          = <ref:48584>
+  gpu                              = M4 Max
+  bytes                            = 0 Bytes
+  cmdbuffer-id                     = 0xae0cff42
+  encoder-id                       = 0xae0cff4e
+  gpu-submission-id                = 2,936,869,156
+
+[17]
+  start                            = 00:04.991.864
+  duration                         = 15.26 ms
+  channel-name                     = Compute
+  frame-number                     = Frame 297
+  start-latency                    = 65.63 ms
+  event-depth                      = 0
+  event-label                      = Command Buffer 0:Compute Command 11 ( env (46385) ) 0xaf0d087e
+  state                            = Active
+  connection-UUID                  = 16078
+  color                            = 0
+  process                          = <ref:48584>
+  gpu                              = M4 Max
+  bytes                            = 0 Bytes
+  cmdbuffer-id                     = 0xae0cfe24
+  encoder-id                       = 0xae0cfe30
+  gpu-submission-id                = 2,936,866,942
+
+[18]
+  start                            = 00:05.953.449
+  duration                         = 15.25 ms
+  channel-name                     = Compute
+  frame-number                     = Frame 299
+  start-latency                    = 874.38 ms
+  event-depth                      = 0
+  event-label                      = Command Buffer 0:Compute Command 35 ( env (46385) ) 0xaf0d0d60
+  state                            = Active
+  connection-UUID                  = 16717
+  color                            = 0
+  process                          = <ref:48584>
+  gpu                              = M4 Max
+  bytes                            = 0 Bytes
+  cmdbuffer-id                     = 0xae0cfea0
+  encoder-id                       = 0xae0cfec4
+  gpu-submission-id                = 2,936,868,192
+
+[19]
+  start                            = 00:05.392.492
+  duration                         = 15.23 ms
+  channel-name                     = Compute
+  frame-number                     = Frame 298
+  start-latency                    = 376.53 ms
+  event-depth                      = 0
+  event-label                      = Command Buffer 0:Compute Command 35 ( env (46385) ) 0xaf0d09b4
+  state                            = Active
+  connection-UUID                  = 16139
+  color                            = 0
+  process                          = <ref:48584>
+  gpu                              = M4 Max
+  bytes                            = 0 Bytes
+  cmdbuffer-id                     = 0xae0cfe4a
+  encoder-id                       = 0xae0cfe6e
+  gpu-submission-id                = 2,936,867,252
+
+[20]
+  start                            = 00:05.152.040
+  duration                         = 15.20 ms
+  channel-name                     = Compute
+  frame-number                     = Frame 297
+  start-latency                    = 225.80 ms
+  event-depth                      = 0
+  event-label                      = Command Buffer 0:Compute Command 35 ( env (46385) ) 0xaf0d08ae
+  state                            = Active
+  connection-UUID                  = 16102
+  color                            = 0
+  process                          = <ref:48584>
+  gpu                              = M4 Max
+  bytes                            = 0 Bytes
+  cmdbuffer-id                     = 0xae0cfe24
+  encoder-id                       = 0xae0cfe48
+  gpu-submission-id                = 2,936,866,990
+
+[21]
+  start                            = 00:04.312.110
+  duration                         = 15.20 ms
+  channel-name                     = Compute
+  frame-number                     = Frame 295
+  start-latency                    = 82.10 ms
+  event-depth                      = 0
+  event-label                      = Command Buffer 0:Compute Command 11 ( env (46385) ) 0xaf0d04ee
+  state                            = Active
+  connection-UUID                  = 15701
+  color                            = 0
+  process                          = <ref:48584>
+  gpu                              = M4 Max
+  bytes                            = 0 Bytes
+  cmdbuffer-id                     = 0xae0cfdc0
+  encoder-id                       = 0xae0cfdcd
+  gpu-submission-id                = 2,936,866,030
+
+[22]
+  start                            = 00:06.513.105
+  duration                         = 15.20 ms
+  channel-name                     = Compute
+  frame-number                     = Frame 300
+  start-latency                    = 1.37 s
+  event-depth                      = 0
+  event-label                      = Command Buffer 0:Compute Command 59 ( env (46385) ) 0xaf0d0f69
+  state                            = Active
+  connection-UUID                  = 17283
+  color                            = 0
+  process                          = <ref:48584>
+  gpu                              = M4 Max
+  bytes                            = 0 Bytes
+  cmdbuffer-id                     = 0xae0cfede
+  encoder-id                       = 0xae0cff1a
+  gpu-submission-id                = 2,936,868,713
+
+[23]
+  start                            = 00:05.713.939
+  duration                         = 15.20 ms
+  channel-name                     = Compute
+  frame-number                     = Frame 298
+  start-latency                    = 697.98 ms
+  event-depth                      = 0
+  event-label                      = Command Buffer 0:Compute Command 83 ( env (46385) ) 0xaf0d0d16
+  state                            = Active
+  connection-UUID                  = 16187
+  color                            = 0
+  process                          = <ref:48584>
+  gpu                              = M4 Max
+  bytes                            = 0 Bytes
+  cmdbuffer-id                     = 0xae0cfe4a
+  encoder-id                       = 0xae0cfe9e
+  gpu-submission-id                = 2,936,868,118
+
+[24]
+  start                            = 00:07.312.534
+  duration                         = 15.20 ms
+  channel-name                     = Compute
+  frame-number                     = Frame 303
+  start-latency                    = 2.03 s
+  event-depth                      = 0
+  event-label                      = Command Buffer 0:Compute Command 35 ( env (46385) ) 0xaf0d1315
+  state                            = Active
+  connection-UUID                  = 18250
+  color                            = 0
+  process                          = <ref:48584>
+  gpu                              = M4 Max
+  bytes                            = 0 Bytes
+  cmdbuffer-id                     = 0xae0cff74
+  encoder-id                       = 0xae0cff98
+  gpu-submission-id                = 2,936,869,653
+
+[25]
+  start                            = 00:05.232.465
+  duration                         = 15.20 ms
+  channel-name                     = Compute
+  frame-number                     = Frame 298
+  start-latency                    = 216.51 ms
+  event-depth                      = 0
+  event-label                      = Command Buffer 0:Compute Command 11 ( env (46385) ) 0xaf0d0984
+  state                            = Active
+  connection-UUID                  = 16115
+  color                            = 0
+  process                          = <ref:48584>
+  gpu                              = M4 Max
+  bytes                            = 0 Bytes
+  cmdbuffer-id                     = 0xae0cfe4a
+  encoder-id                       = 0xae0cfe56
+  gpu-submission-id                = 2,936,867,204
+
+[26]
+  start                            = 00:06.912.528
+  duration                         = 15.20 ms
+  channel-name                     = Compute
+  frame-number                     = Frame 302
+  start-latency                    = 1.67 s
+  event-depth                      = 0
+  event-label                      = Command Buffer 0:Compute Command 23 ( env (46385) ) 0xaf0d113c
+  state                            = Active
+  connection-UUID                  = 17813
+  color                            = 0
+  process                          = <ref:48584>
+  gpu                              = M4 Max
+  bytes                            = 0 Bytes
+  cmdbuffer-id                     = 0xae0cff42
+  encoder-id                       = 0xae0cff5a
+  gpu-submission-id                = 2,936,869,180
+
+[27]
+  start                            = 00:07.152.104
+  duration                         = 15.19 ms
+  channel-name                     = Compute
+  frame-number                     = Frame 303
+  start-latency                    = 1.87 s
+  event-depth                      = 0
+  event-label                      = Command Buffer 0:Compute Command 11 ( env (46385) ) 0xaf0d1186
+  state                            = Active
+  connection-UUID                  = 17889
+  color                            = 0
+  process                          = <ref:48584>
+  gpu                              = M4 Max
+  bytes                            = 0 Bytes
+  cmdbuffer-id                     = 0xae0cff74
+  encoder-id                       = 0xae0cff80
+  gpu-submission-id                = 2,936,869,254
+
+[28]
+  start                            = 00:06.113.385
+  duration                         = 15.18 ms
+  channel-name                     = Compute
+  frame-number                     = Frame 299
+  start-latency                    = 1.03 s
+  event-depth                      = 0
+  event-label                      = Command Buffer 0:Compute Command 59 ( env (46385) ) 0xaf0d0d90
+  state                            = Active
+  connection-UUID                  = 16741
+  color                            = 0
+  process                          = <ref:48584>
+  gpu                              = M4 Max
+  bytes                            = 0 Bytes
+  cmdbuffer-id                     = 0xae0cfea0
+  encoder-id                       = 0xae0cfedc
+  gpu-submission-id                = 2,936,868,240
+
+[29]
+  start                            = 00:06.752.605
+  duration                         = 15.18 ms
+  channel-name                     = Compute
+  frame-number                     = Frame 301
+  start-latency                    = 1.56 s
+  event-depth                      = 0
+  event-label                      = Command Buffer 0:Compute Command 35 ( env (46385) ) 0xaf0d110a
+  state                            = Active
+  connection-UUID                  = 17320
+  color                            = 0
+  process                          = <ref:48584>
+  gpu                              = M4 Max
+  bytes                            = 0 Bytes
+  cmdbuffer-id                     = 0xae0cff1c
+  encoder-id                       = 0xae0cff40
+  gpu-submission-id                = 2,936,869,130
+
+[30]
+  start                            = 00:06.433.119
+  duration                         = 15.18 ms
+  channel-name                     = Compute
+  frame-number                     = Frame 300
+  start-latency                    = 1.29 s
+  event-depth                      = 0
+  event-label                      = Command Buffer 0:Compute Command 47 ( env (46385) ) 0xaf0d0f51
+  state                            = Active
+  connection-UUID                  = 17252
+  color                            = 0
+  process                          = <ref:48584>
+  gpu                              = M4 Max
+  bytes                            = 0 Bytes
+  cmdbuffer-id                     = 0xae0cfede
+  encoder-id                       = 0xae0cff0e
+  gpu-submission-id                = 2,936,868,689
+
+==========================================================================================
+TABLE: mps-hw-intervals
+ROWS : 1399
+COLUMNS:
+  start
+  duration
+  channel-name
+  frame-number
+  start-latency
+  event-depth
+  event-label
+  state
+  connection-UUID
+  color
+  process
+  gpu
+  channel-subtitle
+
+TOP 30 BY DURATION
+
+[1]
+  start                            = 00:04.242.496
+  duration                         = 15.82 ms
+  channel-name                     = MPSGraph
+  event-depth                      = 0
+  event-label                      = MPSGraph:0x 10127c780 (CommandBuffer: 0x ae0cfdc0 )
+  state                            = Active
+  connection-UUID                  = 0
+  color                            = 0
+  gpu                              = M4 Max
+
+[2]
+  start                            = 00:04.242.496
+  duration                         = 15.82 ms
+  channel-name                     = MPSGraph
+  event-depth                      = 0
+  event-label                      = MPSGraph:0x 10127cf00 (CommandBuffer: 0x ae0cfdc0 )
+  state                            = Active
+  connection-UUID                  = 0
+  color                            = 0
+  gpu                              = M4 Max
+
+[3]
+  start                            = 00:04.242.496
+  duration                         = 15.82 ms
+  channel-name                     = MPSGraph
+  event-depth                      = 0
+  event-label                      = MPSGraph:0x 10127e300 (CommandBuffer: 0x ae0cfdc0 )
+  state                            = Active
+  connection-UUID                  = 0
+  color                            = 0
+  gpu                              = M4 Max
+
+[4]
+  start                            = 00:04.790.692
+  duration                         = 15.56 ms
+  channel-name                     = MPSGraph
+  event-depth                      = 0
+  event-label                      = MPSGraph:0x 10127cf00 (CommandBuffer: 0x ae0cfdf3 )
+  state                            = Active
+  connection-UUID                  = 0
+  color                            = 0
+  gpu                              = M4 Max
+
+[5]
+  start                            = 00:04.790.692
+  duration                         = 15.56 ms
+  channel-name                     = MPSGraph
+  event-depth                      = 0
+  event-label                      = MPSGraph:0x 10127e300 (CommandBuffer: 0x ae0cfdf3 )
+  state                            = Active
+  connection-UUID                  = 0
+  color                            = 0
+  gpu                              = M4 Max
+
+[6]
+  start                            = 00:04.790.692
+  duration                         = 15.56 ms
+  channel-name                     = MPSGraph
+  event-depth                      = 0
+  event-label                      = MPSGraph:0x 10127c780 (CommandBuffer: 0x ae0cfdf3 )
+  state                            = Active
+  connection-UUID                  = 0
+  color                            = 0
+  gpu                              = M4 Max
+
+[7]
+  start                            = 00:04.391.819
+  duration                         = 15.49 ms
+  channel-name                     = MPSGraph
+  event-depth                      = 0
+  event-label                      = MPSGraph:0x 10127c780 (CommandBuffer: 0x ae0cfdc0 )
+  state                            = Active
+  connection-UUID                  = 0
+  color                            = 0
+  gpu                              = M4 Max
+
+[8]
+  start                            = 00:04.391.819
+  duration                         = 15.49 ms
+  channel-name                     = MPSGraph
+  event-depth                      = 0
+  event-label                      = MPSGraph:0x 10127cf00 (CommandBuffer: 0x ae0cfdc0 )
+  state                            = Active
+  connection-UUID                  = 0
+  color                            = 0
+  gpu                              = M4 Max
+
+[9]
+  start                            = 00:04.391.819
+  duration                         = 15.49 ms
+  channel-name                     = MPSGraph
+  event-depth                      = 0
+  event-label                      = MPSGraph:0x 10127e300 (CommandBuffer: 0x ae0cfdc0 )
+  state                            = Active
+  connection-UUID                  = 0
+  color                            = 0
+  gpu                              = M4 Max
+
+[10]
+  start                            = 00:07.072.229
+  duration                         = 15.48 ms
+  channel-name                     = MPSGraph
+  event-depth                      = 0
+  event-label                      = MPSGraph:0x 10127c780 (CommandBuffer: 0x ae0cff42 )
+  state                            = Active
+  connection-UUID                  = 0
+  color                            = 0
+  gpu                              = M4 Max
+
+[11]
+  start                            = 00:07.072.229
+  duration                         = 15.48 ms
+  channel-name                     = MPSGraph
+  event-depth                      = 0
+  event-label                      = MPSGraph:0x 10127cf00 (CommandBuffer: 0x ae0cff42 )
+  state                            = Active
+  connection-UUID                  = 0
+  color                            = 0
+  gpu                              = M4 Max
+
+[12]
+  start                            = 00:07.072.229
+  duration                         = 15.48 ms
+  channel-name                     = MPSGraph
+  event-depth                      = 0
+  event-label                      = MPSGraph:0x 10127e300 (CommandBuffer: 0x ae0cff42 )
+  state                            = Active
+  connection-UUID                  = 0
+  color                            = 0
+  gpu                              = M4 Max
+
+[13]
+  start                            = 00:05.873.491
+  duration                         = 15.47 ms
+  channel-name                     = MPSGraph
+  event-depth                      = 0
+  event-label                      = MPSGraph:0x 10127cf00 (CommandBuffer: 0x ae0cfea0 )
+  state                            = Active
+  connection-UUID                  = 0
+  color                            = 0
+  gpu                              = M4 Max
+
+[14]
+  start                            = 00:05.873.491
+  duration                         = 15.47 ms
+  channel-name                     = MPSGraph
+  event-depth                      = 0
+  event-label                      = MPSGraph:0x 10127e300 (CommandBuffer: 0x ae0cfea0 )
+  state                            = Active
+  connection-UUID                  = 0
+  color                            = 0
+  gpu                              = M4 Max
+
+[15]
+  start                            = 00:05.873.491
+  duration                         = 15.47 ms
+  channel-name                     = MPSGraph
+  event-depth                      = 0
+  event-label                      = MPSGraph:0x 10127c780 (CommandBuffer: 0x ae0cfea0 )
+  state                            = Active
+  connection-UUID                  = 0
+  color                            = 0
+  gpu                              = M4 Max
+
+[16]
+  start                            = 00:06.992.383
+  duration                         = 15.47 ms
+  channel-name                     = MPSGraph
+  event-depth                      = 0
+  event-label                      = MPSGraph:0x 10127c780 (CommandBuffer: 0x ae0cff42 )
+  state                            = Active
+  connection-UUID                  = 0
+  color                            = 0
+  gpu                              = M4 Max
+
+[17]
+  start                            = 00:06.992.383
+  duration                         = 15.47 ms
+  channel-name                     = MPSGraph
+  event-depth                      = 0
+  event-label                      = MPSGraph:0x 10127cf00 (CommandBuffer: 0x ae0cff42 )
+  state                            = Active
+  connection-UUID                  = 0
+  color                            = 0
+  gpu                              = M4 Max
+
+[18]
+  start                            = 00:06.992.383
+  duration                         = 15.47 ms
+  channel-name                     = MPSGraph
+  event-depth                      = 0
+  event-label                      = MPSGraph:0x 10127e300 (CommandBuffer: 0x ae0cff42 )
+  state                            = Active
+  connection-UUID                  = 0
+  color                            = 0
+  gpu                              = M4 Max
+
+[19]
+  start                            = 00:05.071.787
+  duration                         = 15.47 ms
+  channel-name                     = MPSGraph
+  event-depth                      = 0
+  event-label                      = MPSGraph:0x 10127e300 (CommandBuffer: 0x ae0cfe24 )
+  state                            = Active
+  connection-UUID                  = 0
+  color                            = 0
+  gpu                              = M4 Max
+
+[20]
+  start                            = 00:05.071.787
+  duration                         = 15.47 ms
+  channel-name                     = MPSGraph
+  event-depth                      = 0
+  event-label                      = MPSGraph:0x 10127c780 (CommandBuffer: 0x ae0cfe24 )
+  state                            = Active
+  connection-UUID                  = 0
+  color                            = 0
+  gpu                              = M4 Max
+
+[21]
+  start                            = 00:05.071.787
+  duration                         = 15.47 ms
+  channel-name                     = MPSGraph
+  event-depth                      = 0
+  event-label                      = MPSGraph:0x 10127cf00 (CommandBuffer: 0x ae0cfe24 )
+  state                            = Active
+  connection-UUID                  = 0
+  color                            = 0
+  gpu                              = M4 Max
+
+[22]
+  start                            = 00:06.272.478
+  duration                         = 15.43 ms
+  channel-name                     = MPSGraph
+  event-depth                      = 0
+  event-label                      = MPSGraph:0x 10127cf00 (CommandBuffer: 0x ae0cfede )
+  state                            = Active
+  connection-UUID                  = 0
+  color                            = 0
+  gpu                              = M4 Max
+
+[23]
+  start                            = 00:06.272.478
+  duration                         = 15.43 ms
+  channel-name                     = MPSGraph
+  event-depth                      = 0
+  event-label                      = MPSGraph:0x 10127e300 (CommandBuffer: 0x ae0cfede )
+  state                            = Active
+  connection-UUID                  = 0
+  color                            = 0
+  gpu                              = M4 Max
+
+[24]
+  start                            = 00:06.272.478
+  duration                         = 15.43 ms
+  channel-name                     = MPSGraph
+  event-depth                      = 0
+  event-label                      = MPSGraph:0x 10127c780 (CommandBuffer: 0x ae0cfede )
+  state                            = Active
+  connection-UUID                  = 0
+  color                            = 0
+  gpu                              = M4 Max
+
+[25]
+  start                            = 00:05.472.558
+  duration                         = 15.42 ms
+  channel-name                     = MPSGraph
+  event-depth                      = 0
+  event-label                      = MPSGraph:0x 10127cf00 (CommandBuffer: 0x ae0cfe4a )
+  state                            = Active
+  connection-UUID                  = 0
+  color                            = 0
+  gpu                              = M4 Max
+
+[26]
+  start                            = 00:05.472.558
+  duration                         = 15.42 ms
+  channel-name                     = MPSGraph
+  event-depth                      = 0
+  event-label                      = MPSGraph:0x 10127e300 (CommandBuffer: 0x ae0cfe4a )
+  state                            = Active
+  connection-UUID                  = 0
+  color                            = 0
+  gpu                              = M4 Max
+
+[27]
+  start                            = 00:05.472.558
+  duration                         = 15.42 ms
+  channel-name                     = MPSGraph
+  event-depth                      = 0
+  event-label                      = MPSGraph:0x 10127c780 (CommandBuffer: 0x ae0cfe4a )
+  state                            = Active
+  connection-UUID                  = 0
+  color                            = 0
+  gpu                              = M4 Max
+
+[28]
+  start                            = 00:06.593.034
+  duration                         = 15.41 ms
+  channel-name                     = MPSGraph
+  event-depth                      = 0
+  event-label                      = MPSGraph:0x 10127cf00 (CommandBuffer: 0x ae0cff1c )
+  state                            = Active
+  connection-UUID                  = 0
+  color                            = 0
+  gpu                              = M4 Max
+
+[29]
+  start                            = 00:06.593.034
+  duration                         = 15.41 ms
+  channel-name                     = MPSGraph
+  event-depth                      = 0
+  event-label                      = MPSGraph:0x 10127e300 (CommandBuffer: 0x ae0cff1c )
+  state                            = Active
+  connection-UUID                  = 0
+  color                            = 0
+  gpu                              = M4 Max
+
+[30]
+  start                            = 00:06.593.034
+  duration                         = 15.41 ms
+  channel-name                     = MPSGraph
+  event-depth                      = 0
+  event-label                      = MPSGraph:0x 10127c780 (CommandBuffer: 0x ae0cff1c )
+  state                            = Active
+  connection-UUID                  = 0
+  color                            = 0
+  gpu                              = M4 Max
+
+==========================================================================================
+TABLE: metal-application-encoders-list
+ROWS : 758
+COLUMNS:
+  start
+  duration
+  thread
+  process
+  gpu
+  frame-number
+  cmdbuffer-label
+  cmdbuffer-label-indexed
+  encoder-label
+  encoder-label-indexed
+  event-type
+  cmdbuffer-id
+  encoder-id
+
+TOP 30 BY DURATION
+
+[1]
+  start                            = 00:04.179.669
+  duration                         = 895.79 µs
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  process                          = <ref:5>
+  gpu                              = M4 Max
+  frame-number                     = Frame 293
+  cmdbuffer-label                  = Command Buffer 0
+  cmdbuffer-label-indexed          = [0] Command Buffer 0
+  encoder-label                    = Compute Command 0
+  encoder-label-indexed            = [0] Compute Command 0
+  event-type                       = Encoding
+  cmdbuffer-id                     = 0xae0cfdb9
+  encoder-id                       = 0xae0cfdbb
+
+[2]
+  start                            = 00:02.589.413
+  duration                         = 545.17 µs
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  process                          = <ref:5>
+  gpu                              = M4 Max
+  frame-number                     = Frame 1
+  cmdbuffer-label                  = Command Buffer 0
+  cmdbuffer-label-indexed          = [0] Command Buffer 0
+  encoder-label                    = Blit Command 0
+  encoder-label-indexed            = [0] Blit Command 0
+  event-type                       = Encoding
+  cmdbuffer-id                     = 0xae0cfb71
+  encoder-id                       = 0xae0cfb72
+
+[3]
+  start                            = 00:04.201.890
+  duration                         = 430.83 µs
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  process                          = <ref:5>
+  gpu                              = M4 Max
+  frame-number                     = Frame 295
+  cmdbuffer-label                  = Command Buffer 0
+  cmdbuffer-label-indexed          = [0] Command Buffer 0
+  encoder-label                    = Compute Command 0
+  encoder-label-indexed            = [0] Compute Command 0
+  event-type                       = Encoding
+  cmdbuffer-id                     = 0xae0cfdc0
+  encoder-id                       = 0xae0cfdc2
+
+[4]
+  start                            = 00:04.147.821
+  duration                         = 415.12 µs
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  process                          = <ref:5>
+  gpu                              = M4 Max
+  frame-number                     = Frame 292
+  cmdbuffer-label                  = Command Buffer 0
+  cmdbuffer-label-indexed          = [0] Command Buffer 0
+  encoder-label                    = Compute Command 0
+  encoder-label-indexed            = [0] Compute Command 0
+  event-type                       = Encoding
+  cmdbuffer-id                     = 0xae0cfdb7
+  encoder-id                       = 0xae0cfdb8
+
+[5]
+  start                            = 00:04.204.521
+  duration                         = 92.12 µs
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  process                          = <ref:5>
+  gpu                              = M4 Max
+  frame-number                     = Frame 295
+  cmdbuffer-label                  = Command Buffer 0
+  cmdbuffer-label-indexed          = [0] Command Buffer 0
+  encoder-label                    = Compute Command 2
+  encoder-label-indexed            = [2] Compute Command 2
+  event-type                       = Encoding
+  cmdbuffer-id                     = 0xae0cfdc0
+  encoder-id                       = 0xae0cfdc4
+
+[6]
+  start                            = 00:04.241.161
+  duration                         = 92.04 µs
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  process                          = <ref:5>
+  gpu                              = M4 Max
+  frame-number                     = Frame 296
+  cmdbuffer-label                  = Command Buffer 0
+  cmdbuffer-label-indexed          = [0] Command Buffer 0
+  encoder-label                    = Compute Command 20
+  encoder-label-indexed            = [20] Compute Command 20
+  event-type                       = Encoding
+  cmdbuffer-id                     = 0xae0cfdf3
+  encoder-id                       = 0xae0cfe08
+
+[7]
+  start                            = 00:04.244.928
+  duration                         = 86.29 µs
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  process                          = <ref:5>
+  gpu                              = M4 Max
+  frame-number                     = Frame 296
+  cmdbuffer-label                  = Command Buffer 0
+  cmdbuffer-label-indexed          = [0] Command Buffer 0
+  encoder-label                    = Compute Command 26
+  encoder-label-indexed            = [26] Compute Command 26
+  event-type                       = Encoding
+  cmdbuffer-id                     = 0xae0cfdf3
+  encoder-id                       = 0xae0cfe0e
+
+[8]
+  start                            = 00:04.214.641
+  duration                         = 83.96 µs
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  process                          = <ref:5>
+  gpu                              = M4 Max
+  frame-number                     = Frame 295
+  cmdbuffer-label                  = Command Buffer 0
+  cmdbuffer-label-indexed          = [0] Command Buffer 0
+  encoder-label                    = Compute Command 20
+  encoder-label-indexed            = [20] Compute Command 20
+  event-type                       = Encoding
+  cmdbuffer-id                     = 0xae0cfdc0
+  encoder-id                       = 0xae0cfdd6
+
+[9]
+  start                            = 00:04.227.823
+  duration                         = 83.88 µs
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  process                          = <ref:5>
+  gpu                              = M4 Max
+  frame-number                     = Frame 295
+  cmdbuffer-label                  = Command Buffer 0
+  cmdbuffer-label-indexed          = [0] Command Buffer 0
+  encoder-label                    = Compute Command 44
+  encoder-label-indexed            = [44] Compute Command 44
+  event-type                       = Encoding
+  cmdbuffer-id                     = 0xae0cfdc0
+  encoder-id                       = 0xae0cfdee
+
+[10]
+  start                            = 00:04.231.575
+  duration                         = 82.75 µs
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  process                          = <ref:5>
+  gpu                              = M4 Max
+  frame-number                     = Frame 296
+  cmdbuffer-label                  = Command Buffer 0
+  cmdbuffer-label-indexed          = [0] Command Buffer 0
+  encoder-label                    = Compute Command 2
+  encoder-label-indexed            = [2] Compute Command 2
+  event-type                       = Encoding
+  cmdbuffer-id                     = 0xae0cfdf3
+  encoder-id                       = 0xae0cfdf6
+
+[11]
+  start                            = 00:04.218.339
+  duration                         = 81.88 µs
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  process                          = <ref:5>
+  gpu                              = M4 Max
+  frame-number                     = Frame 295
+  cmdbuffer-label                  = Command Buffer 0
+  cmdbuffer-label-indexed          = [0] Command Buffer 0
+  encoder-label                    = Compute Command 26
+  encoder-label-indexed            = [26] Compute Command 26
+  event-type                       = Encoding
+  cmdbuffer-id                     = 0xae0cfdc0
+  encoder-id                       = 0xae0cfddc
+
+[12]
+  start                            = 00:04.224.953
+  duration                         = 81.42 µs
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  process                          = <ref:5>
+  gpu                              = M4 Max
+  frame-number                     = Frame 295
+  cmdbuffer-label                  = Command Buffer 0
+  cmdbuffer-label-indexed          = [0] Command Buffer 0
+  encoder-label                    = Compute Command 38
+  encoder-label-indexed            = [38] Compute Command 38
+  event-type                       = Encoding
+  cmdbuffer-id                     = 0xae0cfdc0
+  encoder-id                       = 0xae0cfde8
+
+[13]
+  start                            = 00:04.251.744
+  duration                         = 80.58 µs
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  process                          = <ref:5>
+  gpu                              = M4 Max
+  frame-number                     = Frame 296
+  cmdbuffer-label                  = Command Buffer 0
+  cmdbuffer-label-indexed          = [0] Command Buffer 0
+  encoder-label                    = Compute Command 38
+  encoder-label-indexed            = [38] Compute Command 38
+  event-type                       = Encoding
+  cmdbuffer-id                     = 0xae0cfdf3
+  encoder-id                       = 0xae0cfe1a
+
+[14]
+  start                            = 00:04.254.648
+  duration                         = 80.33 µs
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  process                          = <ref:5>
+  gpu                              = M4 Max
+  frame-number                     = Frame 296
+  cmdbuffer-label                  = Command Buffer 0
+  cmdbuffer-label-indexed          = [0] Command Buffer 0
+  encoder-label                    = Compute Command 44
+  encoder-label-indexed            = [44] Compute Command 44
+  event-type                       = Encoding
+  cmdbuffer-id                     = 0xae0cfdf3
+  encoder-id                       = 0xae0cfe20
+
+[15]
+  start                            = 00:05.015.987
+  duration                         = 79.58 µs
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  process                          = <ref:5>
+  gpu                              = M4 Max
+  frame-number                     = Frame 299
+  cmdbuffer-label                  = Command Buffer 0
+  cmdbuffer-label-indexed          = [0] Command Buffer 0
+  encoder-label                    = Compute Command 0
+  encoder-label-indexed            = [0] Compute Command 0
+  event-type                       = Encoding
+  cmdbuffer-id                     = 0xae0cfea0
+  encoder-id                       = 0xae0cfea1
+
+[16]
+  start                            = 00:04.211.698
+  duration                         = 78.46 µs
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  process                          = <ref:5>
+  gpu                              = M4 Max
+  frame-number                     = Frame 295
+  cmdbuffer-label                  = Command Buffer 0
+  cmdbuffer-label-indexed          = [0] Command Buffer 0
+  encoder-label                    = Compute Command 14
+  encoder-label-indexed            = [14] Compute Command 14
+  event-type                       = Encoding
+  cmdbuffer-id                     = 0xae0cfdc0
+  encoder-id                       = 0xae0cfdd0
+
+[17]
+  start                            = 00:04.238.232
+  duration                         = 77.79 µs
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  process                          = <ref:5>
+  gpu                              = M4 Max
+  frame-number                     = Frame 296
+  cmdbuffer-label                  = Command Buffer 0
+  cmdbuffer-label-indexed          = [0] Command Buffer 0
+  encoder-label                    = Compute Command 14
+  encoder-label-indexed            = [14] Compute Command 14
+  event-type                       = Encoding
+  cmdbuffer-id                     = 0xae0cfdf3
+  encoder-id                       = 0xae0cfe02
+
+[18]
+  start                            = 00:04.234.527
+  duration                         = 77.42 µs
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  process                          = <ref:5>
+  gpu                              = M4 Max
+  frame-number                     = Frame 296
+  cmdbuffer-label                  = Command Buffer 0
+  cmdbuffer-label-indexed          = [0] Command Buffer 0
+  encoder-label                    = Compute Command 8
+  encoder-label-indexed            = [8] Compute Command 8
+  event-type                       = Encoding
+  cmdbuffer-id                     = 0xae0cfdf3
+  encoder-id                       = 0xae0cfdfc
+
+[19]
+  start                            = 00:04.207.528
+  duration                         = 76.62 µs
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  process                          = <ref:5>
+  gpu                              = M4 Max
+  frame-number                     = Frame 295
+  cmdbuffer-label                  = Command Buffer 0
+  cmdbuffer-label-indexed          = [0] Command Buffer 0
+  encoder-label                    = Compute Command 8
+  encoder-label-indexed            = [8] Compute Command 8
+  event-type                       = Encoding
+  cmdbuffer-id                     = 0xae0cfdc0
+  encoder-id                       = 0xae0cfdca
+
+[20]
+  start                            = 00:04.221.273
+  duration                         = 75.71 µs
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  process                          = <ref:5>
+  gpu                              = M4 Max
+  frame-number                     = Frame 295
+  cmdbuffer-label                  = Command Buffer 0
+  cmdbuffer-label-indexed          = [0] Command Buffer 0
+  encoder-label                    = Compute Command 32
+  encoder-label-indexed            = [32] Compute Command 32
+  event-type                       = Encoding
+  cmdbuffer-id                     = 0xae0cfdc0
+  encoder-id                       = 0xae0cfde2
+
+[21]
+  start                            = 00:04.248.018
+  duration                         = 75.42 µs
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  process                          = <ref:5>
+  gpu                              = M4 Max
+  frame-number                     = Frame 296
+  cmdbuffer-label                  = Command Buffer 0
+  cmdbuffer-label-indexed          = [0] Command Buffer 0
+  encoder-label                    = Compute Command 32
+  encoder-label-indexed            = [32] Compute Command 32
+  event-type                       = Encoding
+  cmdbuffer-id                     = 0xae0cfdf3
+  encoder-id                       = 0xae0cfe14
+
+[22]
+  start                            = 00:04.211.230
+  duration                         = 75.25 µs
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  process                          = <ref:5>
+  gpu                              = M4 Max
+  frame-number                     = Frame 295
+  cmdbuffer-label                  = Command Buffer 0
+  cmdbuffer-label-indexed          = [0] Command Buffer 0
+  encoder-label                    = Compute Command 13
+  encoder-label-indexed            = [13] Compute Command 13
+  event-type                       = Encoding
+  cmdbuffer-id                     = 0xae0cfdc0
+  encoder-id                       = 0xae0cfdcf
+
+[23]
+  start                            = 00:04.230.039
+  duration                         = 72.92 µs
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  process                          = <ref:5>
+  gpu                              = M4 Max
+  frame-number                     = Frame 296
+  cmdbuffer-label                  = Command Buffer 0
+  cmdbuffer-label-indexed          = [0] Command Buffer 0
+  encoder-label                    = Compute Command 0
+  encoder-label-indexed            = [0] Compute Command 0
+  event-type                       = Encoding
+  cmdbuffer-id                     = 0xae0cfdf3
+  encoder-id                       = 0xae0cfdf4
+
+[24]
+  start                            = 00:05.241.542
+  duration                         = 69.96 µs
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  process                          = <ref:5>
+  gpu                              = M4 Max
+  frame-number                     = Frame 303
+  cmdbuffer-label                  = Command Buffer 0
+  cmdbuffer-label-indexed          = [0] Command Buffer 0
+  encoder-label                    = Compute Command 0
+  encoder-label-indexed            = [0] Compute Command 0
+  event-type                       = Encoding
+  cmdbuffer-id                     = 0xae0cff74
+  encoder-id                       = 0xae0cff75
+
+[25]
+  start                            = 00:05.079.093
+  duration                         = 65.79 µs
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  process                          = <ref:5>
+  gpu                              = M4 Max
+  frame-number                     = Frame 300
+  cmdbuffer-label                  = Command Buffer 0
+  cmdbuffer-label-indexed          = [0] Command Buffer 0
+  encoder-label                    = Compute Command 0
+  encoder-label-indexed            = [0] Compute Command 0
+  event-type                       = Encoding
+  cmdbuffer-id                     = 0xae0cfede
+  encoder-id                       = 0xae0cfedf
+
+[26]
+  start                            = 00:04.217.862
+  duration                         = 65.54 µs
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  process                          = <ref:5>
+  gpu                              = M4 Max
+  frame-number                     = Frame 295
+  cmdbuffer-label                  = Command Buffer 0
+  cmdbuffer-label-indexed          = [0] Command Buffer 0
+  encoder-label                    = Compute Command 25
+  encoder-label-indexed            = [25] Compute Command 25
+  event-type                       = Encoding
+  cmdbuffer-id                     = 0xae0cfdc0
+  encoder-id                       = 0xae0cfddb
+
+[27]
+  start                            = 00:04.237.775
+  duration                         = 64.42 µs
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  process                          = <ref:5>
+  gpu                              = M4 Max
+  frame-number                     = Frame 296
+  cmdbuffer-label                  = Command Buffer 0
+  cmdbuffer-label-indexed          = [0] Command Buffer 0
+  encoder-label                    = Compute Command 13
+  encoder-label-indexed            = [13] Compute Command 13
+  event-type                       = Encoding
+  cmdbuffer-id                     = 0xae0cfdf3
+  encoder-id                       = 0xae0cfe01
+
+[28]
+  start                            = 00:02.707.960
+  duration                         = 63.29 µs
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  process                          = <ref:5>
+  gpu                              = M4 Max
+  frame-number                     = Frame 5
+  cmdbuffer-label                  = Command Buffer 0
+  cmdbuffer-label-indexed          = [0] Command Buffer 0
+  encoder-label                    = Blit Command 0
+  encoder-label-indexed            = [0] Blit Command 0
+  event-type                       = Encoding
+  cmdbuffer-id                     = 0xae0cfb79
+  encoder-id                       = 0xae0cfb7a
+
+[29]
+  start                            = 00:04.213.725
+  duration                         = 61.71 µs
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  process                          = <ref:5>
+  gpu                              = M4 Max
+  frame-number                     = Frame 295
+  cmdbuffer-label                  = Command Buffer 0
+  cmdbuffer-label-indexed          = [0] Command Buffer 0
+  encoder-label                    = Compute Command 18
+  encoder-label-indexed            = [18] Compute Command 18
+  event-type                       = Encoding
+  cmdbuffer-id                     = 0xae0cfdc0
+  encoder-id                       = 0xae0cfdd4
+
+[30]
+  start                            = 00:04.232.105
+  duration                         = 60.17 µs
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  process                          = <ref:5>
+  gpu                              = M4 Max
+  frame-number                     = Frame 296
+  cmdbuffer-label                  = Command Buffer 0
+  cmdbuffer-label-indexed          = [0] Command Buffer 0
+  encoder-label                    = Compute Command 3
+  encoder-label-indexed            = [3] Compute Command 3
+  event-type                       = Encoding
+  cmdbuffer-id                     = 0xae0cfdf3
+  encoder-id                       = 0xae0cfdf7
+
+==========================================================================================
+TABLE: metal-application-intervals
+ROWS : 1365
+COLUMNS:
+  start
+  duration
+  process
+  gpu
+  event-depth
+  event-label
+  event-priority
+  connection-UUID
+  color
+  thread
+  event-type
+  cmdbuffer-id
+  encoder-id
+
+TOP 30 BY DURATION
+
+[1]
+  start                            = 00:04.926.233
+  duration                         = 89.73 ms
+  process                          = env (46385)
+  gpu                              = M4 Max
+  event-depth                      = 24
+  event-label                      = Command Buffer 0 (Frame 298 ) ( env (46385) )
+  event-priority                   = 0x1
+  connection-UUID                  = 11332
+  color                            = 0
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  event-type                       = Encoding
+  cmdbuffer-id                     = 0xae0cfe4a
+  encoder-id                       = 0xffffffffffffffff
+
+[2]
+  start                            = 00:05.079.057
+  duration                         = 67.90 ms
+  process                          = env (46385)
+  gpu                              = M4 Max
+  event-depth                      = 24
+  event-label                      = Command Buffer 0 (Frame 300 ) ( env (46385) )
+  event-priority                   = 0x1
+  connection-UUID                  = 15281
+  color                            = 0
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  event-type                       = Encoding
+  cmdbuffer-id                     = 0xae0cfede
+  encoder-id                       = 0xffffffffffffffff
+
+[3]
+  start                            = 00:05.015.947
+  duration                         = 63.12 ms
+  process                          = env (46385)
+  gpu                              = M4 Max
+  event-depth                      = 14
+  event-label                      = Command Buffer 0 (Frame 299 ) ( env (46385) )
+  event-priority                   = 0x1
+  connection-UUID                  = 15218
+  color                            = 0
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  event-type                       = Encoding
+  cmdbuffer-id                     = 0xae0cfea0
+  encoder-id                       = 0xffffffffffffffff
+
+[4]
+  start                            = 00:05.188.702
+  duration                         = 52.81 ms
+  process                          = env (46385)
+  gpu                              = M4 Max
+  event-depth                      = 24
+  event-label                      = Command Buffer 0 (Frame 302 ) ( env (46385) )
+  event-priority                   = 0x1
+  connection-UUID                  = 15385
+  color                            = 0
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  event-type                       = Encoding
+  cmdbuffer-id                     = 0xae0cff42
+  encoder-id                       = 0xffffffffffffffff
+
+[5]
+  start                            = 00:05.146.951
+  duration                         = 41.76 ms
+  process                          = env (46385)
+  gpu                              = M4 Max
+  event-depth                      = 14
+  event-label                      = Command Buffer 0 (Frame 301 ) ( env (46385) )
+  event-priority                   = 0x1
+  connection-UUID                  = 15346
+  color                            = 0
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  event-type                       = Encoding
+  cmdbuffer-id                     = 0xae0cff1c
+  encoder-id                       = 0xffffffffffffffff
+
+[6]
+  start                            = 00:04.886.126
+  duration                         = 40.11 ms
+  process                          = env (46385)
+  gpu                              = M4 Max
+  event-depth                      = 14
+  event-label                      = Command Buffer 0 (Frame 297 ) ( env (46385) )
+  event-priority                   = 0x1
+  connection-UUID                  = 8959
+  color                            = 0
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  event-type                       = Encoding
+  cmdbuffer-id                     = 0xae0cfe24
+  encoder-id                       = 0xffffffffffffffff
+
+[7]
+  start                            = 00:05.241.506
+  duration                         = 37.03 ms
+  process                          = env (46385)
+  gpu                              = M4 Max
+  event-depth                      = 14
+  event-label                      = Command Buffer 0 (Frame 303 ) ( env (46385) )
+  event-priority                   = 0x1
+  connection-UUID                  = 15436
+  color                            = 0
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  event-type                       = Encoding
+  cmdbuffer-id                     = 0xae0cff74
+  encoder-id                       = 0xffffffffffffffff
+
+[8]
+  start                            = 00:04.200.529
+  duration                         = 29.49 ms
+  process                          = env (46385)
+  gpu                              = M4 Max
+  event-depth                      = 14
+  event-label                      = Command Buffer 0 (Frame 295 ) ( env (46385) )
+  event-priority                   = 0x1
+  connection-UUID                  = 7045
+  color                            = 0
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  event-type                       = Encoding
+  cmdbuffer-id                     = 0xae0cfdc0
+  encoder-id                       = 0xffffffffffffffff
+
+[9]
+  start                            = 00:04.230.009
+  duration                         = 26.82 ms
+  process                          = env (46385)
+  gpu                              = M4 Max
+  event-depth                      = 24
+  event-label                      = Command Buffer 0 (Frame 296 ) ( env (46385) )
+  event-priority                   = 0x1
+  connection-UUID                  = 7752
+  color                            = 0
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  event-type                       = Encoding
+  cmdbuffer-id                     = 0xae0cfdf3
+  encoder-id                       = 0xffffffffffffffff
+
+[10]
+  start                            = 00:04.173.587
+  duration                         = 12.59 ms
+  process                          = env (46385)
+  gpu                              = M4 Max
+  event-depth                      = 14
+  event-label                      = Command Buffer 0 (Frame 293 ) ( env (46385) )
+  event-priority                   = 0x1
+  connection-UUID                  = 6458
+  color                            = 0
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  event-type                       = Encoding
+  cmdbuffer-id                     = 0xae0cfdb9
+  encoder-id                       = 0xffffffffffffffff
+
+[11]
+  start                            = 00:04.174.752
+  duration                         = 5.82 ms
+  process                          = env (46385)
+  gpu                              = M4 Max
+  event-depth                      = 0
+  event-label                      = Encode MPSGraph:0x 10127cf00
+  event-priority                   = 0x0
+  connection-UUID                  = -1
+  color                            = 3
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  event-type                       = Encode MPSGraph
+  cmdbuffer-id                     = 0xffffffffffffffff
+  encoder-id                       = 0xffffffffffffffff
+
+[12]
+  start                            = 00:04.174.758
+  duration                         = 5.81 ms
+  process                          = env (46385)
+  gpu                              = M4 Max
+  event-depth                      = 1
+  event-label                      = Encode MPSGraph:0x 10127cf00
+  event-priority                   = 0x0
+  connection-UUID                  = -1
+  color                            = 3
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  event-type                       = Encode MPSGraph
+  cmdbuffer-id                     = 0xffffffffffffffff
+  encoder-id                       = 0xffffffffffffffff
+
+[13]
+  start                            = 00:04.200.997
+  duration                         = 1.33 ms
+  process                          = env (46385)
+  gpu                              = M4 Max
+  event-depth                      = 0
+  event-label                      = Encode MPSGraph:0x 10127e300
+  event-priority                   = 0x0
+  connection-UUID                  = -1
+  color                            = 3
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  event-type                       = Encode MPSGraph
+  cmdbuffer-id                     = 0xffffffffffffffff
+  encoder-id                       = 0xffffffffffffffff
+
+[14]
+  start                            = 00:04.201.002
+  duration                         = 1.33 ms
+  process                          = env (46385)
+  gpu                              = M4 Max
+  event-depth                      = 1
+  event-label                      = Encode MPSGraph:0x 10127e300
+  event-priority                   = 0x0
+  connection-UUID                  = -1
+  color                            = 3
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  event-type                       = Encode MPSGraph
+  cmdbuffer-id                     = 0xffffffffffffffff
+  encoder-id                       = 0xffffffffffffffff
+
+[15]
+  start                            = 00:04.184.823
+  duration                         = 1.28 ms
+  process                          = env (46385)
+  gpu                              = M4 Max
+  event-depth                      = 0
+  event-label                      = Encode MPSGraph:0x 10127c780
+  event-priority                   = 0x0
+  connection-UUID                  = -1
+  color                            = 3
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  event-type                       = Encode MPSGraph
+  cmdbuffer-id                     = 0xffffffffffffffff
+  encoder-id                       = 0xffffffffffffffff
+
+[16]
+  start                            = 00:04.184.826
+  duration                         = 1.27 ms
+  process                          = env (46385)
+  gpu                              = M4 Max
+  event-depth                      = 1
+  event-label                      = Encode MPSGraph:0x 10127c780
+  event-priority                   = 0x0
+  connection-UUID                  = -1
+  color                            = 3
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  event-type                       = Encode MPSGraph
+  cmdbuffer-id                     = 0xffffffffffffffff
+  encoder-id                       = 0xffffffffffffffff
+
+[17]
+  start                            = 00:05.173.283
+  duration                         = 908.42 µs
+  process                          = env (46385)
+  gpu                              = M4 Max
+  event-depth                      = 0
+  event-label                      = Encode MPSGraph:0x 10127c780
+  event-priority                   = 0x0
+  connection-UUID                  = -1
+  color                            = 3
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  event-type                       = Encode MPSGraph
+  cmdbuffer-id                     = 0xffffffffffffffff
+  encoder-id                       = 0xffffffffffffffff
+
+[18]
+  start                            = 00:04.179.669
+  duration                         = 895.79 µs
+  process                          = env (46385)
+  gpu                              = M4 Max
+  event-depth                      = 15
+  event-label                      = Compute Command 0 ( Main Thread 0x4b0153 (env, pid: 46385) )
+  event-priority                   = 0x1
+  connection-UUID                  = 6463
+  color                            = 0
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  event-type                       = Encoding
+  cmdbuffer-id                     = 0xae0cfdb9
+  encoder-id                       = 0xae0cfdbb
+
+[19]
+  start                            = 00:02.589.355
+  duration                         = 611.08 µs
+  process                          = env (46385)
+  gpu                              = M4 Max
+  event-depth                      = 14
+  event-label                      = Command Buffer 0 (Frame 1 ) ( env (46385) )
+  event-priority                   = 0x1
+  connection-UUID                  = 4823
+  color                            = 0
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  event-type                       = Encoding
+  cmdbuffer-id                     = 0xae0cfb71
+  encoder-id                       = 0xffffffffffffffff
+
+[20]
+  start                            = 00:02.589.413
+  duration                         = 545.17 µs
+  process                          = env (46385)
+  gpu                              = M4 Max
+  event-depth                      = 15
+  event-label                      = Blit Command 0 ( Main Thread 0x4b0153 (env, pid: 46385) )
+  event-priority                   = 0x1
+  connection-UUID                  = 4828
+  color                            = 0
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  event-type                       = Encoding
+  cmdbuffer-id                     = 0xae0cfb71
+  encoder-id                       = 0xae0cfb72
+
+[21]
+  start                            = 00:04.201.890
+  duration                         = 430.83 µs
+  process                          = env (46385)
+  gpu                              = M4 Max
+  event-depth                      = 15
+  event-label                      = Compute Command 0 ( Main Thread 0x4b0153 (env, pid: 46385) )
+  event-priority                   = 0x1
+  connection-UUID                  = 7100
+  color                            = 0
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  event-type                       = Encoding
+  cmdbuffer-id                     = 0xae0cfdc0
+  encoder-id                       = 0xae0cfdc2
+
+[22]
+  start                            = 00:04.147.813
+  duration                         = 428.58 µs
+  process                          = env (46385)
+  gpu                              = M4 Max
+  event-depth                      = 14
+  event-label                      = Command Buffer 0 (Frame 292 ) ( env (46385) )
+  event-priority                   = 0x1
+  connection-UUID                  = 6440
+  color                            = 0
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  event-type                       = Encoding
+  cmdbuffer-id                     = 0xae0cfdb7
+  encoder-id                       = 0xffffffffffffffff
+
+[23]
+  start                            = 00:04.147.821
+  duration                         = 415.12 µs
+  process                          = env (46385)
+  gpu                              = M4 Max
+  event-depth                      = 15
+  event-label                      = Compute Command 0 ( Main Thread 0x4b0153 (env, pid: 46385) )
+  event-priority                   = 0x1
+  connection-UUID                  = 6441
+  color                            = 0
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  event-type                       = Encoding
+  cmdbuffer-id                     = 0xae0cfdb7
+  encoder-id                       = 0xae0cfdb8
+
+[24]
+  start                            = 00:05.204.120
+  duration                         = 98.25 µs
+  process                          = env (46385)
+  gpu                              = M4 Max
+  event-depth                      = 0
+  event-label                      = Encode MPSGraph:0x 10127cf00
+  event-priority                   = 0x0
+  connection-UUID                  = -1
+  color                            = 3
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  event-type                       = Encode MPSGraph
+  cmdbuffer-id                     = 0xffffffffffffffff
+  encoder-id                       = 0xffffffffffffffff
+
+[25]
+  start                            = 00:04.886.155
+  duration                         = 92.21 µs
+  process                          = env (46385)
+  gpu                              = M4 Max
+  event-depth                      = 0
+  event-label                      = Encode MPSGraph:0x 10127cf00
+  event-priority                   = 0x0
+  connection-UUID                  = -1
+  color                            = 3
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  event-type                       = Encode MPSGraph
+  cmdbuffer-id                     = 0xffffffffffffffff
+  encoder-id                       = 0xffffffffffffffff
+
+[26]
+  start                            = 00:04.204.521
+  duration                         = 92.12 µs
+  process                          = env (46385)
+  gpu                              = M4 Max
+  event-depth                      = 15
+  event-label                      = Compute Command 2 ( Main Thread 0x4b0153 (env, pid: 46385) )
+  event-priority                   = 0x1
+  connection-UUID                  = 7098
+  color                            = 0
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  event-type                       = Encoding
+  cmdbuffer-id                     = 0xae0cfdc0
+  encoder-id                       = 0xae0cfdc4
+
+[27]
+  start                            = 00:04.241.161
+  duration                         = 92.04 µs
+  process                          = env (46385)
+  gpu                              = M4 Max
+  event-depth                      = 25
+  event-label                      = Compute Command 20 ( Main Thread 0x4b0153 (env, pid: 46385) )
+  event-priority                   = 0x1
+  connection-UUID                  = 7782
+  color                            = 0
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  event-type                       = Encoding
+  cmdbuffer-id                     = 0xae0cfdf3
+  encoder-id                       = 0xae0cfe08
+
+[28]
+  start                            = 00:05.078.979
+  duration                         = 91.71 µs
+  process                          = env (46385)
+  gpu                              = M4 Max
+  event-depth                      = 0
+  event-label                      = Encode MPSGraph:0x 10127cf00
+  event-priority                   = 0x0
+  connection-UUID                  = -1
+  color                            = 3
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  event-type                       = Encode MPSGraph
+  cmdbuffer-id                     = 0xffffffffffffffff
+  encoder-id                       = 0xffffffffffffffff
+
+[29]
+  start                            = 00:05.204.127
+  duration                         = 90.88 µs
+  process                          = env (46385)
+  gpu                              = M4 Max
+  event-depth                      = 1
+  event-label                      = Encode MPSGraph:0x 10127cf00
+  event-priority                   = 0x0
+  connection-UUID                  = -1
+  color                            = 3
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  event-type                       = Encode MPSGraph
+  cmdbuffer-id                     = 0xffffffffffffffff
+  encoder-id                       = 0xffffffffffffffff
+
+[30]
+  start                            = 00:05.078.982
+  duration                         = 88.92 µs
+  process                          = env (46385)
+  gpu                              = M4 Max
+  event-depth                      = 1
+  event-label                      = Encode MPSGraph:0x 10127cf00
+  event-priority                   = 0x0
+  connection-UUID                  = -1
+  color                            = 3
+  thread                           = Main Thread 0x4b0153 (env, pid: 46385)
+  event-type                       = Encode MPSGraph
+  cmdbuffer-id                     = 0xffffffffffffffff
+  encoder-id                       = 0xffffffffffffffff
+
+==========================================================================================
+TABLE: metal-shader-profiler-intervals
+ROWS : 0
+COLUMNS:
+  start
+  duration
+  name
+  label
+  pso-label
+  event-name
+  shader-type
+  percent-of-kick
+  total-kick-percent
+  color
+  event-priority
+  process
+  gpu
+  channel-name
+  event-depth
+  connection-UUID
+该表没有记录。

@@ -1,0 +1,43 @@
+2026-07-23:21:38:57,382 WARNING  [lm_eval.__main__:316]  --limit SHOULD ONLY BE USED FOR TESTING.REAL METRICS SHOULD NOT BE COMPUTED USING LIMIT.
+2026-07-23:21:38:57,382 INFO     [lm_eval.__main__:379] Selected Tasks: ['mbpp']
+2026-07-23:21:38:57,384 INFO     [lm_eval.evaluator:169] Setting random seed to 0 | Setting numpy seed to 1234 | Setting torch manual seed to 1234 | Setting fewshot manual seed to 1234
+2026-07-23:21:38:57,384 INFO     [lm_eval.evaluator:206] Initializing llada_dist model, with arguments: {'model_path': '/Users/z33/models/LLaDA-8B-Instruct', 'device': 'mps', 'is_check_greedy': False, 'gen_length': 512, 'steps': 512, 'block_length': 32, 'show_speed': True, 'use_cache': True, 'dual_cache': True, 'threshold': 0.75}
+The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+================================================================================
+Experimental Rotated-K Cache v2 enabled
+Position metadata and RoPE slices are reused across 32 layers
+================================================================================
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 2/6 [00:00<00:00, 17.77it/s]Loading checkpoint shards:  67%|██████▋   | 4/6 [00:00<00:00, 18.14it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 18.98it/s]
+Using the latest cached version of the dataset since google-research-datasets/mbpp couldn't be found on the Hugging Face Hub (offline mode is enabled).
+2026-07-23:21:39:36,903 WARNING  [datasets.load:835] Using the latest cached version of the dataset since google-research-datasets/mbpp couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'full' at /Users/z33/hf-cache/datasets/google-research-datasets___mbpp/full/0.0.0/4bb6404fdc6cacfda99d4ac4205087b89d32030c (last modified on Thu Jul 23 21:22:16 2026).
+2026-07-23:21:39:36,903 WARNING  [datasets.packaged_modules.cache.cache:95] Found the latest cached dataset configuration 'full' at /Users/z33/hf-cache/datasets/google-research-datasets___mbpp/full/0.0.0/4bb6404fdc6cacfda99d4ac4205087b89d32030c (last modified on Thu Jul 23 21:22:16 2026).
+2026-07-23:21:39:36,925 WARNING  [lm_eval.evaluator:275] Overwriting default num_fewshot of mbpp from 3 to 3
+2026-07-23:21:39:36,926 INFO     [lm_eval.api.task:420] Building contexts for mbpp on rank 0...
+  0%|          | 0/1 [00:00<?, ?it/s]100%|██████████| 1/1 [00:00<00:00, 461.67it/s]
+2026-07-23:21:39:36,928 INFO     [lm_eval.evaluator:517] Running generate_until requests
+Batching...:   0%|          | 0/1 [00:00<?, ?it/s]Batching...: 100%|██████████| 1/1 [00:00<00:00, 89240.51it/s]
+Generating...:   0%|          | 0/1 [00:00<?, ?it/s]Generating...: 100%|██████████| 1/1 [00:28<00:00, 28.95s/it]Generating...: 100%|██████████| 1/1 [00:28<00:00, 28.95s/it]
+====================
+answer:  ```python
+def remove_Occ(s, char):
+    result = s[:-1] + s[1:]
+    return result
+```
+
+This function `remove_Occ` takes a string `s` and a character `char`, and returns a new string with the first and last occurrence of the character removed. The slicing `s[:-1]` removes the first character and `s[1:]` removes the last character, and concatenating these two parts gives the desired result.
+nfe:  68
+avg nfe:  68.0
+====================
+
+Total number of tokens generated: 102
+Total time taken: 28.947193145751953 seconds
+Tokens per second: 3.52365779876709
+Total NFE is 68
+2026-07-23:21:40:10,705 INFO     [lm_eval.loggers.evaluation_tracker:209] Saving results aggregated
+2026-07-23:21:40:10,706 INFO     [lm_eval.loggers.evaluation_tracker:290] Saving per-sample results for: mbpp
+llada_dist (model_path=/Users/z33/models/LLaDA-8B-Instruct,device=mps,is_check_greedy=False,gen_length=512,steps=512,block_length=32,show_speed=True,use_cache=True,dual_cache=True,threshold=0.75), gen_kwargs: (None), limit: 1.0, num_fewshot: 3, batch_size: 1
+|Tasks|Version|Filter|n-shot| Metric  |   |Value|   |Stderr|
+|-----|------:|------|-----:|---------|---|----:|---|------|
+|mbpp |      1|none  |     3|pass_at_1|↑  |    0|±  |   N/A|
+

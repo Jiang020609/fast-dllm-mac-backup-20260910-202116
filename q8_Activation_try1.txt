@@ -1,0 +1,21 @@
+================================================================================
+Rotated-K v2b enabled
+Explicit block bounds + request-local ContextVar
+No replace_position/nonzero/global POSITION_CONTEXT
+================================================================================
+Loading model...
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 3/6 [00:00<00:00, 22.17it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 23.30it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 23.11it/s]
+
+INSTRUMENTED MODULES
+Activation              : 32
+
+Warmup...
+Traceback (most recent call last):
+  File "/Users/z33/Fast-dLLM/profile_mps_one_category.py", line 406, in <module>
+    main()
+  File "/Users/z33/Fast-dLLM/profile_mps_one_category.py", line 291, in main
+    start.elapsed_time(end)
+  File "/Users/z33/fastdllm-mps/lib/python3.12/site-packages/torch/mps/event.py", line 45, in elapsed_time
+    return torch._C._mps_elapsedTimeOfEvents(self.__eventId, end_event.__eventId)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: End event 6 was not recorded after start event 5

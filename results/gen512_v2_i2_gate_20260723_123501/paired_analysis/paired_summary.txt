@@ -1,0 +1,59 @@
+================================================================================================
+Paired audit: gen_length=512, Rotated-K v2 vs interval=2
+================================================================================================
+v2 file: /Users/z33/Fast-dLLM/results/gen512_v2_i2_gate_20260723_123501/v2/eval/__Users__z33__models__LLaDA-8B-Instruct/samples_gsm8k_2026-07-23T13-00-10.079630.jsonl
+i2 file: /Users/z33/Fast-dLLM/results/gen512_v2_i2_gate_20260723_123501/i2/eval/__Users__z33__models__LLaDA-8B-Instruct/samples_gsm8k_2026-07-23T13-15-55.048498.jsonl
+Pairing hash check: PASS
+
+Filter: flexible-extract
+------------------------------------------------------------------------------------------------
+N:                          40
+Both correct:               25
+v2 correct / i2 wrong:      2
+v2 wrong / i2 correct:      1
+Both wrong:                 12
+Net change:                 -1/40
+Final-answer agreement:     0.5750
+Discordant pairs:           3
+McNemar exact two-sided p:  1.000000
+
+Filter: strict-match
+------------------------------------------------------------------------------------------------
+N:                          40
+Both correct:               5
+v2 correct / i2 wrong:      9
+v2 wrong / i2 correct:      5
+Both wrong:                 21
+Net change:                 -4/40
+Final-answer agreement:     0.5750
+Discordant pairs:           14
+McNemar exact two-sided p:  0.423950
+
+Degradation gate: v2
+------------------------------------------------------------------------------------------------
+Residual-mask samples:      0 []
+Empty-response samples:     0 []
+Replacement-char samples:  0 []
+Severe-repetition samples:  2 [5, 20]
+Full-512 budget proxy:      0 []
+
+Degradation gate: interval=2
+------------------------------------------------------------------------------------------------
+Residual-mask samples:      0 []
+Empty-response samples:     0 []
+Replacement-char samples:  0 []
+Severe-repetition samples:  1 [20]
+Full-512 budget proxy:      0 []
+
+Per-sample NFE
+------------------------------------------------------------------------------------------------
+v2 records:                 40
+interval=2 records:         40
+v2 mean NFE:                81.600
+interval=2 mean NFE:        92.775
+Mean paired delta:           +11.175
+Median paired delta:         +3.000
+Delta P10:                   -6.300
+Delta P90:                   +50.200
+i2 lower / equal / higher:   10 / 1 / 29
+NFE CSV:                     /Users/z33/Fast-dLLM/results/gen512_v2_i2_gate_20260723_123501/paired_analysis/paired_nfe.csv

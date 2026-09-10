@@ -1,0 +1,372 @@
+================================================================================
+P1 STRUCTURE PROBE
+================================================================================
+date=2026年 7月24日 星期五 01时48分41秒 CST
+root=/Users/z33/Fast-dLLM/v1/llada
+
+===== eval_llada model loading path =====
+35:from transformers import AutoTokenizer, AutoModel, AutoConfig
+37:from model.modeling_llada import LLaDAModelLM
+63:        device="cuda",
+100:        config = AutoConfig.from_pretrained(model_path)
+102:        self.model = LLaDAModelLM.from_pretrained(model_path, trust_remote_code=True, torch_dtype=torch.bfloat16, config=config, **model_kwargs)
+103:        self.model.eval()
+107:            self.model = self.accelerator.prepare(self.model)
+112:            self.model = self.model.to(device)
+117:        self.tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
+149:        k = torch.randint(1, target_len + 1, (), device=batch.device)
+151:        x = torch.round(torch.linspace(float(k), k + (b - 1) * (target_len / b), steps=b, device=batch.device)).long()
+155:        indices = torch.arange(target_len, device=batch.device).repeat(b, 1)
+161:        is_mask = torch.cat((torch.zeros(b, prompt_index.sum(), dtype=torch.bool, device=batch.device), is_mask), dim=1)
+176:        logits = self.model(batch).logits
+188:        prompt_index = torch.arange(seq.shape[1], device=self.device) < len(prefix)
+209:        seq = torch.full((1, len(prefix) + len(target)), self.mask_id, device=self.device)
+210:        prompt_index = torch.arange(seq.shape[1], device=self.device) < len(prefix)
+330:            batched_input_ids = [torch.cat([torch.full((1, max_len - len(input_ids)), self.tokenizer.pad_token_id, dtype=torch.long, device=self.device), torch.tensor(input_ids, dtype=torch.long, device=self.device).unsqueeze(0)], dim=1) for input_ids in batched_input_ids]
+337:                attention_mask = torch.zeros((batched_input_ids.shape[0], 1, max_len+self.gen_length, max_len+self.gen_length), device=self.device, dtype=torch.bool)
+346:                    generated_answer, nfe = generate_with_dual_cache(self.model, input_ids, steps=self.steps, gen_length=self.gen_length, block_length=self.block_length, 
+349:                    generated_answer, nfe = generate_with_prefix_cache(self.model, input_ids, steps=self.steps, gen_length=self.gen_length, block_length=self.block_length, 
+352:                generated_answer, nfe = generate(self.model, input_ids, steps=self.steps, gen_length=self.gen_length, block_length=self.block_length, 
+
+===== modeling_llada classes =====
+560:class LLaDABlock(nn.Module):
+812:class LLaDASequentialBlock(LLaDABlock):
+902:class LLaDALlamaBlock(LLaDABlock):
+1006:class LLaDABlockDiffBlock(LLaDABlock):
+1114:class LLaDAOutput(NamedTuple):
+1132:class LLaDAGenerateOutput(NamedTuple):
+1145:class LLaDABlockGroup(nn.ModuleList):
+1201:class LLaDAModel(nn.Module):
+1553:class LLaDAModelLM(PreTrainedModel):
+
+===== possible layer/container declarations =====
+50:from transformers import PreTrainedModel
+51:from transformers.modeling_outputs import CausalLMOutputWithPast
+52:from transformers.models.auto import AutoModel
+53:from transformers.cache_utils import Cache
+117:        for fused layers.
+152:            std = config.init_std / math.sqrt(2.0 * config.n_layers)
+154:            # positional embeddings (wpe)
+155:            # token embeddings (wte)
+178:                module.weight.div_(math.sqrt(2 * config.n_layers))
+388:    [Rotary positional embeddings (RoPE)](https://arxiv.org/abs/2104.09864).
+562:    A base class for transformer block implementations.
+609:        # Rotary embeddings.
+757:            # Apply rotary embeddings.
+814:    This is a typical transformer block where the output is computed as ``MLP(LN(x + Attention(LN(x))))``
+904:    This is a transformer block where the output is computed as ``MLP(LN(x + Attention(LN(x))))``
+1008:    This is a transformer block where the output is computed as ``MLP(LN(x + Attention(LN(x))))``
+1145:class LLaDABlockGroup(nn.ModuleList):
+1157:        layers_past: Optional[List[Tuple[torch.Tensor, torch.Tensor]]] = None,
+1162:            layer_past = None if layers_past is None else layers_past[block_idx]
+1228:            0 < self.config.block_group_size <= self.config.n_layers
+1229:            and self.config.n_layers % self.config.block_group_size == 0
+1231:            raise Exception("n layers must be divisible by block group size")
+1236:        self.transformer = nn.ModuleDict(
+1238:                wte=nn.Embedding(
+1246:        blocks = [LLaDABlock.build(i, config, self.__cache) for i in range(config.n_layers)]
+1248:            block_groups = [
+1249:                LLaDABlockGroup(config, i, blocks[i : i + config.block_group_size])
+1250:                for i in range(0, config.n_layers, config.block_group_size)
+1252:            self.transformer.update({"block_groups": nn.ModuleList(block_groups)})
+1254:            self.transformer.update({"blocks": nn.ModuleList(blocks)})
+1257:            self.transformer.update(
+1261:            self.transformer.update(
+1284:            for block_group in self.transformer.block_groups:
+1287:            for block in self.transformer.blocks:
+1292:        device: torch.device = self.transformer.wte.weight.device  # type: ignore
+1300:        # Top-level embeddings / linear layers.
+1303:            self.transformer.wte,  # type: ignore
+1307:        if hasattr(self.transformer, "wpe"):
+1308:            init_weights(self.config, self.transformer.wpe, type_of_module=ModuleType.emb)  # type: ignore
+1311:        self.transformer.ln_f.reset_parameters()  # type: ignore
+1314:        if hasattr(self.transformer, "ff_out"):
+1315:            init_weights(self.config, self.transformer.ff_out, type_of_module=ModuleType.final_out)  # type: ignore
+1317:        # Let the blocks handle themselves.
+1319:            for block in self.transformer.blocks:
+1322:            for block_group in self.transformer.block_groups:
+1341:        input_embeddings: Optional[torch.FloatTensor] = None,
+1352:        :param input_embeddings: A tensor of shape `(batch_size, seq_len, d_model)` with input
+1353:            embeddings. When provided, it is treated as the output of the input embedding layer.
+1359:            This has the same meaning as the `attention_mask` in HuggingFace's `transformers`
+1388:            assert len(past_key_values) == self.config.n_layers
+1390:        batch_size, seq_len = input_ids.size() if input_embeddings is None else input_embeddings.size()[:2]
+1396:        # Get embeddings of input.
+1398:        x = self.transformer.wte(input_ids) if input_embeddings is None else input_embeddings  # type: ignore
+1404:            # Get positional embeddings.
+1408:            pos_emb = self.transformer.wpe(pos)  # type: ignore
+1411:        # Add input + positional embeddings and apply dropout.
+1413:        x = self.transformer.emb_drop(x)  # type: ignore
+1415:        # Transform the attention mask into what the blocks expect.
+1461:        # decoder layers
+1464:        # Apply blocks one-by-one.
+1466:            for block_idx, block in enumerate(self.transformer.blocks):
+1498:            for group_idx, block_group in enumerate(self.transformer.block_groups):
+1503:                layers_past = (
+1511:                    x, attention_bias=attention_bias, layers_past=layers_past, use_cache=use_cache
+1523:        x = self.transformer.ln_f(x)  # type: ignore
+1531:            logits = F.linear(x, self.transformer.wte.weight, None)  # type: ignore
+1533:            logits = self.transformer.ff_out(x)  # type: ignore
+1585:        replace_position: Optional[torch.Tensor] = None,  # This is a hack mitigation of an issue in transformers `4.39.x`
+1598:            input_embeddings=inputs_embeds,
+1640:    def get_input_embeddings(self) -> torch.nn.Module:
+1641:        return self.model.transformer.wte
+1643:    def set_input_embeddings(self, value: torch.nn.Module):
+1644:        self.model.transformer.wte = value
+1646:    def get_output_embeddings(self):
+1648:            return self.model.transformer.wte
+1650:            return self.model.transformer.ff_out
+1652:    def set_output_embeddings(self, value: torch.nn.Module):
+1654:            self.model.transformer.wte = value
+1656:            self.model.transformer.ff_out = value
+1660:            self.model.transformer.ff_out = self.model.transformer.wte
+1662:# Register the model so that it is available for transformer pipelines, auto-loading, etc.
+
+===== v2b patch entry points =====
+/Users/z33/Fast-dLLM/v1/llada/eval_llada_rotated_k_v2b_wrapper.py:11:from generate_v2b import generate_with_dual_cache_v2b
+/Users/z33/Fast-dLLM/v1/llada/eval_llada_rotated_k_v2b_wrapper.py:410:modeling.LLaDABlock.attention = (
+/Users/z33/Fast-dLLM/v1/llada/eval_llada_rotated_k_v2b_wrapper.py:415:# from generate import generate_with_dual_cache
+/Users/z33/Fast-dLLM/v1/llada/eval_llada_rotated_k_v2b_wrapper.py:417:generate_module.generate_with_dual_cache = (
+/Users/z33/Fast-dLLM/v1/llada/eval_llada_rotated_k_v2b_wrapper.py:418:    generate_with_dual_cache_v2b
+/Users/z33/Fast-dLLM/v1/llada/eval_llada_rotated_k_v2b_wrapper.py:439:runpy.run_path(
+/Users/z33/Fast-dLLM/v1/llada/generate_v2b.py:10:from rotated_k_position_context import position_forward_scope
+/Users/z33/Fast-dLLM/v1/llada/generate_v2b.py:14:def generate_with_dual_cache_v2b(
+/Users/z33/Fast-dLLM/v1/llada/generate_v2b.py:70:        with position_forward_scope():
+/Users/z33/Fast-dLLM/v1/llada/generate_v2b.py:132:            with position_forward_scope(
+
+===== Python class signatures =====
+
+----------------------------------------------------------------------------------------------------
+LLaDABlock
+----------------------------------------------------------------------------------------------------
+constructor: (layer_id: 'int', config: 'ModelConfig', cache: 'BufferCache')
+forward: (self, x: 'torch.Tensor', attention_bias: 'Optional[torch.FloatTensor]' = None, layer_past: 'Optional[Tuple[torch.Tensor, torch.Tensor]]' = None, use_cache: 'bool' = False) -> 'Tuple[torch.Tensor, Optional[Tuple[torch.Tensor, torch.Tensor]]]'
+
+----------------------------------------------------------------------------------------------------
+LLaDABlockDiffBlock
+----------------------------------------------------------------------------------------------------
+constructor: (layer_id: 'int', config: 'ModelConfig', cache: 'BufferCache')
+forward: (self, x: 'torch.Tensor', attention_bias: 'Optional[torch.Tensor]' = None, layer_past: 'Optional[Tuple[torch.Tensor, torch.Tensor]]' = None, use_cache: 'bool' = False) -> 'Tuple[torch.Tensor, Optional[Tuple[torch.Tensor, torch.Tensor]]]'
+
+----------------------------------------------------------------------------------------------------
+LLaDABlockGroup
+----------------------------------------------------------------------------------------------------
+constructor: (config: 'ModelConfig', layer_offset: 'int', modules: 'Optional[Iterable[nn.Module]]' = None)
+forward: (self, x: 'torch.Tensor', attention_bias: 'Optional[torch.FloatTensor]' = None, layers_past: 'Optional[List[Tuple[torch.Tensor, torch.Tensor]]]' = None, use_cache: 'bool' = False) -> 'Tuple[torch.Tensor, Optional[List[Tuple[torch.Tensor, torch.Tensor]]]]'
+
+----------------------------------------------------------------------------------------------------
+LLaDAConfig
+----------------------------------------------------------------------------------------------------
+constructor: (use_cache: bool = False, **kwargs)
+
+----------------------------------------------------------------------------------------------------
+LLaDAGenerateOutput
+----------------------------------------------------------------------------------------------------
+constructor: (token_ids: ForwardRef('torch.LongTensor'), scores: ForwardRef('torch.FloatTensor'))
+
+----------------------------------------------------------------------------------------------------
+LLaDALlamaBlock
+----------------------------------------------------------------------------------------------------
+constructor: (layer_id: 'int', config: 'ModelConfig', cache: 'BufferCache')
+forward: (self, x: 'torch.Tensor', attention_bias: 'Optional[torch.Tensor]' = None, layer_past: 'Optional[Tuple[torch.Tensor, torch.Tensor]]' = None, use_cache: 'bool' = False, replace_position: 'Optional[torch.Tensor]' = None) -> 'Tuple[torch.Tensor, Optional[Tuple[torch.Tensor, torch.Tensor]]]'
+
+----------------------------------------------------------------------------------------------------
+LLaDAModel
+----------------------------------------------------------------------------------------------------
+constructor: (config: 'ModelConfig', init_params: 'bool' = True)
+forward: (self, input_ids: 'torch.LongTensor', input_embeddings: 'Optional[torch.FloatTensor]' = None, attention_mask: 'Optional[torch.Tensor]' = None, attention_bias: 'Optional[torch.Tensor]' = None, past_key_values: 'Optional[Sequence[Tuple[torch.Tensor, torch.Tensor]]]' = None, use_cache: 'bool' = False, last_logits_only: 'bool' = False, output_hidden_states: 'Optional[bool]' = None, replace_position: 'Optional[torch.Tensor]' = None) -> 'LLaDAOutput'
+
+----------------------------------------------------------------------------------------------------
+LLaDAModelLM
+----------------------------------------------------------------------------------------------------
+constructor: (config: 'LLaDAConfig', model: 'Optional[LLaDAModel]' = None, init_params: 'bool' = False)
+forward: (self, input_ids: 'torch.LongTensor' = None, inputs_embeds: 'Optional[torch.FloatTensor]' = None, attention_mask: 'Optional[torch.Tensor]' = None, attention_bias: 'Optional[torch.Tensor]' = None, past_key_values: 'Optional[List[torch.FloatTensor]]' = None, labels: 'Optional[torch.LongTensor]' = None, use_cache: 'Optional[bool]' = None, output_attentions: 'Optional[bool]' = None, output_hidden_states: 'Optional[bool]' = None, return_dict: 'Optional[bool]' = None, replace_position: 'Optional[torch.Tensor]' = None) -> 'Union[Tuple, CausalLMOutputWithPast]'
+
+----------------------------------------------------------------------------------------------------
+LLaDAOutput
+----------------------------------------------------------------------------------------------------
+constructor: (logits: ForwardRef('torch.FloatTensor'), attn_key_values: ForwardRef('Optional[List[Tuple[torch.Tensor, torch.Tensor]]]'), hidden_states: ForwardRef('Optional[Tuple[torch.Tensor]]'))
+
+----------------------------------------------------------------------------------------------------
+LLaDASequentialBlock
+----------------------------------------------------------------------------------------------------
+constructor: (layer_id: 'int', config: 'ModelConfig', cache: 'BufferCache')
+forward: (self, x: 'torch.Tensor', attention_bias: 'Optional[torch.Tensor]' = None, layer_past: 'Optional[Tuple[torch.Tensor, torch.Tensor]]' = None, use_cache: 'bool' = False) -> 'Tuple[torch.Tensor, Optional[Tuple[torch.Tensor, torch.Tensor]]]'
+
+----------------------------------------------------------------------------------------------------
+ModelConfig
+----------------------------------------------------------------------------------------------------
+constructor: (d_model: int = 768, n_heads: int = 12, n_kv_heads: Optional[int] = None, n_layers: int = 12, mlp_ratio: int = 4, mlp_hidden_size: Optional[int] = None, activation_type: model.configuration_llada.ActivationType = 'swiglu', block_type: model.configuration_llada.BlockType = 'sequential', block_group_size: int = 1, alibi: bool = False, alibi_bias_max: float = 8.0, rope: bool = False, rope_full_precision: bool = True, flash_attention: bool = False, attention_dropout: float = 0.1, multi_query_attention: Optional[bool] = None, attention_layer_norm: bool = False, residual_dropout: float = 0.1, embedding_dropout: float = 0.1, input_emb_norm: bool = False, layer_norm_type: model.configuration_llada.LayerNormType = 'default', layer_norm_with_affine: bool = True, rms_norm_eps: float = 1e-05, attention_layer_norm_with_affine: bool = True, max_sequence_length: int = 1024, train_max_sequence_length: int = 1024, rope_theta: float = 10000.0, include_qkv_bias: Optional[bool] = False, include_bias: bool = False, bias_for_layer_norm: Optional[bool] = None, scale_logits: bool = False, vocab_size: int = 50257, embedding_size: Optional[int] = 50304, weight_tying: bool = True, eos_token_id: int = 50256, pad_token_id: int = 50256, mask_token_id: Optional[int] = 50256, init_device: Optional[str] = None, init_fn: model.configuration_llada.InitFnType = 'normal', init_std: float = 0.02, init_cutoff_factor: Optional[float] = None, precision: Optional[str] = None) -> None
+
+====================================================================================================
+LLaDAModelLM.__init__ source
+====================================================================================================
+    def __init__(self, config: LLaDAConfig, model: Optional[LLaDAModel] = None, init_params: bool = False):
+        super().__init__(config)
+
+        if not model:
+            model_config = create_model_config_from_pretrained_config(config)
+            # Initialize model (always on CPU to start with so we don't run out of GPU memory).
+            model_config.init_device = "cpu"
+            self.model = LLaDAModel(model_config, init_params=init_params)
+        else:
+            self.model = model
+
+
+====================================================================================================
+LLaDAModel.__init__ source
+====================================================================================================
+    def __init__(self, config: ModelConfig, init_params: bool = True):
+        super().__init__()
+        self.config = config
+        self.__cache = BufferCache()
+
+        # Validate config.
+        if self.config.alibi and self.config.flash_attention:
+            raise Exception("ALiBi is currently not supported with FlashAttention")
+
+        if self.config.alibi and self.config.rope:
+            raise Exception("ALiBi and RoPE are mutually exclusive")
+
+        if self.config.embedding_size is not None and self.config.embedding_size != self.config.vocab_size:
+            if self.config.embedding_size < self.config.vocab_size:
+                raise Exception("embedding size should be at least as big as vocab size")
+            elif self.config.embedding_size % 128 != 0:
+                import warnings
+
+                warnings.warn(
+                    "Embedding size is not a multiple of 128! This could hurt throughput performance.", UserWarning
+                )
+
+        self.activation_checkpointing_strategy: Optional[ActivationCheckpointingStrategy] = None
+        self._activation_checkpoint_fn: Callable = activation_checkpoint_function(self.config)
+
+        if not (
+            0 < self.config.block_group_size <= self.config.n_layers
+            and self.config.n_layers % self.config.block_group_size == 0
+        ):
+            raise Exception("n layers must be divisible by block group size")
+
+        torch.backends.cuda.enable_flash_sdp(True)
+        torch.backends.cuda.enable_mem_efficient_sdp(False)  # this is super slow so make sure torch won't use it
+
+        self.transformer = nn.ModuleDict(
+            dict(
+                wte=nn.Embedding(
+                    config.embedding_size or config.vocab_size, config.d_model, device=config.init_device
+                ),
+                emb_drop=Dropout(config.embedding_dropout),
+                ln_f=LayerNorm.build(config),
+            )
+        )
+
+        blocks = [LLaDABlock.build(i, config, self.__cache) for i in range(config.n_layers)]
+        if self.config.block_group_size > 1:
+            block_groups = [
+                LLaDABlockGroup(config, i, blocks[i : i + config.block_group_size])
+                for i in range(0, config.n_layers, config.block_group_size)
+            ]
+            self.transformer.update({"block_groups": nn.ModuleList(block_groups)})
+        else:
+            self.transformer.update({"blocks": nn.ModuleList(blocks)})
+
+        if not (self.config.alibi or self.config.rope):
+            self.transformer.update(
+                {"wpe": nn.Embedding(config.max_sequence_length, config.d_model, device=config.init_device)}
+            )
+        if not config.weight_tying:
+            self.transformer.update(
+                {
+                    "ff_out": nn.Linear(
+                        config.d_model,
+                        config.embedding_size or config.vocab_size,
+                        bias=config.include_bias,
+                        device=config.init_device,
+                    )
+                }
+            )
+        # When `init_device="meta"` FSDP will call `reset_parameters()` to initialize weights.
+        if init_params and self.config.init_device != "meta":
+            self.reset_parameters()
+        self.__num_fwd_flops: Optional[int] = None
+        # Warm up cache.
+        if self.config.alibi:
+            get_causal_attention_bias(self.__cache, config.max_sequence_length, _non_meta_init_device(config))
+            self.get_alibi_attention_bias(config.max_sequence_length, _non_meta_init_device(config))
+
+
+====================================================================================================
+LLaDABlockGroup.__init__ source
+====================================================================================================
+    def __init__(self, config: ModelConfig, layer_offset: int, modules: Optional[Iterable[nn.Module]] = None):
+        super().__init__(modules)
+        self.config = config
+        self.layer_offset = layer_offset
+        self.activation_checkpointing_strategy: Optional[ActivationCheckpointingStrategy] = None
+        self._activation_checkpoint_fn = activation_checkpoint_function(self.config)
+
+
+====================================================================================================
+LLaDABlock.__init__ source
+====================================================================================================
+    def __init__(self, layer_id: int, config: ModelConfig, cache: BufferCache):
+        super().__init__()
+        self.layer_id = layer_id
+        self.config = config
+        self.hidden_size = (
+            config.mlp_hidden_size if config.mlp_hidden_size is not None else config.mlp_ratio * config.d_model
+        )
+        self.__cache = cache
+        assert config.d_model % config.n_heads == 0
+
+        self._activation_checkpoint_fn = None
+
+        # Dropout.
+        self.dropout = Dropout(config.residual_dropout)
+
+        # Layer norms.
+        self.k_norm: Optional[LayerNormBase] = None
+        self.q_norm: Optional[LayerNormBase] = None
+        if config.attention_layer_norm:
+            self.k_norm = LayerNormBase.build(
+                config,
+                size=(config.d_model // config.n_heads) * config.effective_n_kv_heads,
+                elementwise_affine=config.attention_layer_norm_with_affine,
+            )
+            self.q_norm = LayerNormBase.build(config, elementwise_affine=config.attention_layer_norm_with_affine)
+
+        # Activation function.
+        self.act = Activation.build(config)
+        assert (self.act.output_multiplier * self.hidden_size) % 1 == 0
+
+        # Attention output projection.
+        self.attn_out = nn.Linear(
+            config.d_model, config.d_model, bias=config.include_bias, device=config.init_device
+        )
+
+        # Feed-forward output projection.
+        self.ff_out = nn.Linear(
+            int(self.act.output_multiplier * self.hidden_size),
+            config.d_model,
+            bias=config.include_bias,
+            device=config.init_device,
+        )
+        self.ff_out._is_residual = True  # type: ignore
+
+        # Rotary embeddings.
+        if self.config.rope:
+            self.rotary_emb = RotaryEmbedding(config, self.__cache)
+
+        self.flash_attn_func = None
+        if config.flash_attention:
+            try:
+                from flash_attn import flash_attn_func  # type: ignore
+
+                self.flash_attn_func = flash_attn_func
+            except ModuleNotFoundError:
+                pass
+
+
+================================================================================
+END
+================================================================================

@@ -1,0 +1,120 @@
+===== Mac-B2-Control Matched No-Cache =====
+Configs: [(64, 32), (128, 32)]
+Prompts: 12
+Repeats: 3
+Total planned runs: 72
+
+Loading tokenizer...
+Loading cache-enabled BF16 model...
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  67%|██████▋   | 4/6 [00:00<00:00, 36.07it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 36.90it/s]
+Model device: mps:0
+Model dtype: torch.bfloat16
+Model load time: 1.623 s
+
+===== Config 1/2: length=64, block=32 =====
+Warm-up...
+Warm-up 1/1 finished, NFE=64
+[001/36] L=64 B=32 prompt=00 repeat=0 NFE=64 latency=11.415s slots/s=5.607 ETA≈6.7min
+[002/36] L=64 B=32 prompt=00 repeat=1 NFE=64 latency=11.421s slots/s=5.604 ETA≈6.5min
+[003/36] L=64 B=32 prompt=00 repeat=2 NFE=64 latency=11.420s slots/s=5.604 ETA≈6.3min
+[004/36] L=64 B=32 prompt=01 repeat=0 NFE=64 latency=11.398s slots/s=5.615 ETA≈6.1min
+[005/36] L=64 B=32 prompt=01 repeat=1 NFE=64 latency=11.398s slots/s=5.615 ETA≈5.9min
+[006/36] L=64 B=32 prompt=01 repeat=2 NFE=64 latency=11.391s slots/s=5.618 ETA≈5.7min
+[007/36] L=64 B=32 prompt=02 repeat=0 NFE=64 latency=11.400s slots/s=5.614 ETA≈5.5min
+[008/36] L=64 B=32 prompt=02 repeat=1 NFE=64 latency=11.396s slots/s=5.616 ETA≈5.3min
+[009/36] L=64 B=32 prompt=02 repeat=2 NFE=64 latency=11.398s slots/s=5.615 ETA≈5.1min
+[010/36] L=64 B=32 prompt=03 repeat=0 NFE=64 latency=11.360s slots/s=5.634 ETA≈4.9min
+[011/36] L=64 B=32 prompt=03 repeat=1 NFE=64 latency=11.353s slots/s=5.637 ETA≈4.8min
+[012/36] L=64 B=32 prompt=03 repeat=2 NFE=64 latency=11.359s slots/s=5.634 ETA≈4.6min
+[013/36] L=64 B=32 prompt=04 repeat=0 NFE=64 latency=9.801s slots/s=6.530 ETA≈4.3min
+[014/36] L=64 B=32 prompt=04 repeat=1 NFE=64 latency=9.790s slots/s=6.537 ETA≈4.1min
+[015/36] L=64 B=32 prompt=04 repeat=2 NFE=64 latency=9.786s slots/s=6.540 ETA≈3.9min
+[016/36] L=64 B=32 prompt=05 repeat=0 NFE=64 latency=11.369s slots/s=5.629 ETA≈3.7min
+[017/36] L=64 B=32 prompt=05 repeat=1 NFE=64 latency=11.362s slots/s=5.633 ETA≈3.5min
+[018/36] L=64 B=32 prompt=05 repeat=2 NFE=64 latency=11.365s slots/s=5.631 ETA≈3.3min
+[019/36] L=64 B=32 prompt=06 repeat=0 NFE=64 latency=12.211s slots/s=5.241 ETA≈3.2min
+[020/36] L=64 B=32 prompt=06 repeat=1 NFE=64 latency=12.206s slots/s=5.243 ETA≈3.0min
+[021/36] L=64 B=32 prompt=06 repeat=2 NFE=64 latency=12.206s slots/s=5.243 ETA≈2.8min
+[022/36] L=64 B=32 prompt=07 repeat=0 NFE=64 latency=12.294s slots/s=5.206 ETA≈2.6min
+[023/36] L=64 B=32 prompt=07 repeat=1 NFE=64 latency=12.296s slots/s=5.205 ETA≈2.5min
+[024/36] L=64 B=32 prompt=07 repeat=2 NFE=64 latency=12.293s slots/s=5.206 ETA≈2.3min
+[025/36] L=64 B=32 prompt=08 repeat=0 NFE=64 latency=11.407s slots/s=5.611 ETA≈2.1min
+[026/36] L=64 B=32 prompt=08 repeat=1 NFE=64 latency=11.398s slots/s=5.615 ETA≈1.9min
+[027/36] L=64 B=32 prompt=08 repeat=2 NFE=64 latency=11.402s slots/s=5.613 ETA≈1.7min
+[028/36] L=64 B=32 prompt=09 repeat=0 NFE=64 latency=11.341s slots/s=5.643 ETA≈1.5min
+[029/36] L=64 B=32 prompt=09 repeat=1 NFE=64 latency=11.335s slots/s=5.646 ETA≈1.3min
+[030/36] L=64 B=32 prompt=09 repeat=2 NFE=64 latency=11.333s slots/s=5.647 ETA≈1.1min
+[031/36] L=64 B=32 prompt=10 repeat=0 NFE=64 latency=11.371s slots/s=5.628 ETA≈1.0min
+[032/36] L=64 B=32 prompt=10 repeat=1 NFE=64 latency=11.366s slots/s=5.631 ETA≈0.8min
+[033/36] L=64 B=32 prompt=10 repeat=2 NFE=64 latency=11.365s slots/s=5.631 ETA≈0.6min
+[034/36] L=64 B=32 prompt=11 repeat=0 NFE=64 latency=11.347s slots/s=5.640 ETA≈0.4min
+[035/36] L=64 B=32 prompt=11 repeat=1 NFE=64 latency=11.337s slots/s=5.645 ETA≈0.2min
+[036/36] L=64 B=32 prompt=11 repeat=2 NFE=64 latency=11.339s slots/s=5.644 ETA≈0.0min
+Config completed: mean=11.390s, p50=11.381s, slots/s=5.635
+
+===== Config 2/2: length=128, block=32 =====
+Warm-up...
+Warm-up 1/1 finished, NFE=128
+[001/36] L=128 B=32 prompt=00 repeat=0 NFE=128 latency=31.569s slots/s=4.055 ETA≈18.4min
+[002/36] L=128 B=32 prompt=00 repeat=1 NFE=128 latency=31.571s slots/s=4.054 ETA≈17.9min
+[003/36] L=128 B=32 prompt=00 repeat=2 NFE=128 latency=31.564s slots/s=4.055 ETA≈17.4min
+[004/36] L=128 B=32 prompt=01 repeat=0 NFE=128 latency=31.561s slots/s=4.056 ETA≈16.8min
+[005/36] L=128 B=32 prompt=01 repeat=1 NFE=128 latency=31.552s slots/s=4.057 ETA≈16.3min
+[006/36] L=128 B=32 prompt=01 repeat=2 NFE=128 latency=31.555s slots/s=4.056 ETA≈15.8min
+[007/36] L=128 B=32 prompt=02 repeat=0 NFE=128 latency=31.547s slots/s=4.057 ETA≈15.3min
+[008/36] L=128 B=32 prompt=02 repeat=1 NFE=128 latency=31.555s slots/s=4.056 ETA≈14.7min
+[009/36] L=128 B=32 prompt=02 repeat=2 NFE=128 latency=31.546s slots/s=4.058 ETA≈14.2min
+[010/36] L=128 B=32 prompt=03 repeat=0 NFE=128 latency=31.421s slots/s=4.074 ETA≈13.7min
+[011/36] L=128 B=32 prompt=03 repeat=1 NFE=128 latency=31.413s slots/s=4.075 ETA≈13.1min
+[012/36] L=128 B=32 prompt=03 repeat=2 NFE=128 latency=31.418s slots/s=4.074 ETA≈12.6min
+[013/36] L=128 B=32 prompt=04 repeat=0 NFE=128 latency=30.488s slots/s=4.198 ETA≈12.1min
+[014/36] L=128 B=32 prompt=04 repeat=1 NFE=128 latency=30.491s slots/s=4.198 ETA≈11.5min
+[015/36] L=128 B=32 prompt=04 repeat=2 NFE=128 latency=30.484s slots/s=4.199 ETA≈11.0min
+[016/36] L=128 B=32 prompt=05 repeat=0 NFE=128 latency=31.433s slots/s=4.072 ETA≈10.4min
+[017/36] L=128 B=32 prompt=05 repeat=1 NFE=128 latency=31.427s slots/s=4.073 ETA≈9.9min
+[018/36] L=128 B=32 prompt=05 repeat=2 NFE=128 latency=31.436s slots/s=4.072 ETA≈9.4min
+[019/36] L=128 B=32 prompt=06 repeat=0 NFE=128 latency=33.101s slots/s=3.867 ETA≈8.9min
+[020/36] L=128 B=32 prompt=06 repeat=1 NFE=128 latency=33.092s slots/s=3.868 ETA≈8.4min
+[021/36] L=128 B=32 prompt=06 repeat=2 NFE=128 latency=33.095s slots/s=3.868 ETA≈7.9min
+[022/36] L=128 B=32 prompt=07 repeat=0 NFE=128 latency=33.356s slots/s=3.837 ETA≈7.4min
+[023/36] L=128 B=32 prompt=07 repeat=1 NFE=128 latency=33.362s slots/s=3.837 ETA≈6.9min
+[024/36] L=128 B=32 prompt=07 repeat=2 NFE=128 latency=33.356s slots/s=3.837 ETA≈6.4min
+[025/36] L=128 B=32 prompt=08 repeat=0 NFE=128 latency=31.570s slots/s=4.055 ETA≈5.8min
+[026/36] L=128 B=32 prompt=08 repeat=1 NFE=128 latency=31.564s slots/s=4.055 ETA≈5.3min
+[027/36] L=128 B=32 prompt=08 repeat=2 NFE=128 latency=31.565s slots/s=4.055 ETA≈4.8min
+[028/36] L=128 B=32 prompt=09 repeat=0 NFE=128 latency=31.410s slots/s=4.075 ETA≈4.2min
+[029/36] L=128 B=32 prompt=09 repeat=1 NFE=128 latency=31.408s slots/s=4.075 ETA≈3.7min
+[030/36] L=128 B=32 prompt=09 repeat=2 NFE=128 latency=31.406s slots/s=4.076 ETA≈3.2min
+[031/36] L=128 B=32 prompt=10 repeat=0 NFE=128 latency=31.440s slots/s=4.071 ETA≈2.6min
+[032/36] L=128 B=32 prompt=10 repeat=1 NFE=128 latency=31.439s slots/s=4.071 ETA≈2.1min
+[033/36] L=128 B=32 prompt=10 repeat=2 NFE=128 latency=31.435s slots/s=4.072 ETA≈1.6min
+[034/36] L=128 B=32 prompt=11 repeat=0 NFE=128 latency=31.420s slots/s=4.074 ETA≈1.1min
+[035/36] L=128 B=32 prompt=11 repeat=1 NFE=128 latency=31.410s slots/s=4.075 ETA≈0.5min
+[036/36] L=128 B=32 prompt=11 repeat=2 NFE=128 latency=31.415s slots/s=4.075 ETA≈0.0min
+Config completed: mean=31.691s, p50=31.493s, slots/s=4.041
+
+===== Entire matrix completed =====
+Completed configs: 2
+Failed configs: 0
+Total time: 0.44 hours
+Raw CSV: /Users/z33/Fast-dLLM/results/control_nocache_20260720_120340/mac_b2_control_nocache_20260720_120340_raw.csv
+Summary CSV: /Users/z33/Fast-dLLM/results/control_nocache_20260720_120340/mac_b2_control_nocache_20260720_120340_summary.csv
+Errors CSV: /Users/z33/Fast-dLLM/results/control_nocache_20260720_120340/mac_b2_control_nocache_20260720_120340_errors.csv
+     1597.56 real        48.96 user         5.14 sys
+           513654784  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+               52170  page reclaims
+                  92  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                   0  voluntary context switches
+              212418  involuntary context switches
+        759159414241  instructions retired
+        220568139996  cycles elapsed
+         17795482848  peak memory footprint

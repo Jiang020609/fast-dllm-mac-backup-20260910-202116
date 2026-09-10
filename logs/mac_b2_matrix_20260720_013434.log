@@ -1,0 +1,486 @@
+===== Mac-B2 Prefix KV Cache Matrix =====
+Configs: [(64, 32), (128, 32), (64, 16), (64, 64), (128, 16), (128, 64), (256, 16), (256, 32), (256, 64), (512, 16), (512, 32), (512, 64)]
+Prompts: 12
+Repeats: 3
+Total planned runs: 432
+
+Loading tokenizer...
+Loading cache-enabled BF16 model...
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 3/6 [00:00<00:00, 27.21it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 26.54it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 26.62it/s]
+Model device: mps:0
+Model dtype: torch.bfloat16
+Model load time: 2.016 s
+
+===== Config 1/12: length=64, block=32 =====
+Warm-up...
+Warm-up 1/1 finished, NFE=64
+[001/36] L=64 B=32 prompt=00 repeat=0 NFE=64 latency=6.368s slots/s=10.051 ETA≈3.7min
+[002/36] L=64 B=32 prompt=00 repeat=1 NFE=64 latency=6.358s slots/s=10.066 ETA≈3.6min
+[003/36] L=64 B=32 prompt=00 repeat=2 NFE=64 latency=6.360s slots/s=10.063 ETA≈3.5min
+[004/36] L=64 B=32 prompt=01 repeat=0 NFE=64 latency=6.371s slots/s=10.046 ETA≈3.4min
+[005/36] L=64 B=32 prompt=01 repeat=1 NFE=64 latency=6.362s slots/s=10.060 ETA≈3.3min
+[006/36] L=64 B=32 prompt=01 repeat=2 NFE=64 latency=6.363s slots/s=10.058 ETA≈3.2min
+[007/36] L=64 B=32 prompt=02 repeat=0 NFE=64 latency=6.367s slots/s=10.052 ETA≈3.1min
+[008/36] L=64 B=32 prompt=02 repeat=1 NFE=64 latency=6.397s slots/s=10.004 ETA≈3.0min
+[009/36] L=64 B=32 prompt=02 repeat=2 NFE=64 latency=6.387s slots/s=10.020 ETA≈2.9min
+[010/36] L=64 B=32 prompt=03 repeat=0 NFE=64 latency=6.373s slots/s=10.042 ETA≈2.8min
+[011/36] L=64 B=32 prompt=03 repeat=1 NFE=64 latency=6.353s slots/s=10.073 ETA≈2.7min
+[012/36] L=64 B=32 prompt=03 repeat=2 NFE=64 latency=6.357s slots/s=10.068 ETA≈2.5min
+[013/36] L=64 B=32 prompt=04 repeat=0 NFE=64 latency=6.307s slots/s=10.147 ETA≈2.4min
+[014/36] L=64 B=32 prompt=04 repeat=1 NFE=64 latency=6.297s slots/s=10.163 ETA≈2.3min
+[015/36] L=64 B=32 prompt=04 repeat=2 NFE=64 latency=6.293s slots/s=10.169 ETA≈2.2min
+[016/36] L=64 B=32 prompt=05 repeat=0 NFE=64 latency=6.377s slots/s=10.035 ETA≈2.1min
+[017/36] L=64 B=32 prompt=05 repeat=1 NFE=64 latency=6.362s slots/s=10.060 ETA≈2.0min
+[018/36] L=64 B=32 prompt=05 repeat=2 NFE=64 latency=6.357s slots/s=10.068 ETA≈1.9min
+[019/36] L=64 B=32 prompt=06 repeat=0 NFE=64 latency=6.415s slots/s=9.977 ETA≈1.8min
+[020/36] L=64 B=32 prompt=06 repeat=1 NFE=64 latency=6.404s slots/s=9.994 ETA≈1.7min
+[021/36] L=64 B=32 prompt=06 repeat=2 NFE=64 latency=6.403s slots/s=9.995 ETA≈1.6min
+[022/36] L=64 B=32 prompt=07 repeat=0 NFE=64 latency=6.456s slots/s=9.914 ETA≈1.5min
+[023/36] L=64 B=32 prompt=07 repeat=1 NFE=64 latency=6.433s slots/s=9.949 ETA≈1.4min
+[024/36] L=64 B=32 prompt=07 repeat=2 NFE=64 latency=6.434s slots/s=9.946 ETA≈1.3min
+[025/36] L=64 B=32 prompt=08 repeat=0 NFE=64 latency=6.382s slots/s=10.028 ETA≈1.2min
+[026/36] L=64 B=32 prompt=08 repeat=1 NFE=64 latency=6.373s slots/s=10.043 ETA≈1.1min
+[027/36] L=64 B=32 prompt=08 repeat=2 NFE=64 latency=6.372s slots/s=10.044 ETA≈1.0min
+[028/36] L=64 B=32 prompt=09 repeat=0 NFE=64 latency=6.372s slots/s=10.045 ETA≈0.9min
+[029/36] L=64 B=32 prompt=09 repeat=1 NFE=64 latency=6.358s slots/s=10.066 ETA≈0.7min
+[030/36] L=64 B=32 prompt=09 repeat=2 NFE=64 latency=6.361s slots/s=10.061 ETA≈0.6min
+[031/36] L=64 B=32 prompt=10 repeat=0 NFE=64 latency=6.376s slots/s=10.037 ETA≈0.5min
+[032/36] L=64 B=32 prompt=10 repeat=1 NFE=64 latency=6.367s slots/s=10.052 ETA≈0.4min
+[033/36] L=64 B=32 prompt=10 repeat=2 NFE=64 latency=6.366s slots/s=10.053 ETA≈0.3min
+[034/36] L=64 B=32 prompt=11 repeat=0 NFE=64 latency=6.405s slots/s=9.993 ETA≈0.2min
+[035/36] L=64 B=32 prompt=11 repeat=1 NFE=64 latency=6.361s slots/s=10.061 ETA≈0.1min
+[036/36] L=64 B=32 prompt=11 repeat=2 NFE=64 latency=6.357s slots/s=10.067 ETA≈0.0min
+Config completed: mean=6.372s, p50=6.367s, slots/s=10.044
+
+===== Config 2/12: length=128, block=32 =====
+Warm-up...
+Warm-up 1/1 finished, NFE=128
+[001/36] L=128 B=32 prompt=00 repeat=0 NFE=128 latency=17.871s slots/s=7.163 ETA≈10.4min
+[002/36] L=128 B=32 prompt=00 repeat=1 NFE=128 latency=17.871s slots/s=7.163 ETA≈10.1min
+[003/36] L=128 B=32 prompt=00 repeat=2 NFE=128 latency=17.875s slots/s=7.161 ETA≈9.8min
+[004/36] L=128 B=32 prompt=01 repeat=0 NFE=128 latency=17.874s slots/s=7.161 ETA≈9.5min
+[005/36] L=128 B=32 prompt=01 repeat=1 NFE=128 latency=17.869s slots/s=7.163 ETA≈9.2min
+[006/36] L=128 B=32 prompt=01 repeat=2 NFE=128 latency=17.864s slots/s=7.165 ETA≈8.9min
+[007/36] L=128 B=32 prompt=02 repeat=0 NFE=128 latency=17.865s slots/s=7.165 ETA≈8.6min
+[008/36] L=128 B=32 prompt=02 repeat=1 NFE=128 latency=17.860s slots/s=7.167 ETA≈8.3min
+[009/36] L=128 B=32 prompt=02 repeat=2 NFE=128 latency=17.860s slots/s=7.167 ETA≈8.0min
+[010/36] L=128 B=32 prompt=03 repeat=0 NFE=128 latency=17.852s slots/s=7.170 ETA≈7.7min
+[011/36] L=128 B=32 prompt=03 repeat=1 NFE=128 latency=17.836s slots/s=7.176 ETA≈7.4min
+[012/36] L=128 B=32 prompt=03 repeat=2 NFE=128 latency=17.838s slots/s=7.176 ETA≈7.1min
+[013/36] L=128 B=32 prompt=04 repeat=0 NFE=128 latency=17.780s slots/s=7.199 ETA≈6.8min
+[014/36] L=128 B=32 prompt=04 repeat=1 NFE=128 latency=17.783s slots/s=7.198 ETA≈6.5min
+[015/36] L=128 B=32 prompt=04 repeat=2 NFE=128 latency=17.787s slots/s=7.196 ETA≈6.2min
+[016/36] L=128 B=32 prompt=05 repeat=0 NFE=128 latency=17.851s slots/s=7.171 ETA≈6.0min
+[017/36] L=128 B=32 prompt=05 repeat=1 NFE=128 latency=17.838s slots/s=7.176 ETA≈5.7min
+[018/36] L=128 B=32 prompt=05 repeat=2 NFE=128 latency=17.842s slots/s=7.174 ETA≈5.4min
+[019/36] L=128 B=32 prompt=06 repeat=0 NFE=128 latency=17.937s slots/s=7.136 ETA≈5.1min
+[020/36] L=128 B=32 prompt=06 repeat=1 NFE=128 latency=17.923s slots/s=7.141 ETA≈4.8min
+[021/36] L=128 B=32 prompt=06 repeat=2 NFE=128 latency=17.923s slots/s=7.142 ETA≈4.5min
+[022/36] L=128 B=32 prompt=07 repeat=0 NFE=128 latency=18.006s slots/s=7.109 ETA≈4.2min
+[023/36] L=128 B=32 prompt=07 repeat=1 NFE=128 latency=17.982s slots/s=7.118 ETA≈3.9min
+[024/36] L=128 B=32 prompt=07 repeat=2 NFE=128 latency=17.983s slots/s=7.118 ETA≈3.6min
+[025/36] L=128 B=32 prompt=08 repeat=0 NFE=128 latency=17.891s slots/s=7.155 ETA≈3.3min
+[026/36] L=128 B=32 prompt=08 repeat=1 NFE=128 latency=17.861s slots/s=7.166 ETA≈3.0min
+[027/36] L=128 B=32 prompt=08 repeat=2 NFE=128 latency=17.861s slots/s=7.166 ETA≈2.7min
+[028/36] L=128 B=32 prompt=09 repeat=0 NFE=128 latency=17.835s slots/s=7.177 ETA≈2.4min
+[029/36] L=128 B=32 prompt=09 repeat=1 NFE=128 latency=17.828s slots/s=7.180 ETA≈2.1min
+[030/36] L=128 B=32 prompt=09 repeat=2 NFE=128 latency=17.826s slots/s=7.180 ETA≈1.8min
+[031/36] L=128 B=32 prompt=10 repeat=0 NFE=128 latency=17.855s slots/s=7.169 ETA≈1.5min
+[032/36] L=128 B=32 prompt=10 repeat=1 NFE=128 latency=17.838s slots/s=7.176 ETA≈1.2min
+[033/36] L=128 B=32 prompt=10 repeat=2 NFE=128 latency=17.839s slots/s=7.175 ETA≈0.9min
+[034/36] L=128 B=32 prompt=11 repeat=0 NFE=128 latency=17.840s slots/s=7.175 ETA≈0.6min
+[035/36] L=128 B=32 prompt=11 repeat=1 NFE=128 latency=17.828s slots/s=7.180 ETA≈0.3min
+[036/36] L=128 B=32 prompt=11 repeat=2 NFE=128 latency=17.830s slots/s=7.179 ETA≈0.0min
+Config completed: mean=17.864s, p50=17.857s, slots/s=7.165
+
+===== Config 3/12: length=64, block=16 =====
+Warm-up...
+Warm-up 1/1 finished, NFE=64
+[001/36] L=64 B=16 prompt=00 repeat=0 NFE=64 latency=6.295s slots/s=10.166 ETA≈3.7min
+[002/36] L=64 B=16 prompt=00 repeat=1 NFE=64 latency=6.302s slots/s=10.156 ETA≈3.6min
+[003/36] L=64 B=16 prompt=00 repeat=2 NFE=64 latency=6.303s slots/s=10.154 ETA≈3.5min
+[004/36] L=64 B=16 prompt=01 repeat=0 NFE=64 latency=6.314s slots/s=10.136 ETA≈3.4min
+[005/36] L=64 B=16 prompt=01 repeat=1 NFE=64 latency=6.297s slots/s=10.163 ETA≈3.3min
+[006/36] L=64 B=16 prompt=01 repeat=2 NFE=64 latency=6.297s slots/s=10.164 ETA≈3.2min
+[007/36] L=64 B=16 prompt=02 repeat=0 NFE=64 latency=6.300s slots/s=10.158 ETA≈3.0min
+[008/36] L=64 B=16 prompt=02 repeat=1 NFE=64 latency=6.292s slots/s=10.171 ETA≈2.9min
+[009/36] L=64 B=16 prompt=02 repeat=2 NFE=64 latency=6.297s slots/s=10.164 ETA≈2.8min
+[010/36] L=64 B=16 prompt=03 repeat=0 NFE=64 latency=6.308s slots/s=10.146 ETA≈2.7min
+[011/36] L=64 B=16 prompt=03 repeat=1 NFE=64 latency=6.284s slots/s=10.184 ETA≈2.6min
+[012/36] L=64 B=16 prompt=03 repeat=2 NFE=64 latency=6.286s slots/s=10.182 ETA≈2.5min
+[013/36] L=64 B=16 prompt=04 repeat=0 NFE=64 latency=6.191s slots/s=10.338 ETA≈2.4min
+[014/36] L=64 B=16 prompt=04 repeat=1 NFE=64 latency=6.177s slots/s=10.361 ETA≈2.3min
+[015/36] L=64 B=16 prompt=04 repeat=2 NFE=64 latency=6.178s slots/s=10.359 ETA≈2.2min
+[016/36] L=64 B=16 prompt=05 repeat=0 NFE=64 latency=6.305s slots/s=10.151 ETA≈2.1min
+[017/36] L=64 B=16 prompt=05 repeat=1 NFE=64 latency=6.289s slots/s=10.177 ETA≈2.0min
+[018/36] L=64 B=16 prompt=05 repeat=2 NFE=64 latency=6.290s slots/s=10.175 ETA≈1.9min
+[019/36] L=64 B=16 prompt=06 repeat=0 NFE=64 latency=6.392s slots/s=10.013 ETA≈1.8min
+[020/36] L=64 B=16 prompt=06 repeat=1 NFE=64 latency=6.363s slots/s=10.059 ETA≈1.7min
+[021/36] L=64 B=16 prompt=06 repeat=2 NFE=64 latency=6.359s slots/s=10.065 ETA≈1.6min
+[022/36] L=64 B=16 prompt=07 repeat=0 NFE=64 latency=6.409s slots/s=9.986 ETA≈1.5min
+[023/36] L=64 B=16 prompt=07 repeat=1 NFE=64 latency=6.392s slots/s=10.012 ETA≈1.4min
+[024/36] L=64 B=16 prompt=07 repeat=2 NFE=64 latency=6.394s slots/s=10.009 ETA≈1.3min
+[025/36] L=64 B=16 prompt=08 repeat=0 NFE=64 latency=6.312s slots/s=10.139 ETA≈1.2min
+[026/36] L=64 B=16 prompt=08 repeat=1 NFE=64 latency=6.302s slots/s=10.155 ETA≈1.1min
+[027/36] L=64 B=16 prompt=08 repeat=2 NFE=64 latency=6.299s slots/s=10.160 ETA≈0.9min
+[028/36] L=64 B=16 prompt=09 repeat=0 NFE=64 latency=6.298s slots/s=10.161 ETA≈0.8min
+[029/36] L=64 B=16 prompt=09 repeat=1 NFE=64 latency=6.284s slots/s=10.184 ETA≈0.7min
+[030/36] L=64 B=16 prompt=09 repeat=2 NFE=64 latency=6.283s slots/s=10.187 ETA≈0.6min
+[031/36] L=64 B=16 prompt=10 repeat=0 NFE=64 latency=6.304s slots/s=10.153 ETA≈0.5min
+[032/36] L=64 B=16 prompt=10 repeat=1 NFE=64 latency=6.292s slots/s=10.172 ETA≈0.4min
+[033/36] L=64 B=16 prompt=10 repeat=2 NFE=64 latency=6.291s slots/s=10.173 ETA≈0.3min
+[034/36] L=64 B=16 prompt=11 repeat=0 NFE=64 latency=6.301s slots/s=10.156 ETA≈0.2min
+[035/36] L=64 B=16 prompt=11 repeat=1 NFE=64 latency=6.287s slots/s=10.180 ETA≈0.1min
+[036/36] L=64 B=16 prompt=11 repeat=2 NFE=64 latency=6.286s slots/s=10.182 ETA≈0.0min
+Config completed: mean=6.301s, p50=6.298s, slots/s=10.157
+
+===== Config 4/12: length=64, block=64 =====
+Warm-up...
+Warm-up 1/1 finished, NFE=64
+[001/36] L=64 B=64 prompt=00 repeat=0 NFE=64 latency=7.234s slots/s=8.848 ETA≈4.2min
+[002/36] L=64 B=64 prompt=00 repeat=1 NFE=64 latency=7.232s slots/s=8.849 ETA≈4.1min
+[003/36] L=64 B=64 prompt=00 repeat=2 NFE=64 latency=7.234s slots/s=8.847 ETA≈4.0min
+[004/36] L=64 B=64 prompt=01 repeat=0 NFE=64 latency=7.236s slots/s=8.845 ETA≈3.9min
+[005/36] L=64 B=64 prompt=01 repeat=1 NFE=64 latency=7.231s slots/s=8.851 ETA≈3.7min
+[006/36] L=64 B=64 prompt=01 repeat=2 NFE=64 latency=7.232s slots/s=8.849 ETA≈3.6min
+[007/36] L=64 B=64 prompt=02 repeat=0 NFE=64 latency=7.228s slots/s=8.854 ETA≈3.5min
+[008/36] L=64 B=64 prompt=02 repeat=1 NFE=64 latency=7.227s slots/s=8.855 ETA≈3.4min
+[009/36] L=64 B=64 prompt=02 repeat=2 NFE=64 latency=7.231s slots/s=8.851 ETA≈3.3min
+[010/36] L=64 B=64 prompt=03 repeat=0 NFE=64 latency=7.230s slots/s=8.852 ETA≈3.1min
+[011/36] L=64 B=64 prompt=03 repeat=1 NFE=64 latency=7.222s slots/s=8.862 ETA≈3.0min
+[012/36] L=64 B=64 prompt=03 repeat=2 NFE=64 latency=7.221s slots/s=8.863 ETA≈2.9min
+[013/36] L=64 B=64 prompt=04 repeat=0 NFE=64 latency=7.193s slots/s=8.898 ETA≈2.8min
+[014/36] L=64 B=64 prompt=04 repeat=1 NFE=64 latency=7.183s slots/s=8.910 ETA≈2.7min
+[015/36] L=64 B=64 prompt=04 repeat=2 NFE=64 latency=7.187s slots/s=8.905 ETA≈2.5min
+[016/36] L=64 B=64 prompt=05 repeat=0 NFE=64 latency=7.232s slots/s=8.849 ETA≈2.4min
+[017/36] L=64 B=64 prompt=05 repeat=1 NFE=64 latency=7.222s slots/s=8.861 ETA≈2.3min
+[018/36] L=64 B=64 prompt=05 repeat=2 NFE=64 latency=7.224s slots/s=8.859 ETA≈2.2min
+[019/36] L=64 B=64 prompt=06 repeat=0 NFE=64 latency=7.275s slots/s=8.798 ETA≈2.0min
+[020/36] L=64 B=64 prompt=06 repeat=1 NFE=64 latency=7.265s slots/s=8.810 ETA≈1.9min
+[021/36] L=64 B=64 prompt=06 repeat=2 NFE=64 latency=7.267s slots/s=8.807 ETA≈1.8min
+[022/36] L=64 B=64 prompt=07 repeat=0 NFE=64 latency=7.304s slots/s=8.762 ETA≈1.7min
+[023/36] L=64 B=64 prompt=07 repeat=1 NFE=64 latency=7.292s slots/s=8.777 ETA≈1.6min
+[024/36] L=64 B=64 prompt=07 repeat=2 NFE=64 latency=7.292s slots/s=8.777 ETA≈1.4min
+[025/36] L=64 B=64 prompt=08 repeat=0 NFE=64 latency=7.239s slots/s=8.841 ETA≈1.3min
+[026/36] L=64 B=64 prompt=08 repeat=1 NFE=64 latency=7.234s slots/s=8.847 ETA≈1.2min
+[027/36] L=64 B=64 prompt=08 repeat=2 NFE=64 latency=7.236s slots/s=8.845 ETA≈1.1min
+[028/36] L=64 B=64 prompt=09 repeat=0 NFE=64 latency=7.229s slots/s=8.853 ETA≈1.0min
+[029/36] L=64 B=64 prompt=09 repeat=1 NFE=64 latency=7.221s slots/s=8.863 ETA≈0.8min
+[030/36] L=64 B=64 prompt=09 repeat=2 NFE=64 latency=7.223s slots/s=8.861 ETA≈0.7min
+[031/36] L=64 B=64 prompt=10 repeat=0 NFE=64 latency=7.232s slots/s=8.849 ETA≈0.6min
+[032/36] L=64 B=64 prompt=10 repeat=1 NFE=64 latency=7.228s slots/s=8.854 ETA≈0.5min
+[033/36] L=64 B=64 prompt=10 repeat=2 NFE=64 latency=7.228s slots/s=8.854 ETA≈0.4min
+[034/36] L=64 B=64 prompt=11 repeat=0 NFE=64 latency=7.230s slots/s=8.852 ETA≈0.2min
+[035/36] L=64 B=64 prompt=11 repeat=1 NFE=64 latency=7.219s slots/s=8.866 ETA≈0.1min
+[036/36] L=64 B=64 prompt=11 repeat=2 NFE=64 latency=7.224s slots/s=8.860 ETA≈0.0min
+Config completed: mean=7.234s, p50=7.231s, slots/s=8.847
+
+===== Config 5/12: length=128, block=16 =====
+Warm-up...
+Warm-up 1/1 finished, NFE=128
+[001/36] L=128 B=16 prompt=00 repeat=0 NFE=128 latency=17.960s slots/s=7.127 ETA≈10.5min
+[002/36] L=128 B=16 prompt=00 repeat=1 NFE=128 latency=17.956s slots/s=7.128 ETA≈10.2min
+[003/36] L=128 B=16 prompt=00 repeat=2 NFE=128 latency=17.957s slots/s=7.128 ETA≈9.9min
+[004/36] L=128 B=16 prompt=01 repeat=0 NFE=128 latency=17.968s slots/s=7.124 ETA≈9.6min
+[005/36] L=128 B=16 prompt=01 repeat=1 NFE=128 latency=17.948s slots/s=7.132 ETA≈9.3min
+[006/36] L=128 B=16 prompt=01 repeat=2 NFE=128 latency=17.949s slots/s=7.131 ETA≈9.0min
+[007/36] L=128 B=16 prompt=02 repeat=0 NFE=128 latency=17.949s slots/s=7.131 ETA≈8.7min
+[008/36] L=128 B=16 prompt=02 repeat=1 NFE=128 latency=17.952s slots/s=7.130 ETA≈8.4min
+[009/36] L=128 B=16 prompt=02 repeat=2 NFE=128 latency=17.951s slots/s=7.131 ETA≈8.1min
+[010/36] L=128 B=16 prompt=03 repeat=0 NFE=128 latency=17.947s slots/s=7.132 ETA≈7.8min
+[011/36] L=128 B=16 prompt=03 repeat=1 NFE=128 latency=17.922s slots/s=7.142 ETA≈7.5min
+[012/36] L=128 B=16 prompt=03 repeat=2 NFE=128 latency=17.923s slots/s=7.142 ETA≈7.2min
+[013/36] L=128 B=16 prompt=04 repeat=0 NFE=128 latency=17.846s slots/s=7.172 ETA≈6.9min
+[014/36] L=128 B=16 prompt=04 repeat=1 NFE=128 latency=17.826s slots/s=7.181 ETA≈6.6min
+[015/36] L=128 B=16 prompt=04 repeat=2 NFE=128 latency=17.825s slots/s=7.181 ETA≈6.3min
+[016/36] L=128 B=16 prompt=05 repeat=0 NFE=128 latency=17.947s slots/s=7.132 ETA≈6.0min
+[017/36] L=128 B=16 prompt=05 repeat=1 NFE=128 latency=17.929s slots/s=7.139 ETA≈5.7min
+[018/36] L=128 B=16 prompt=05 repeat=2 NFE=128 latency=17.927s slots/s=7.140 ETA≈5.4min
+[019/36] L=128 B=16 prompt=06 repeat=0 NFE=128 latency=18.082s slots/s=7.079 ETA≈5.1min
+[020/36] L=128 B=16 prompt=06 repeat=1 NFE=128 latency=18.063s slots/s=7.086 ETA≈4.8min
+[021/36] L=128 B=16 prompt=06 repeat=2 NFE=128 latency=18.063s slots/s=7.086 ETA≈4.5min
+[022/36] L=128 B=16 prompt=07 repeat=0 NFE=128 latency=18.155s slots/s=7.051 ETA≈4.2min
+[023/36] L=128 B=16 prompt=07 repeat=1 NFE=128 latency=18.132s slots/s=7.059 ETA≈3.9min
+[024/36] L=128 B=16 prompt=07 repeat=2 NFE=128 latency=18.134s slots/s=7.059 ETA≈3.6min
+[025/36] L=128 B=16 prompt=08 repeat=0 NFE=128 latency=17.982s slots/s=7.118 ETA≈3.3min
+[026/36] L=128 B=16 prompt=08 repeat=1 NFE=128 latency=17.952s slots/s=7.130 ETA≈3.0min
+[027/36] L=128 B=16 prompt=08 repeat=2 NFE=128 latency=17.953s slots/s=7.130 ETA≈2.7min
+[028/36] L=128 B=16 prompt=09 repeat=0 NFE=128 latency=17.940s slots/s=7.135 ETA≈2.4min
+[029/36] L=128 B=16 prompt=09 repeat=1 NFE=128 latency=17.921s slots/s=7.142 ETA≈2.1min
+[030/36] L=128 B=16 prompt=09 repeat=2 NFE=128 latency=17.920s slots/s=7.143 ETA≈1.8min
+[031/36] L=128 B=16 prompt=10 repeat=0 NFE=128 latency=17.964s slots/s=7.125 ETA≈1.5min
+[032/36] L=128 B=16 prompt=10 repeat=1 NFE=128 latency=17.930s slots/s=7.139 ETA≈1.2min
+[033/36] L=128 B=16 prompt=10 repeat=2 NFE=128 latency=17.936s slots/s=7.136 ETA≈0.9min
+[034/36] L=128 B=16 prompt=11 repeat=0 NFE=128 latency=17.950s slots/s=7.131 ETA≈0.6min
+[035/36] L=128 B=16 prompt=11 repeat=1 NFE=128 latency=17.921s slots/s=7.142 ETA≈0.3min
+[036/36] L=128 B=16 prompt=11 repeat=2 NFE=128 latency=17.918s slots/s=7.144 ETA≈0.0min
+Config completed: mean=17.961s, p50=17.949s, slots/s=7.127
+
+===== Config 6/12: length=128, block=64 =====
+Warm-up...
+Warm-up 1/1 finished, NFE=128
+[001/36] L=128 B=64 prompt=00 repeat=0 NFE=128 latency=19.791s slots/s=6.468 ETA≈11.5min
+[002/36] L=128 B=64 prompt=00 repeat=1 NFE=128 latency=19.798s slots/s=6.465 ETA≈11.2min
+[003/36] L=128 B=64 prompt=00 repeat=2 NFE=128 latency=19.797s slots/s=6.466 ETA≈10.9min
+[004/36] L=128 B=64 prompt=01 repeat=0 NFE=128 latency=19.792s slots/s=6.467 ETA≈10.6min
+[005/36] L=128 B=64 prompt=01 repeat=1 NFE=128 latency=19.782s slots/s=6.470 ETA≈10.2min
+[006/36] L=128 B=64 prompt=01 repeat=2 NFE=128 latency=19.781s slots/s=6.471 ETA≈9.9min
+[007/36] L=128 B=64 prompt=02 repeat=0 NFE=128 latency=19.783s slots/s=6.470 ETA≈9.6min
+[008/36] L=128 B=64 prompt=02 repeat=1 NFE=128 latency=19.785s slots/s=6.470 ETA≈9.2min
+[009/36] L=128 B=64 prompt=02 repeat=2 NFE=128 latency=19.787s slots/s=6.469 ETA≈8.9min
+[010/36] L=128 B=64 prompt=03 repeat=0 NFE=128 latency=19.778s slots/s=6.472 ETA≈8.6min
+[011/36] L=128 B=64 prompt=03 repeat=1 NFE=128 latency=19.765s slots/s=6.476 ETA≈8.2min
+[012/36] L=128 B=64 prompt=03 repeat=2 NFE=128 latency=19.767s slots/s=6.475 ETA≈7.9min
+[013/36] L=128 B=64 prompt=04 repeat=0 NFE=128 latency=19.710s slots/s=6.494 ETA≈7.6min
+[014/36] L=128 B=64 prompt=04 repeat=1 NFE=128 latency=19.700s slots/s=6.497 ETA≈7.3min
+[015/36] L=128 B=64 prompt=04 repeat=2 NFE=128 latency=19.698s slots/s=6.498 ETA≈6.9min
+[016/36] L=128 B=64 prompt=05 repeat=0 NFE=128 latency=19.776s slots/s=6.473 ETA≈6.6min
+[017/36] L=128 B=64 prompt=05 repeat=1 NFE=128 latency=19.767s slots/s=6.476 ETA≈6.3min
+[018/36] L=128 B=64 prompt=05 repeat=2 NFE=128 latency=19.769s slots/s=6.475 ETA≈5.9min
+[019/36] L=128 B=64 prompt=06 repeat=0 NFE=128 latency=19.837s slots/s=6.452 ETA≈5.6min
+[020/36] L=128 B=64 prompt=06 repeat=1 NFE=128 latency=19.827s slots/s=6.456 ETA≈5.3min
+[021/36] L=128 B=64 prompt=06 repeat=2 NFE=128 latency=19.824s slots/s=6.457 ETA≈4.9min
+[022/36] L=128 B=64 prompt=07 repeat=0 NFE=128 latency=19.893s slots/s=6.434 ETA≈4.6min
+[023/36] L=128 B=64 prompt=07 repeat=1 NFE=128 latency=19.886s slots/s=6.437 ETA≈4.3min
+[024/36] L=128 B=64 prompt=07 repeat=2 NFE=128 latency=19.883s slots/s=6.438 ETA≈4.0min
+[025/36] L=128 B=64 prompt=08 repeat=0 NFE=128 latency=19.802s slots/s=6.464 ETA≈3.6min
+[026/36] L=128 B=64 prompt=08 repeat=1 NFE=128 latency=19.791s slots/s=6.468 ETA≈3.3min
+[027/36] L=128 B=64 prompt=08 repeat=2 NFE=128 latency=19.793s slots/s=6.467 ETA≈3.0min
+[028/36] L=128 B=64 prompt=09 repeat=0 NFE=128 latency=19.771s slots/s=6.474 ETA≈2.6min
+[029/36] L=128 B=64 prompt=09 repeat=1 NFE=128 latency=19.750s slots/s=6.481 ETA≈2.3min
+[030/36] L=128 B=64 prompt=09 repeat=2 NFE=128 latency=19.755s slots/s=6.480 ETA≈2.0min
+[031/36] L=128 B=64 prompt=10 repeat=0 NFE=128 latency=19.780s slots/s=6.471 ETA≈1.6min
+[032/36] L=128 B=64 prompt=10 repeat=1 NFE=128 latency=19.775s slots/s=6.473 ETA≈1.3min
+[033/36] L=128 B=64 prompt=10 repeat=2 NFE=128 latency=19.773s slots/s=6.474 ETA≈1.0min
+[034/36] L=128 B=64 prompt=11 repeat=0 NFE=128 latency=19.766s slots/s=6.476 ETA≈0.7min
+[035/36] L=128 B=64 prompt=11 repeat=1 NFE=128 latency=19.752s slots/s=6.480 ETA≈0.3min
+[036/36] L=128 B=64 prompt=11 repeat=2 NFE=128 latency=19.756s slots/s=6.479 ETA≈0.0min
+Config completed: mean=19.784s, p50=19.781s, slots/s=6.470
+
+===== Config 7/12: length=256, block=16 =====
+Warm-up...
+Warm-up 1/1 finished, NFE=256
+[001/36] L=256 B=16 prompt=00 repeat=0 NFE=256 latency=57.923s slots/s=4.420 ETA≈33.8min
+[002/36] L=256 B=16 prompt=00 repeat=1 NFE=256 latency=57.927s slots/s=4.419 ETA≈32.8min
+[003/36] L=256 B=16 prompt=00 repeat=2 NFE=256 latency=57.916s slots/s=4.420 ETA≈31.9min
+[004/36] L=256 B=16 prompt=01 repeat=0 NFE=256 latency=57.946s slots/s=4.418 ETA≈30.9min
+[005/36] L=256 B=16 prompt=01 repeat=1 NFE=256 latency=57.917s slots/s=4.420 ETA≈29.9min
+[006/36] L=256 B=16 prompt=01 repeat=2 NFE=256 latency=57.916s slots/s=4.420 ETA≈29.0min
+[007/36] L=256 B=16 prompt=02 repeat=0 NFE=256 latency=57.910s slots/s=4.421 ETA≈28.0min
+[008/36] L=256 B=16 prompt=02 repeat=1 NFE=256 latency=57.909s slots/s=4.421 ETA≈27.0min
+[009/36] L=256 B=16 prompt=02 repeat=2 NFE=256 latency=57.914s slots/s=4.420 ETA≈26.1min
+[010/36] L=256 B=16 prompt=03 repeat=0 NFE=256 latency=57.889s slots/s=4.422 ETA≈25.1min
+[011/36] L=256 B=16 prompt=03 repeat=1 NFE=256 latency=57.845s slots/s=4.426 ETA≈24.1min
+[012/36] L=256 B=16 prompt=03 repeat=2 NFE=256 latency=57.844s slots/s=4.426 ETA≈23.2min
+[013/36] L=256 B=16 prompt=04 repeat=0 NFE=256 latency=57.805s slots/s=4.429 ETA≈22.2min
+[014/36] L=256 B=16 prompt=04 repeat=1 NFE=256 latency=57.758s slots/s=4.432 ETA≈21.2min
+[015/36] L=256 B=16 prompt=04 repeat=2 NFE=256 latency=57.766s slots/s=4.432 ETA≈20.3min
+[016/36] L=256 B=16 prompt=05 repeat=0 NFE=256 latency=57.896s slots/s=4.422 ETA≈19.3min
+[017/36] L=256 B=16 prompt=05 repeat=1 NFE=256 latency=57.852s slots/s=4.425 ETA≈18.3min
+[018/36] L=256 B=16 prompt=05 repeat=2 NFE=256 latency=57.859s slots/s=4.425 ETA≈17.4min
+[019/36] L=256 B=16 prompt=06 repeat=0 NFE=256 latency=58.053s slots/s=4.410 ETA≈16.4min
+[020/36] L=256 B=16 prompt=06 repeat=1 NFE=256 latency=58.002s slots/s=4.414 ETA≈15.4min
+[021/36] L=256 B=16 prompt=06 repeat=2 NFE=256 latency=58.001s slots/s=4.414 ETA≈14.5min
+[022/36] L=256 B=16 prompt=07 repeat=0 NFE=256 latency=58.119s slots/s=4.405 ETA≈13.5min
+[023/36] L=256 B=16 prompt=07 repeat=1 NFE=256 latency=58.058s slots/s=4.409 ETA≈12.5min
+[024/36] L=256 B=16 prompt=07 repeat=2 NFE=256 latency=58.065s slots/s=4.409 ETA≈11.6min
+[025/36] L=256 B=16 prompt=08 repeat=0 NFE=256 latency=57.992s slots/s=4.414 ETA≈10.6min
+[026/36] L=256 B=16 prompt=08 repeat=1 NFE=256 latency=57.946s slots/s=4.418 ETA≈9.7min
+[027/36] L=256 B=16 prompt=08 repeat=2 NFE=256 latency=57.950s slots/s=4.418 ETA≈8.7min
+[028/36] L=256 B=16 prompt=09 repeat=0 NFE=256 latency=57.885s slots/s=4.423 ETA≈7.7min
+[029/36] L=256 B=16 prompt=09 repeat=1 NFE=256 latency=57.857s slots/s=4.425 ETA≈6.8min
+[030/36] L=256 B=16 prompt=09 repeat=2 NFE=256 latency=57.849s slots/s=4.425 ETA≈5.8min
+[031/36] L=256 B=16 prompt=10 repeat=0 NFE=256 latency=57.933s slots/s=4.419 ETA≈4.8min
+[032/36] L=256 B=16 prompt=10 repeat=1 NFE=256 latency=57.884s slots/s=4.423 ETA≈3.9min
+[033/36] L=256 B=16 prompt=10 repeat=2 NFE=256 latency=57.885s slots/s=4.423 ETA≈2.9min
+[034/36] L=256 B=16 prompt=11 repeat=0 NFE=256 latency=57.904s slots/s=4.421 ETA≈1.9min
+[035/36] L=256 B=16 prompt=11 repeat=1 NFE=256 latency=57.861s slots/s=4.424 ETA≈1.0min
+[036/36] L=256 B=16 prompt=11 repeat=2 NFE=256 latency=57.866s slots/s=4.424 ETA≈0.0min
+Config completed: mean=57.914s, p50=57.910s, slots/s=4.420
+
+===== Config 8/12: length=256, block=32 =====
+Warm-up...
+Warm-up 1/1 finished, NFE=256
+[001/36] L=256 B=32 prompt=00 repeat=0 NFE=256 latency=56.881s slots/s=4.501 ETA≈33.2min
+[002/36] L=256 B=32 prompt=00 repeat=1 NFE=256 latency=56.886s slots/s=4.500 ETA≈32.2min
+[003/36] L=256 B=32 prompt=00 repeat=2 NFE=256 latency=56.883s slots/s=4.500 ETA≈31.3min
+[004/36] L=256 B=32 prompt=01 repeat=0 NFE=256 latency=56.904s slots/s=4.499 ETA≈30.3min
+[005/36] L=256 B=32 prompt=01 repeat=1 NFE=256 latency=56.874s slots/s=4.501 ETA≈29.4min
+[006/36] L=256 B=32 prompt=01 repeat=2 NFE=256 latency=56.868s slots/s=4.502 ETA≈28.4min
+[007/36] L=256 B=32 prompt=02 repeat=0 NFE=256 latency=56.871s slots/s=4.501 ETA≈27.5min
+[008/36] L=256 B=32 prompt=02 repeat=1 NFE=256 latency=56.880s slots/s=4.501 ETA≈26.5min
+[009/36] L=256 B=32 prompt=02 repeat=2 NFE=256 latency=56.877s slots/s=4.501 ETA≈25.6min
+[010/36] L=256 B=32 prompt=03 repeat=0 NFE=256 latency=56.835s slots/s=4.504 ETA≈24.6min
+[011/36] L=256 B=32 prompt=03 repeat=1 NFE=256 latency=56.807s slots/s=4.506 ETA≈23.7min
+[012/36] L=256 B=32 prompt=03 repeat=2 NFE=256 latency=56.805s slots/s=4.507 ETA≈22.7min
+[013/36] L=256 B=32 prompt=04 repeat=0 NFE=256 latency=56.767s slots/s=4.510 ETA≈21.8min
+[014/36] L=256 B=32 prompt=04 repeat=1 NFE=256 latency=56.731s slots/s=4.513 ETA≈20.8min
+[015/36] L=256 B=32 prompt=04 repeat=2 NFE=256 latency=56.734s slots/s=4.512 ETA≈19.9min
+[016/36] L=256 B=32 prompt=05 repeat=0 NFE=256 latency=56.837s slots/s=4.504 ETA≈18.9min
+[017/36] L=256 B=32 prompt=05 repeat=1 NFE=256 latency=56.820s slots/s=4.505 ETA≈18.0min
+[018/36] L=256 B=32 prompt=05 repeat=2 NFE=256 latency=56.817s slots/s=4.506 ETA≈17.1min
+[019/36] L=256 B=32 prompt=06 repeat=0 NFE=256 latency=56.976s slots/s=4.493 ETA≈16.1min
+[020/36] L=256 B=32 prompt=06 repeat=1 NFE=256 latency=56.960s slots/s=4.494 ETA≈15.2min
+[021/36] L=256 B=32 prompt=06 repeat=2 NFE=256 latency=56.957s slots/s=4.495 ETA≈14.2min
+[022/36] L=256 B=32 prompt=07 repeat=0 NFE=256 latency=57.066s slots/s=4.486 ETA≈13.3min
+[023/36] L=256 B=32 prompt=07 repeat=1 NFE=256 latency=57.058s slots/s=4.487 ETA≈12.3min
+[024/36] L=256 B=32 prompt=07 repeat=2 NFE=256 latency=57.059s slots/s=4.487 ETA≈11.4min
+[025/36] L=256 B=32 prompt=08 repeat=0 NFE=256 latency=56.911s slots/s=4.498 ETA≈10.4min
+[026/36] L=256 B=32 prompt=08 repeat=1 NFE=256 latency=56.880s slots/s=4.501 ETA≈9.5min
+[027/36] L=256 B=32 prompt=08 repeat=2 NFE=256 latency=56.877s slots/s=4.501 ETA≈8.5min
+[028/36] L=256 B=32 prompt=09 repeat=0 NFE=256 latency=56.828s slots/s=4.505 ETA≈7.6min
+[029/36] L=256 B=32 prompt=09 repeat=1 NFE=256 latency=56.804s slots/s=4.507 ETA≈6.6min
+[030/36] L=256 B=32 prompt=09 repeat=2 NFE=256 latency=56.794s slots/s=4.508 ETA≈5.7min
+[031/36] L=256 B=32 prompt=10 repeat=0 NFE=256 latency=56.825s slots/s=4.505 ETA≈4.7min
+[032/36] L=256 B=32 prompt=10 repeat=1 NFE=256 latency=56.823s slots/s=4.505 ETA≈3.8min
+[033/36] L=256 B=32 prompt=10 repeat=2 NFE=256 latency=56.831s slots/s=4.505 ETA≈2.8min
+[034/36] L=256 B=32 prompt=11 repeat=0 NFE=256 latency=56.833s slots/s=4.504 ETA≈1.9min
+[035/36] L=256 B=32 prompt=11 repeat=1 NFE=256 latency=56.797s slots/s=4.507 ETA≈0.9min
+[036/36] L=256 B=32 prompt=11 repeat=2 NFE=256 latency=56.815s slots/s=4.506 ETA≈0.0min
+Config completed: mean=56.866s, p50=56.852s, slots/s=4.502
+
+===== Config 9/12: length=256, block=64 =====
+Warm-up...
+Warm-up 1/1 finished, NFE=256
+[001/36] L=256 B=64 prompt=00 repeat=0 NFE=256 latency=59.706s slots/s=4.288 ETA≈34.8min
+[002/36] L=256 B=64 prompt=00 repeat=1 NFE=256 latency=59.698s slots/s=4.288 ETA≈33.8min
+[003/36] L=256 B=64 prompt=00 repeat=2 NFE=256 latency=59.702s slots/s=4.288 ETA≈32.8min
+[004/36] L=256 B=64 prompt=01 repeat=0 NFE=256 latency=59.715s slots/s=4.287 ETA≈31.8min
+[005/36] L=256 B=64 prompt=01 repeat=1 NFE=256 latency=59.698s slots/s=4.288 ETA≈30.8min
+[006/36] L=256 B=64 prompt=01 repeat=2 NFE=256 latency=59.696s slots/s=4.288 ETA≈29.9min
+[007/36] L=256 B=64 prompt=02 repeat=0 NFE=256 latency=59.694s slots/s=4.289 ETA≈28.9min
+[008/36] L=256 B=64 prompt=02 repeat=1 NFE=256 latency=59.694s slots/s=4.289 ETA≈27.9min
+[009/36] L=256 B=64 prompt=02 repeat=2 NFE=256 latency=59.691s slots/s=4.289 ETA≈26.9min
+[010/36] L=256 B=64 prompt=03 repeat=0 NFE=256 latency=59.650s slots/s=4.292 ETA≈25.9min
+[011/36] L=256 B=64 prompt=03 repeat=1 NFE=256 latency=59.644s slots/s=4.292 ETA≈24.9min
+[012/36] L=256 B=64 prompt=03 repeat=2 NFE=256 latency=59.640s slots/s=4.292 ETA≈23.9min
+[013/36] L=256 B=64 prompt=04 repeat=0 NFE=256 latency=59.590s slots/s=4.296 ETA≈22.9min
+[014/36] L=256 B=64 prompt=04 repeat=1 NFE=256 latency=59.557s slots/s=4.298 ETA≈21.9min
+[015/36] L=256 B=64 prompt=04 repeat=2 NFE=256 latency=59.567s slots/s=4.298 ETA≈20.9min
+[016/36] L=256 B=64 prompt=05 repeat=0 NFE=256 latency=59.672s slots/s=4.290 ETA≈19.9min
+[017/36] L=256 B=64 prompt=05 repeat=1 NFE=256 latency=59.664s slots/s=4.291 ETA≈18.9min
+[018/36] L=256 B=64 prompt=05 repeat=2 NFE=256 latency=59.643s slots/s=4.292 ETA≈17.9min
+[019/36] L=256 B=64 prompt=06 repeat=0 NFE=256 latency=59.748s slots/s=4.285 ETA≈16.9min
+[020/36] L=256 B=64 prompt=06 repeat=1 NFE=256 latency=59.725s slots/s=4.286 ETA≈15.9min
+[021/36] L=256 B=64 prompt=06 repeat=2 NFE=256 latency=59.729s slots/s=4.286 ETA≈14.9min
+[022/36] L=256 B=64 prompt=07 repeat=0 NFE=256 latency=59.849s slots/s=4.277 ETA≈13.9min
+[023/36] L=256 B=64 prompt=07 repeat=1 NFE=256 latency=59.831s slots/s=4.279 ETA≈12.9min
+[024/36] L=256 B=64 prompt=07 repeat=2 NFE=256 latency=59.820s slots/s=4.280 ETA≈11.9min
+[025/36] L=256 B=64 prompt=08 repeat=0 NFE=256 latency=59.720s slots/s=4.287 ETA≈10.9min
+[026/36] L=256 B=64 prompt=08 repeat=1 NFE=256 latency=59.700s slots/s=4.288 ETA≈10.0min
+[027/36] L=256 B=64 prompt=08 repeat=2 NFE=256 latency=59.706s slots/s=4.288 ETA≈9.0min
+[028/36] L=256 B=64 prompt=09 repeat=0 NFE=256 latency=59.639s slots/s=4.292 ETA≈8.0min
+[029/36] L=256 B=64 prompt=09 repeat=1 NFE=256 latency=59.621s slots/s=4.294 ETA≈7.0min
+[030/36] L=256 B=64 prompt=09 repeat=2 NFE=256 latency=59.631s slots/s=4.293 ETA≈6.0min
+[031/36] L=256 B=64 prompt=10 repeat=0 NFE=256 latency=59.668s slots/s=4.290 ETA≈5.0min
+[032/36] L=256 B=64 prompt=10 repeat=1 NFE=256 latency=59.654s slots/s=4.291 ETA≈4.0min
+[033/36] L=256 B=64 prompt=10 repeat=2 NFE=256 latency=59.662s slots/s=4.291 ETA≈3.0min
+[034/36] L=256 B=64 prompt=11 repeat=0 NFE=256 latency=59.638s slots/s=4.293 ETA≈2.0min
+[035/36] L=256 B=64 prompt=11 repeat=1 NFE=256 latency=59.630s slots/s=4.293 ETA≈1.0min
+[036/36] L=256 B=64 prompt=11 repeat=2 NFE=256 latency=59.634s slots/s=4.293 ETA≈0.0min
+Config completed: mean=59.681s, p50=59.682s, slots/s=4.289
+
+===== Config 10/12: length=512, block=16 =====
+Warm-up...
+Warm-up 1/1 finished, NFE=512
+[001/36] L=512 B=16 prompt=00 repeat=0 NFE=512 latency=201.762s slots/s=2.538 ETA≈117.7min
+[002/36] L=512 B=16 prompt=00 repeat=1 NFE=512 latency=201.741s slots/s=2.538 ETA≈114.3min
+[003/36] L=512 B=16 prompt=00 repeat=2 NFE=512 latency=201.709s slots/s=2.538 ETA≈111.0min
+[004/36] L=512 B=16 prompt=01 repeat=0 NFE=512 latency=201.720s slots/s=2.538 ETA≈107.6min
+[005/36] L=512 B=16 prompt=01 repeat=1 NFE=512 latency=201.687s slots/s=2.539 ETA≈104.2min
+[006/36] L=512 B=16 prompt=01 repeat=2 NFE=512 latency=201.715s slots/s=2.538 ETA≈100.9min
+[007/36] L=512 B=16 prompt=02 repeat=0 NFE=512 latency=201.703s slots/s=2.538 ETA≈97.5min
+[008/36] L=512 B=16 prompt=02 repeat=1 NFE=512 latency=201.773s slots/s=2.538 ETA≈94.1min
+[009/36] L=512 B=16 prompt=02 repeat=2 NFE=512 latency=201.750s slots/s=2.538 ETA≈90.8min
+[010/36] L=512 B=16 prompt=03 repeat=0 NFE=512 latency=201.732s slots/s=2.538 ETA≈87.4min
+[011/36] L=512 B=16 prompt=03 repeat=1 NFE=512 latency=201.528s slots/s=2.541 ETA≈84.0min
+[012/36] L=512 B=16 prompt=03 repeat=2 NFE=512 latency=201.634s slots/s=2.539 ETA≈80.7min
+[013/36] L=512 B=16 prompt=04 repeat=0 NFE=512 latency=201.074s slots/s=2.546 ETA≈77.3min
+[014/36] L=512 B=16 prompt=04 repeat=1 NFE=512 latency=200.957s slots/s=2.548 ETA≈73.9min
+[015/36] L=512 B=16 prompt=04 repeat=2 NFE=512 latency=200.962s slots/s=2.548 ETA≈70.5min
+[016/36] L=512 B=16 prompt=05 repeat=0 NFE=512 latency=201.602s slots/s=2.540 ETA≈67.2min
+[017/36] L=512 B=16 prompt=05 repeat=1 NFE=512 latency=201.593s slots/s=2.540 ETA≈63.8min
+[018/36] L=512 B=16 prompt=05 repeat=2 NFE=512 latency=201.661s slots/s=2.539 ETA≈60.5min
+[019/36] L=512 B=16 prompt=06 repeat=0 NFE=512 latency=202.358s slots/s=2.530 ETA≈57.1min
+[020/36] L=512 B=16 prompt=06 repeat=1 NFE=512 latency=202.355s slots/s=2.530 ETA≈53.8min
+[021/36] L=512 B=16 prompt=06 repeat=2 NFE=512 latency=202.362s slots/s=2.530 ETA≈50.4min
+[022/36] L=512 B=16 prompt=07 repeat=0 NFE=512 latency=202.678s slots/s=2.526 ETA≈47.1min
+[023/36] L=512 B=16 prompt=07 repeat=1 NFE=512 latency=202.559s slots/s=2.528 ETA≈43.7min
+[024/36] L=512 B=16 prompt=07 repeat=2 NFE=512 latency=202.547s slots/s=2.528 ETA≈40.4min
+[025/36] L=512 B=16 prompt=08 repeat=0 NFE=512 latency=201.776s slots/s=2.537 ETA≈37.0min
+[026/36] L=512 B=16 prompt=08 repeat=1 NFE=512 latency=201.670s slots/s=2.539 ETA≈33.6min
+[027/36] L=512 B=16 prompt=08 repeat=2 NFE=512 latency=201.690s slots/s=2.539 ETA≈30.3min
+[028/36] L=512 B=16 prompt=09 repeat=0 NFE=512 latency=201.744s slots/s=2.538 ETA≈26.9min
+[029/36] L=512 B=16 prompt=09 repeat=1 NFE=512 latency=201.577s slots/s=2.540 ETA≈23.5min
+[030/36] L=512 B=16 prompt=09 repeat=2 NFE=512 latency=201.584s slots/s=2.540 ETA≈20.2min
+[031/36] L=512 B=16 prompt=10 repeat=0 NFE=512 latency=201.662s slots/s=2.539 ETA≈16.8min
+[032/36] L=512 B=16 prompt=10 repeat=1 NFE=512 latency=201.618s slots/s=2.539 ETA≈13.5min
+[033/36] L=512 B=16 prompt=10 repeat=2 NFE=512 latency=201.632s slots/s=2.539 ETA≈10.1min
+[034/36] L=512 B=16 prompt=11 repeat=0 NFE=512 latency=201.714s slots/s=2.538 ETA≈6.7min
+[035/36] L=512 B=16 prompt=11 repeat=1 NFE=512 latency=201.584s slots/s=2.540 ETA≈3.4min
+[036/36] L=512 B=16 prompt=11 repeat=2 NFE=512 latency=201.523s slots/s=2.541 ETA≈0.0min
+Config completed: mean=201.748s, p50=201.696s, slots/s=2.538
+
+===== Config 11/12: length=512, block=32 =====
+Warm-up...
+Warm-up 1/1 finished, NFE=512
+[001/36] L=512 B=32 prompt=00 repeat=0 NFE=512 latency=197.329s slots/s=2.595 ETA≈115.1min
+[002/36] L=512 B=32 prompt=00 repeat=1 NFE=512 latency=197.356s slots/s=2.594 ETA≈111.8min
+[003/36] L=512 B=32 prompt=00 repeat=2 NFE=512 latency=197.388s slots/s=2.594 ETA≈108.5min
+[004/36] L=512 B=32 prompt=01 repeat=0 NFE=512 latency=197.373s slots/s=2.594 ETA≈105.3min
+[005/36] L=512 B=32 prompt=01 repeat=1 NFE=512 latency=197.379s slots/s=2.594 ETA≈102.0min
+[006/36] L=512 B=32 prompt=01 repeat=2 NFE=512 latency=197.331s slots/s=2.595 ETA≈98.7min
+[007/36] L=512 B=32 prompt=02 repeat=0 NFE=512 latency=197.339s slots/s=2.595 ETA≈95.4min
+[008/36] L=512 B=32 prompt=02 repeat=1 NFE=512 latency=197.403s slots/s=2.594 ETA≈92.1min
+[009/36] L=512 B=32 prompt=02 repeat=2 NFE=512 latency=197.315s slots/s=2.595 ETA≈88.8min
+[010/36] L=512 B=32 prompt=03 repeat=0 NFE=512 latency=197.289s slots/s=2.595 ETA≈85.5min
+[011/36] L=512 B=32 prompt=03 repeat=1 NFE=512 latency=197.202s slots/s=2.596 ETA≈82.2min
+[012/36] L=512 B=32 prompt=03 repeat=2 NFE=512 latency=197.229s slots/s=2.596 ETA≈78.9min
+[013/36] L=512 B=32 prompt=04 repeat=0 NFE=512 latency=196.960s slots/s=2.600 ETA≈75.6min
+[014/36] L=512 B=32 prompt=04 repeat=1 NFE=512 latency=196.921s slots/s=2.600 ETA≈72.3min
+[015/36] L=512 B=32 prompt=04 repeat=2 NFE=512 latency=196.836s slots/s=2.601 ETA≈69.0min
+[016/36] L=512 B=32 prompt=05 repeat=0 NFE=512 latency=198.279s slots/s=2.582 ETA≈65.8min
+[017/36] L=512 B=32 prompt=05 repeat=1 NFE=512 latency=198.515s slots/s=2.579 ETA≈62.5min
+[018/36] L=512 B=32 prompt=05 repeat=2 NFE=512 latency=198.510s slots/s=2.579 ETA≈59.2min
+[019/36] L=512 B=32 prompt=06 repeat=0 NFE=512 latency=199.108s slots/s=2.571 ETA≈56.0min
+[020/36] L=512 B=32 prompt=06 repeat=1 NFE=512 latency=199.106s slots/s=2.571 ETA≈52.7min
+[021/36] L=512 B=32 prompt=06 repeat=2 NFE=512 latency=199.102s slots/s=2.572 ETA≈49.4min
+[022/36] L=512 B=32 prompt=07 repeat=0 NFE=512 latency=199.447s slots/s=2.567 ETA≈46.1min
+[023/36] L=512 B=32 prompt=07 repeat=1 NFE=512 latency=199.363s slots/s=2.568 ETA≈42.9min
+[024/36] L=512 B=32 prompt=07 repeat=2 NFE=512 latency=199.377s slots/s=2.568 ETA≈39.6min
+[025/36] L=512 B=32 prompt=08 repeat=0 NFE=512 latency=198.723s slots/s=2.576 ETA≈36.3min
+[026/36] L=512 B=32 prompt=08 repeat=1 NFE=512 latency=198.586s slots/s=2.578 ETA≈33.0min
+[027/36] L=512 B=32 prompt=08 repeat=2 NFE=512 latency=198.583s slots/s=2.578 ETA≈29.7min
+[028/36] L=512 B=32 prompt=09 repeat=0 NFE=512 latency=198.539s slots/s=2.579 ETA≈26.4min
+[029/36] L=512 B=32 prompt=09 repeat=1 NFE=512 latency=198.513s slots/s=2.579 ETA≈23.1min
+[030/36] L=512 B=32 prompt=09 repeat=2 NFE=512 latency=198.508s slots/s=2.579 ETA≈19.8min
+[031/36] L=512 B=32 prompt=10 repeat=0 NFE=512 latency=198.610s slots/s=2.578 ETA≈16.5min
+[032/36] L=512 B=32 prompt=10 repeat=1 NFE=512 latency=198.557s slots/s=2.579 ETA≈13.2min
+[033/36] L=512 B=32 prompt=10 repeat=2 NFE=512 latency=198.564s slots/s=2.579 ETA≈9.9min
+[034/36] L=512 B=32 prompt=11 repeat=0 NFE=512 latency=198.550s slots/s=2.579 ETA≈6.6min
+[035/36] L=512 B=32 prompt=11 repeat=1 NFE=512 latency=198.433s slots/s=2.580 ETA≈3.3min
+[036/36] L=512 B=32 prompt=11 repeat=2 NFE=512 latency=198.440s slots/s=2.580 ETA≈0.0min
+Config completed: mean=198.113s, p50=198.474s, slots/s=2.584
+
+===== Config 12/12: length=512, block=64 =====
+Warm-up...
+Warm-up 1/1 finished, NFE=512
+[001/36] L=512 B=64 prompt=00 repeat=0 NFE=512 latency=201.198s slots/s=2.545 ETA≈117.4min
+[002/36] L=512 B=64 prompt=00 repeat=1 NFE=512 latency=201.201s slots/s=2.545 ETA≈114.0min
+[003/36] L=512 B=64 prompt=00 repeat=2 NFE=512 latency=201.187s slots/s=2.545 ETA≈110.7min
+[004/36] L=512 B=64 prompt=01 repeat=0 NFE=512 latency=201.192s slots/s=2.545 ETA≈107.3min
+[005/36] L=512 B=64 prompt=01 repeat=1 NFE=512 latency=201.164s slots/s=2.545 ETA≈104.0min
+[006/36] L=512 B=64 prompt=01 repeat=2 NFE=512 latency=201.156s slots/s=2.545 ETA≈100.6min
+[007/36] L=512 B=64 prompt=02 repeat=0 NFE=512 latency=201.186s slots/s=2.545 ETA≈97.2min
+[008/36] L=512 B=64 prompt=02 repeat=1 NFE=512 latency=201.159s slots/s=2.545 ETA≈93.9min
+[009/36] L=512 B=64 prompt=02 repeat=2 NFE=512 latency=201.178s slots/s=2.545 ETA≈90.5min
+[010/36] L=512 B=64 prompt=03 repeat=0 NFE=512 latency=201.097s slots/s=2.546 ETA≈87.2min
+[011/36] L=512 B=64 prompt=03 repeat=1 NFE=512 latency=201.051s slots/s=2.547 ETA≈83.8min
+[012/36] L=512 B=64 prompt=03 repeat=2 NFE=512 latency=201.063s slots/s=2.546 ETA≈80.5min
+[013/36] L=512 B=64 prompt=04 repeat=0 NFE=512 latency=200.927s slots/s=2.548 ETA≈77.1min
+[014/36] L=512 B=64 prompt=04 repeat=1 NFE=512 latency=200.942s slots/s=2.548 ETA≈73.7min
+[015/36] L=512 B=64 prompt=04 repeat=2 NFE=512 latency=200.798s slots/s=2.550 ETA≈70.4min
+[016/36] L=512 B=64 prompt=05 repeat=0 NFE=512 latency=199.820s slots/s=2.562 ETA≈67.0min
+[017/36] L=512 B=64 prompt=05 repeat=1 NFE=512 latency=199.802s slots/s=2.563 ETA≈63.6min
+[018/36] L=512 B=64 prompt=05 repeat=2 NFE=512 latency=199.761s slots/s=2.563 ETA≈60.3min
+[019/36] L=512 B=64 prompt=06 repeat=0 NFE=512 latency=200.250s slots/s=2.557 ETA≈56.9min

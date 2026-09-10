@@ -1,0 +1,55 @@
+2026-07-23:21:40:18,605 WARNING  [lm_eval.__main__:316]  --limit SHOULD ONLY BE USED FOR TESTING.REAL METRICS SHOULD NOT BE COMPUTED USING LIMIT.
+2026-07-23:21:40:18,605 INFO     [lm_eval.__main__:379] Selected Tasks: ['mbpp']
+2026-07-23:21:40:18,606 INFO     [lm_eval.evaluator:169] Setting random seed to 0 | Setting numpy seed to 1234 | Setting torch manual seed to 1234 | Setting fewshot manual seed to 1234
+2026-07-23:21:40:18,606 INFO     [lm_eval.evaluator:206] Initializing llada_dist model, with arguments: {'model_path': '/Users/z33/models/LLaDA-8B-Instruct', 'device': 'mps', 'is_check_greedy': False, 'gen_length': 512, 'steps': 512, 'block_length': 32, 'show_speed': True, 'use_cache': True, 'dual_cache': True, 'threshold': 0.75}
+The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+================================================================================
+Rotated-K v2b cache-refresh enabled
+Explicit block bounds + request-local ContextVar
+No replace_position/nonzero/global POSITION_CONTEXT
+================================================================================
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 2/6 [00:00<00:00, 18.85it/s]Loading checkpoint shards:  67%|██████▋   | 4/6 [00:00<00:00, 19.07it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 19.67it/s]
+Using the latest cached version of the dataset since google-research-datasets/mbpp couldn't be found on the Hugging Face Hub (offline mode is enabled).
+2026-07-23:21:40:59,061 WARNING  [datasets.load:835] Using the latest cached version of the dataset since google-research-datasets/mbpp couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'full' at /Users/z33/hf-cache/datasets/google-research-datasets___mbpp/full/0.0.0/4bb6404fdc6cacfda99d4ac4205087b89d32030c (last modified on Thu Jul 23 21:22:16 2026).
+2026-07-23:21:40:59,061 WARNING  [datasets.packaged_modules.cache.cache:95] Found the latest cached dataset configuration 'full' at /Users/z33/hf-cache/datasets/google-research-datasets___mbpp/full/0.0.0/4bb6404fdc6cacfda99d4ac4205087b89d32030c (last modified on Thu Jul 23 21:22:16 2026).
+2026-07-23:21:40:59,082 WARNING  [lm_eval.evaluator:275] Overwriting default num_fewshot of mbpp from 3 to 3
+2026-07-23:21:40:59,082 INFO     [lm_eval.api.task:420] Building contexts for mbpp on rank 0...
+  0%|          | 0/1 [00:00<?, ?it/s]100%|██████████| 1/1 [00:00<00:00, 450.32it/s]
+2026-07-23:21:40:59,085 INFO     [lm_eval.evaluator:517] Running generate_until requests
+Batching...:   0%|          | 0/1 [00:00<?, ?it/s]Batching...: 100%|██████████| 1/1 [00:00<00:00, 82241.25it/s]
+Generating...:   0%|          | 0/1 [00:00<?, ?it/s]Generating...: 100%|██████████| 1/1 [00:20<00:00, 20.37s/it]Generating...: 100%|██████████| 1/1 [00:20<00:00, 20.37s/it]
+CACHE_REFRESH interval=2 full_refreshes=8 reused_block_starts=8 nfe=100
+====================
+answer:  ```python
+def remove_Occ(s, char):
+    result = s[:-1] + s[1:]
+    return result
+```
+
+### Explanation:
+- The function `remove_Occ` takes two arguments: `s` (the string) and `char` (the character to remove).
+- It uses slicing to remove the first and last occurrence of the character.
+- `s[:-1]` removes the last character of the string,
+- `s[1:]` removes the first character of the string.
+- Concatenating these two slices results in the desired string without the first and last occurrence of the specified character.
+
+### Tests:
+- `remove_Occ("hello", "l")` should return "helo".
+- `remove_Occ("abcda", "a")` should return "bcd".
+- `remove_Occ("PHP", "P")` should return "H".
+nfe:  100
+avg nfe:  100.0
+====================
+
+Total number of tokens generated: 200
+Total time taken: 20.368834018707275 seconds
+Tokens per second: 9.818922996520996
+Total NFE is 100
+2026-07-23:21:41:24,302 INFO     [lm_eval.loggers.evaluation_tracker:209] Saving results aggregated
+2026-07-23:21:41:24,302 INFO     [lm_eval.loggers.evaluation_tracker:290] Saving per-sample results for: mbpp
+llada_dist (model_path=/Users/z33/models/LLaDA-8B-Instruct,device=mps,is_check_greedy=False,gen_length=512,steps=512,block_length=32,show_speed=True,use_cache=True,dual_cache=True,threshold=0.75), gen_kwargs: (None), limit: 1.0, num_fewshot: 3, batch_size: 1
+|Tasks|Version|Filter|n-shot| Metric  |   |Value|   |Stderr|
+|-----|------:|------|-----:|---------|---|----:|---|------|
+|mbpp |      1|none  |     3|pass_at_1|↑  |    0|±  |   N/A|
+

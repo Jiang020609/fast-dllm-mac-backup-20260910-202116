@@ -1,0 +1,21 @@
+====================================================================================================================
+P1 Cached-Forward Scaling — Rotated-K v2b exact path
+====================================================================================================================
+Kind                    B      Q   Layers    Median(ms)         Tok/s     Weight GB/s      BW %    MPS GiB
+--------------------------------------------------------------------------------------------------------------------
+block_stack             1     32        8        19.343       1654.32          180.41
+full_cached_model       1     32       32        86.718        369.01               —         —      15.59
+
+====================================================================================================================
+Layer scaling fit
+====================================================================================================================
+Layer fit unavailable: missing valid 8/16/32 points.
+
+====================================================================================================================
+Key scaling ratios
+====================================================================================================================
+
+Interpretation guardrails:
+- Weight GB/s assumes each block parameter is read once; it is an effective lower-bound diagnostic, not a hardware counter.
+- Layer-fit intercept includes Python/framework and stack-level fixed costs, but excludes embedding/final LM-head costs.
+- The full_cached_model point quantifies embedding/final norm/LM-head and model-wrapper overhead at B=1,Q=32.

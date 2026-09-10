@@ -1,0 +1,31 @@
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  67%|██████▋   | 4/6 [00:00<00:00, 35.36it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 36.69it/s]
+===== Matched No-Cache Smoke =====
+Device: mps:0
+Dtype: torch.bfloat16
+NFE: 64
+Latency: 11.521 s
+Effective slots/s: 5.555
+MPS driver memory: 16.05 GiB
+Answer: On Tuesday, it sold 27 x 2 = 54 books.
+On Wednesday, it sold 19 books.
+So, in total, it sold 27 + 54 + 19 = 100 books.
+Conclusively: 100
+Matched no-cache smoke passed
+       14.35 real         1.53 user         1.55 sys
+           474513408  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+               49809  page reclaims
+                  85  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                   0  voluntary context switches
+               11824  involuntary context switches
+         39210774271  instructions retired
+         13540203090  cycles elapsed
+         17710777472  peak memory footprint

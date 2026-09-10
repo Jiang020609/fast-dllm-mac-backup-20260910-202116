@@ -1,0 +1,134 @@
+================================================================================
+Rotated-K v2b enabled
+Explicit block bounds + request-local ContextVar
+No replace_position/nonzero/global POSITION_CONTEXT
+================================================================================
+Loading model...
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 3/6 [00:00<00:00, 19.72it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 20.49it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 20.36it/s]
+Compiling complete model.forward...
+V0805 02:49:17.190000 19940 torch/_dynamo/symbolic_convert.py:5124] [0/0] [__graph_breaks] Graph break in user code at /Users/z33/Fast-dLLM/v1/llada/rotated_k_position_context.py:70
+V0805 02:49:17.190000 19940 torch/_dynamo/symbolic_convert.py:5124] [0/0] [__graph_breaks] Graph Break Reason: Encountered graph break when attempting to trace CALL: a function call, e.g. f(x, y):
+V0805 02:49:17.190000 19940 torch/_dynamo/symbolic_convert.py:5124] [0/0] [__graph_breaks] 
+V0805 02:49:17.190000 19940 torch/_dynamo/symbolic_convert.py:5124] [0/0] [__graph_breaks] Unsupported method call
+V0805 02:49:17.190000 19940 torch/_dynamo/symbolic_convert.py:5124] [0/0] [__graph_breaks]   Explanation: Dynamo does not know how to trace method `get` of class `ContextVar`
+V0805 02:49:17.190000 19940 torch/_dynamo/symbolic_convert.py:5124] [0/0] [__graph_breaks]   Hint: Avoid calling `ContextVar.get` in your code.
+V0805 02:49:17.190000 19940 torch/_dynamo/symbolic_convert.py:5124] [0/0] [__graph_breaks]   Hint: Please report an issue to PyTorch.
+V0805 02:49:17.190000 19940 torch/_dynamo/symbolic_convert.py:5124] [0/0] [__graph_breaks] 
+V0805 02:49:17.190000 19940 torch/_dynamo/symbolic_convert.py:5124] [0/0] [__graph_breaks]   Developer debug context: call_method UserDefinedObjectVariable(ContextVar) get [] {}
+V0805 02:49:17.190000 19940 torch/_dynamo/symbolic_convert.py:5124] [0/0] [__graph_breaks] 
+V0805 02:49:17.190000 19940 torch/_dynamo/symbolic_convert.py:5124] [0/0] [__graph_breaks]  For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0156.html
+V0805 02:49:17.190000 19940 torch/_dynamo/symbolic_convert.py:5124] [0/0] [__graph_breaks] 
+V0805 02:49:17.190000 19940 torch/_dynamo/symbolic_convert.py:5124] [0/0] [__graph_breaks] User code traceback:
+V0805 02:49:17.190000 19940 torch/_dynamo/symbolic_convert.py:5124] [0/0] [__graph_breaks]   File "/Users/z33/Fast-dLLM/capture_mps_cached_formal5.py", line 288, in <module>
+V0805 02:49:17.190000 19940 torch/_dynamo/symbolic_convert.py:5124] [0/0] [__graph_breaks]     main()
+V0805 02:49:17.190000 19940 torch/_dynamo/symbolic_convert.py:5124] [0/0] [__graph_breaks]   File "/Users/z33/Fast-dLLM/capture_mps_cached_formal5.py", line 167, in main
+V0805 02:49:17.190000 19940 torch/_dynamo/symbolic_convert.py:5124] [0/0] [__graph_breaks]     output = forward()
+V0805 02:49:17.190000 19940 torch/_dynamo/symbolic_convert.py:5124] [0/0] [__graph_breaks]              ^^^^^^^^^
+V0805 02:49:17.190000 19940 torch/_dynamo/symbolic_convert.py:5124] [0/0] [__graph_breaks]   File "/Users/z33/Fast-dLLM/capture_mps_cached_formal5.py", line 151, in forward
+V0805 02:49:17.190000 19940 torch/_dynamo/symbolic_convert.py:5124] [0/0] [__graph_breaks]     output = model(
+V0805 02:49:17.190000 19940 torch/_dynamo/symbolic_convert.py:5124] [0/0] [__graph_breaks]              ^^^^^^
+V0805 02:49:17.190000 19940 torch/_dynamo/symbolic_convert.py:5124] [0/0] [__graph_breaks]   File "/Users/z33/fastdllm-mps/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+V0805 02:49:17.190000 19940 torch/_dynamo/symbolic_convert.py:5124] [0/0] [__graph_breaks]     return self._call_impl(*args, **kwargs)
+V0805 02:49:17.190000 19940 torch/_dynamo/symbolic_convert.py:5124] [0/0] [__graph_breaks]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+V0805 02:49:17.190000 19940 torch/_dynamo/symbolic_convert.py:5124] [0/0] [__graph_breaks]   File "/Users/z33/fastdllm-mps/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+V0805 02:49:17.190000 19940 torch/_dynamo/symbolic_convert.py:5124] [0/0] [__graph_breaks]     return forward_call(*args, **kwargs)
+V0805 02:49:17.190000 19940 torch/_dynamo/symbolic_convert.py:5124] [0/0] [__graph_breaks]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+V0805 02:49:17.190000 19940 torch/_dynamo/symbolic_convert.py:5124] [0/0] [__graph_breaks]   File "/Users/z33/fastdllm-mps/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+V0805 02:49:17.190000 19940 torch/_dynamo/symbolic_convert.py:5124] [0/0] [__graph_breaks]     return self._call_impl(*args, **kwargs)
+V0805 02:49:17.190000 19940 torch/_dynamo/symbolic_convert.py:5124] [0/0] [__graph_breaks]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+V0805 02:49:17.190000 19940 torch/_dynamo/symbolic_convert.py:5124] [0/0] [__graph_breaks]   File "/Users/z33/fastdllm-mps/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+V0805 02:49:17.190000 19940 torch/_dynamo/symbolic_convert.py:5124] [0/0] [__graph_breaks]     return forward_call(*args, **kwargs)
+V0805 02:49:17.190000 19940 torch/_dynamo/symbolic_convert.py:5124] [0/0] [__graph_breaks]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+V0805 02:49:17.190000 19940 torch/_dynamo/symbolic_convert.py:5124] [0/0] [__graph_breaks]   File "/Users/z33/Fast-dLLM/v1/llada/model/modeling_llada.py", line 980, in forward
+V0805 02:49:17.190000 19940 torch/_dynamo/symbolic_convert.py:5124] [0/0] [__graph_breaks]     att, cache = self.attention(q, k, v, attention_bias, layer_past=layer_past, use_cache=use_cache,replace_position=replace_position)
+V0805 02:49:17.190000 19940 torch/_dynamo/symbolic_convert.py:5124] [0/0] [__graph_breaks]                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+V0805 02:49:17.190000 19940 torch/_dynamo/symbolic_convert.py:5124] [0/0] [__graph_breaks]   File "/Users/z33/Fast-dLLM/v1/llada/rotated_k_v2b_runtime_patch.py", line 227, in rotated_k_v2b_attention
+V0805 02:49:17.190000 19940 torch/_dynamo/symbolic_convert.py:5124] [0/0] [__graph_breaks]     state = get_position_state()
+V0805 02:49:17.190000 19940 torch/_dynamo/symbolic_convert.py:5124] [0/0] [__graph_breaks]             ^^^^^^^^^^^^^^^^^^^^
+V0805 02:49:17.190000 19940 torch/_dynamo/symbolic_convert.py:5124] [0/0] [__graph_breaks]   File "/Users/z33/Fast-dLLM/v1/llada/rotated_k_position_context.py", line 70, in get_position_state
+V0805 02:49:17.190000 19940 torch/_dynamo/symbolic_convert.py:5124] [0/0] [__graph_breaks]     state = _ACTIVE_STATE.get()
+V0805 02:49:17.190000 19940 torch/_dynamo/symbolic_convert.py:5124] [0/0] [__graph_breaks]             ^^^^^^^^^^^^^^^^^^^
+V0805 02:49:17.190000 19940 torch/_dynamo/symbolic_convert.py:5124] [0/0] [__graph_breaks] 
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks] Graph break in user code at /Users/z33/Fast-dLLM/v1/llada/rotated_k_position_context.py:70
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks] Graph Break Reason: Failed to handle graph break gracefully. Skipping the function and falling back to eager. Graph break encountered:
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks] 
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks] Unsupported method call
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks]   Explanation: Dynamo does not know how to trace method `get` of class `ContextVar`
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks]   Hint: Avoid calling `ContextVar.get` in your code.
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks]   Hint: Please report an issue to PyTorch.
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks] 
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks]   Developer debug context: call_method UserDefinedObjectVariable(ContextVar) get [] {}
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks] 
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks]  For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0156.html
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks] 
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks] *** While handling this graph break, another graph break occurred: ***
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks] 
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks] graph break in loop
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks]   Explanation: torch.compile detected a graph break in a for/while loop. Skipping the frame and falling back to eager, as graph breaks in loops are not supported.
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks]   Hint: This graph break may have been caused by an earlier graph break. Resolving the earlier graph break may resolve this one.
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks] 
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks]   Developer debug context: frame skipped: forward (/Users/z33/Fast-dLLM/v1/llada/model/modeling_llada.py line 1338)
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks] 
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks]  For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb7000.html
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks] 
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks] Stack variable source attribution:
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks]   LocalGeneratorObjectVariable(enumerate) originated from:
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks]   File "/Users/z33/Fast-dLLM/v1/llada/model/modeling_llada.py", line 1466
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks]                 for block_idx, block in enumerate(self.transformer.blocks):
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks]                                         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks] 
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks] User code traceback:
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks]   File "/Users/z33/Fast-dLLM/capture_mps_cached_formal5.py", line 288, in <module>
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks]     main()
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks]   File "/Users/z33/Fast-dLLM/capture_mps_cached_formal5.py", line 167, in main
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks]     output = forward()
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks]              ^^^^^^^^^
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks]   File "/Users/z33/Fast-dLLM/capture_mps_cached_formal5.py", line 151, in forward
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks]     output = model(
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks]              ^^^^^^
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks]   File "/Users/z33/fastdllm-mps/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks]     return self._call_impl(*args, **kwargs)
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks]   File "/Users/z33/fastdllm-mps/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks]     return forward_call(*args, **kwargs)
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks]   File "/Users/z33/fastdllm-mps/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks]     return self._call_impl(*args, **kwargs)
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks]   File "/Users/z33/fastdllm-mps/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks]     return forward_call(*args, **kwargs)
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks]   File "/Users/z33/Fast-dLLM/v1/llada/model/modeling_llada.py", line 980, in forward
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks]     att, cache = self.attention(q, k, v, attention_bias, layer_past=layer_past, use_cache=use_cache,replace_position=replace_position)
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks]                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks]   File "/Users/z33/Fast-dLLM/v1/llada/rotated_k_v2b_runtime_patch.py", line 227, in rotated_k_v2b_attention
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks]     state = get_position_state()
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks]             ^^^^^^^^^^^^^^^^^^^^
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks]   File "/Users/z33/Fast-dLLM/v1/llada/rotated_k_position_context.py", line 70, in get_position_state
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks]     state = _ACTIVE_STATE.get()
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks]             ^^^^^^^^^^^^^^^^^^^
+V0805 02:49:17.254000 19940 torch/_dynamo/symbolic_convert.py:5124] [1/0] [__graph_breaks] 
+V0805 02:49:17.634000 19940 torch/_dynamo/symbolic_convert.py:5131] [4/0] [__graph_breaks] Graph break (user stack suppressed due to duplicate graph break) in user code at /Users/z33/Fast-dLLM/v1/llada/rotated_k_position_context.py:70
+V0805 02:49:17.634000 19940 torch/_dynamo/symbolic_convert.py:5131] [4/0] [__graph_breaks] Graph Break Reason: Encountered graph break when attempting to trace CALL: a function call, e.g. f(x, y):
+V0805 02:49:17.634000 19940 torch/_dynamo/symbolic_convert.py:5131] [4/0] [__graph_breaks] 
+V0805 02:49:17.634000 19940 torch/_dynamo/symbolic_convert.py:5131] [4/0] [__graph_breaks] Unsupported method call
+V0805 02:49:17.634000 19940 torch/_dynamo/symbolic_convert.py:5131] [4/0] [__graph_breaks]   Explanation: Dynamo does not know how to trace method `get` of class `ContextVar`
+V0805 02:49:17.634000 19940 torch/_dynamo/symbolic_convert.py:5131] [4/0] [__graph_breaks]   Hint: Avoid calling `ContextVar.get` in your code.
+V0805 02:49:17.634000 19940 torch/_dynamo/symbolic_convert.py:5131] [4/0] [__graph_breaks]   Hint: Please report an issue to PyTorch.
+V0805 02:49:17.634000 19940 torch/_dynamo/symbolic_convert.py:5131] [4/0] [__graph_breaks] 
+V0805 02:49:17.634000 19940 torch/_dynamo/symbolic_convert.py:5131] [4/0] [__graph_breaks]   Developer debug context: call_method UserDefinedObjectVariable(ContextVar) get [] {}
+V0805 02:49:17.634000 19940 torch/_dynamo/symbolic_convert.py:5131] [4/0] [__graph_breaks] 
+V0805 02:49:17.634000 19940 torch/_dynamo/symbolic_convert.py:5131] [4/0] [__graph_breaks]  For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0156.html
+V0805 02:49:17.683000 19940 torch/_dynamo/symbolic_convert.py:5131] [5/0] [__graph_breaks] Graph break (user stack suppressed due to duplicate graph break) in user code at /Users/z33/Fast-dLLM/v1/llada/rotated_k_position_context.py:70
+V0805 02:49:17.683000 19940 torch/_dynamo/symbolic_convert.py:5131] [5/0] [__graph_breaks] Graph Break Reason: Encountered graph break when attempting to trace CALL: a function call, e.g. f(x, y):
+V0805 02:49:17.683000 19940 torch/_dynamo/symbolic_convert.py:5131] [5/0] [__graph_breaks] 
+V0805 02:49:17.683000 19940 torch/_dynamo/symbolic_convert.py:5131] [5/0] [__graph_breaks] Unsupported method call
+V0805 02:49:17.683000 19940 torch/_dynamo/symbolic_convert.py:5131] [5/0] [__graph_breaks]   Explanation: Dynamo does not know how to trace method `get` of class `ContextVar`
+V0805 02:49:17.683000 19940 torch/_dynamo/symbolic_convert.py:5131] [5/0] [__graph_breaks]   Hint: Avoid calling `ContextVar.get` in your code.
+V0805 02:49:17.683000 19940 torch/_dynamo/symbolic_convert.py:5131] [5/0] [__graph_breaks]   Hint: Please report an issue to PyTorch.
+V0805 02:49:17.683000 19940 torch/_dynamo/symbolic_convert.py:5131] [5/0] [__graph_breaks] 
+V0805 02:49:17.683000 19940 torch/_dynamo/symbolic_convert.py:5131] [5/0] [__graph_breaks]   Developer debug context: call_method UserDefinedObjectVariable(ContextVar) get [] {}
+V0805 02:49:17.683000 19940 torch/_dynamo/symbolic_convert.py:5131] [5/0] [__graph_breaks] 
+V0805 02:49:17.683000 19940 torch/_dynamo/symbolic_convert.py:5131] [5/0] [__graph_breaks]  For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0156.html
+BENCHMARK_ONLY mode=compiled total_s=0.073587 mean_ms=73.587
+MPS allocated GiB: 15.599

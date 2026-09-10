@@ -1,0 +1,171 @@
+2026-07-22:16:58:03,564 WARNING  [lm_eval.__main__:316]  --limit SHOULD ONLY BE USED FOR TESTING.REAL METRICS SHOULD NOT BE COMPUTED USING LIMIT.
+2026-07-22:16:58:03,564 INFO     [lm_eval.__main__:379] Selected Tasks: ['gsm8k']
+2026-07-22:16:58:03,565 INFO     [lm_eval.evaluator:169] Setting random seed to 0 | Setting numpy seed to 1234 | Setting torch manual seed to 1234 | Setting fewshot manual seed to 1234
+2026-07-22:16:58:03,565 INFO     [lm_eval.evaluator:206] Initializing llada_dist model, with arguments: {'model_path': '/Users/z33/models/LLaDA-8B-Instruct', 'device': 'mps', 'is_check_greedy': False, 'gen_length': 256, 'steps': 256, 'block_length': 32, 'show_speed': True, 'use_cache': True, 'dual_cache': True, 'threshold': 0.75}
+The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+================================================================================
+Rotated-K v2b coarse profile enabled
+Explicit block bounds + request-local ContextVar
+No replace_position/nonzero/global POSITION_CONTEXT
+================================================================================
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 2/6 [00:00<00:00, 19.40it/s]Loading checkpoint shards:  67%|██████▋   | 4/6 [00:00<00:00, 19.60it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 20.11it/s]
+Using the latest cached version of the dataset since openai/gsm8k couldn't be found on the Hugging Face Hub (offline mode is enabled).
+2026-07-22:16:58:05,421 WARNING  [datasets.load:835] Using the latest cached version of the dataset since openai/gsm8k couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'main' at /Users/z33/hf-cache/datasets/openai___gsm8k/main/0.0.0/740312add88f781978c0658806c59bc2815b9866 (last modified on Mon Jul 20 13:47:26 2026).
+2026-07-22:16:58:05,421 WARNING  [datasets.packaged_modules.cache.cache:95] Found the latest cached dataset configuration 'main' at /Users/z33/hf-cache/datasets/openai___gsm8k/main/0.0.0/740312add88f781978c0658806c59bc2815b9866 (last modified on Mon Jul 20 13:47:26 2026).
+2026-07-22:16:58:05,477 WARNING  [lm_eval.evaluator:275] Overwriting default num_fewshot of gsm8k from 5 to 5
+2026-07-22:16:58:05,477 INFO     [lm_eval.api.task:420] Building contexts for gsm8k on rank 0...
+  0%|          | 0/5 [00:00<?, ?it/s]100%|██████████| 5/5 [00:00<00:00, 969.42it/s]
+2026-07-22:16:58:05,482 INFO     [lm_eval.evaluator:517] Running generate_until requests
+Batching...:   0%|          | 0/5 [00:00<?, ?it/s]Batching...: 100%|██████████| 5/5 [00:00<00:00, 381300.36it/s]
+Generating...:   0%|          | 0/5 [00:00<?, ?it/s]Generating...:  20%|██        | 1/5 [00:20<01:20, 20.05s/it]Generating...:  40%|████      | 2/5 [00:37<00:55, 18.62s/it]Generating...:  60%|██████    | 3/5 [00:56<00:37, 18.90s/it]Generating...:  80%|████████  | 4/5 [01:12<00:17, 17.41s/it]Generating...: 100%|██████████| 5/5 [01:31<00:00, 18.20s/it]Generating...: 100%|██████████| 5/5 [01:31<00:00, 18.32s/it]
+2026-07-22:16:59:37,492 INFO     [lm_eval.loggers.evaluation_tracker:209] Saving results aggregated
+2026-07-22:16:59:37,493 INFO     [lm_eval.loggers.evaluation_tracker:290] Saving per-sample results for: gsm8k
+COARSE_PROFILE sample=1 total_s=20.011449 full_s=13.314737 cached_s=6.376675 other_s=0.320037 full_calls=8 cached_calls=73 nfe=81 full_pct=66.54 cached_pct=31.87 other_pct=1.60
+====================
+answer:  To determine how much Janet makes every day at the farmers' market, we need to follow these steps:
+
+1. Calculate the total number of eggs laid by Janet's ducks per day.
+2. Subtract the number of eggs Janet eats for breakfast and bakes for her friends.
+3. Calculate the number of eggs left to sell.
+4. Multiply the number of eggs sold by the price per egg to find the daily earnings.
+
+Let's start with the first step:
+Janet's ducks lay 16 eggs per day.
+
+Next, we subtract the eggs she eats for breakfast and bakes for her friends:
+- She eats 3 eggs for breakfast.
+- She bakes 4 eggs for her friends.
+
+So, the number of eggs left to sell is:
+\[ 16 - 3 - 4 = 9 \]
+
+Janet sells these eggs at $2 per egg. Therefore, her daily earnings are:
+\[ 9 \text{ eggs} \times \$2 \text{ per duck egg} = \$18 \]
+
+Thus, Janet makes $18 every day at the farmers' market.
+
+\(\boxed{18}\)
+nfe:  81
+avg nfe:  81.0
+====================
+
+COARSE_PROFILE sample=2 total_s=17.623265 full_s=13.278186 cached_s=4.107044 other_s=0.238035 full_calls=8 cached_calls=47 nfe=55 full_pct=75.34 cached_pct=23.30 other_pct=1.35
+====================
+answer:  The robe takes 2 bolts of blue fiber and half that much white fiber. 
+
+First, let's calculate the amount of white fiber:
+- Since the white fiber is half as much as the blue fiber, we have:
+- White fiber = (1/2) * 2 bolts = 1 bolt
+
+Now, let's find the total number of bolts:
+- Total bolts = Blue fiber + White fiber
+- Total bolts = 2 bolts + 1 bolt = 3 bolts
+
+Therefore, the robe takes a total of 3 bolts.
+
+ 3
+nfe:  55
+avg nfe:  68.0
+====================
+
+COARSE_PROFILE sample=3 total_s=19.231202 full_s=13.707380 cached_s=5.262463 other_s=0.261358 full_calls=8 cached_calls=60 nfe=68 full_pct=71.28 cached_pct=27.36 other_pct=1.36
+====================
+answer:  To determine Josh's profit, we need to follow these steps:
+
+1. Calculate the new value of the house after repairs.
+2. Determine the selling price of the house.
+3. Calculate the profit by subtracting the original cost from the selling price.
+
+First, let's calculate the new value of the house after repairs:
+- The original value of the house is $80,000.
+- The repairs increased the value by 150%.
+- 150% of $80,000 is $120,000.
+- Therefore, the new value of the house is $80,000 + $120,000 = $200,000.
+
+Next, let's determine the selling price of the house:
+- The selling price is $200,000.
+
+Finally, we calculate the profit by subtracting the original cost from the selling price:
+- Profit = $200,000 - $80,000 = $120,000.
+
+Josh made a profit of $120,000.
+nfe:  68
+avg nfe:  68.0
+====================
+
+COARSE_PROFILE sample=4 total_s=15.127873 full_s=10.768029 cached_s=4.148820 other_s=0.211024 full_calls=8 cached_calls=48 nfe=56 full_pct=71.18 cached_pct=27.43 other_pct=1.39
+====================
+answer:  To determine the total distance James runs in a week, we need to break down the problem into smaller steps:
+
+1. Calculate the distance James runs in one sprint.
+2. Calculate the distance James runs in one day.
+3. Calculate the distance James runs in one week.
+
+First, let's find the distance James runs in one sprint:
+- James runs 60 meters each sprint.
+
+Next, let's calculate the distance James runs in one day:
+- James runs 3 sprints each day.
+- Each sprint is 60 meters.
+- Therefore, the daily distance is \( 3 \times 60 = 180 \) meters.
+
+Now, let's calculate the distance James runs in one week:
+- James runs 3 times a week.
+- Each day he runs 180 meters.
+- Therefore, the weekly distance is \( 3 \times 180 = 540 \) meters.
+
+So, James runs a total of 540 meters in a week.
+nfe:  56
+avg nfe:  65.0
+====================
+
+COARSE_PROFILE sample=5 total_s=19.580756 full_s=13.784444 cached_s=5.530748 other_s=0.265564 full_calls=8 cached_calls=63 nfe=71 full_pct=70.40 cached_pct=28.25 other_pct=1.36
+====================
+answer:  First, let's determine the total amount of feed Wendi needs to give to her chickens in a day. Each chicken gets 3 cups of feed per day, and she has 20 chickens:
+
+\[ 3 \text{ cups/chicken} \times 20 \text{ chickens} = 60 \text{ cups} \]
+
+Next, we know the amount of feed given in the morning and afternoon meals:
+- Morning: 15 cups
+- Afternoon: 25 cups
+
+Let's add these amounts together to find out how much feed has been given so far:
+
+\[ 15 \text{ cups} + 25 \text{ cups} = 40 \text{ cups} \]
+
+Now, we subtract the amount of feed given so far from the total amount needed to find out how much feed is left for the final meal:
+
+\[ 60 \text{ cups} - 40 \text{ cups} = 20 \text{ cups} \]
+
+Therefore, Wendi needs to give her chickens 20 cups of feed in the final meal of the day.
+
+#### 20 cups.
+nfe:  71
+avg nfe:  66.2
+====================
+
+Total number of tokens generated: 1116
+Total time taken: 91.61831188201904 seconds
+Tokens per second: 12.180971145629883
+Total NFE is 331
+llada_dist (model_path=/Users/z33/models/LLaDA-8B-Instruct,device=mps,is_check_greedy=False,gen_length=256,steps=256,block_length=32,show_speed=True,use_cache=True,dual_cache=True,threshold=0.75), gen_kwargs: (None), limit: 5.0, num_fewshot: 5, batch_size: 1
+|Tasks|Version|     Filter     |n-shot|  Metric   |   |Value|   |Stderr|
+|-----|------:|----------------|-----:|-----------|---|----:|---|-----:|
+|gsm8k|      3|flexible-extract|     5|exact_match|↑  |  0.8|±  |   0.2|
+|     |       |strict-match    |     5|exact_match|↑  |  0.2|±  |   0.2|
+
+
+================================================================================
+COARSE_PROFILE_AGGREGATE
+samples=5
+mean_total_s=18.314909
+mean_full_s=12.970555
+mean_cached_s=5.085150
+mean_other_s=0.259204
+full_pct=70.82
+cached_pct=27.77
+other_pct=1.42
+mean_full_call_ms=1621.319
+mean_cached_call_ms=87.374
+================================================================================

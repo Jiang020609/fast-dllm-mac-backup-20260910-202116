@@ -1,0 +1,16 @@
+====================================================================================================================
+P2 Bare GEMM Calibration — Apple M4 Max / MPS BF16
+====================================================================================================================
+      M    7 GEMMs ms      Sum ms      TFLOPS    Weight GB/s   P1 layer ms    GEMM share    Non-GEMM ms
+--------------------------------------------------------------------------------------------------------------------
+     32         2.076       4.148        6.72         210.10         2.367        87.72%          0.291
+
+Decision thresholds:
+- GEMM share >= 80%: GEMM/weight-flow dominated; prioritize quantization.
+- GEMM share <= 60%: non-GEMM/dispatch significant; run MLX Block spike.
+- GEMM share 60-80%: mixed bottleneck; run a targeted Metal trace.
+
+Notes:
+- P1 comparison exists only for M=32,64,128.
+- Effective weight GB/s assumes each weight is read once.
+- Bare GEMM excludes RoPE, RMSNorm, activation, SDPA, cache update and residual ops.

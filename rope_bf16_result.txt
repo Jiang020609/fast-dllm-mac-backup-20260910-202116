@@ -1,0 +1,48 @@
+================================================================================
+Rotated-K v2b enabled
+Explicit block bounds + request-local ContextVar
+No replace_position/nonzero/global POSITION_CONTEXT
+================================================================================
+rope_full_precision=False
+Loading tokenizer...
+Loading model...
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 3/6 [00:00<00:00, 22.32it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 23.33it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 23.16it/s]
+WARMUP 1/1
+MEASURED_RUN 1/1
+
+========== E2E BREAKDOWN ==========
+chat_template_cpu_ms          :       0.056 ms (  0.00%)
+tokenize_cpu_ms               :       0.103 ms (  0.00%)
+tensor_build_cpu_ms           :       0.007 ms (  0.00%)
+host_to_mps_ms                :       0.169 ms (  0.00%)
+generation_total_ms           :   10980.936 ms ( 99.99%)
+mps_to_host_ms                :       0.161 ms (  0.00%)
+detokenize_cpu_ms             :       0.077 ms (  0.00%)
+other_python_ms               :       0.006 ms (  0.00%)
+-----------------------------------
+generation_call_ms            :   10980.714 ms
+generation_tail_sync_ms       :       0.223 ms
+generation_ms_per_nfe         :      85.789 ms
+e2e_total_ms                  :   10981.516 ms
+NFE per run                   : [128]
+===================================
+
+======= GENERATION BREAKDOWN =======
+full_forward_ms               :     927.805 ms
+full_forward_calls            :         4.0
+full_forward_mean_ms          :     231.951 ms
+cached_forward_ms             :    9810.896 ms
+cached_forward_calls          :       124.0
+cached_forward_mean_ms        :      79.120 ms
+model_forward_total_ms        :   10738.701 ms
+non_model_generation_ms       :     242.236 ms
+non_model_generation_ratio    :       2.21%
+------------------------------------
+FORWARD SHAPES
+cached_forward   seq_len=   32 calls= 124.0 total=  9810.896 ms mean=   79.120 ms
+full_forward     seq_len=  153 calls=   4.0 total=   927.805 ms mean=  231.951 ms
+====================================
+MPS allocated GiB: 14.934
+
+ANSWER
+KV (Key-Value) cache can accelerate large language model inference by storing frequently accessed data in memory, which can be quickly retrieved and reused during the inference process. This reduces the time it takes to access the same data multiple times, thus improving the overall performance of the model. Additionally, KV cache can help to reduce the number of I/O operations required to load data from disk or network, which can further improve the speed of the model. Finally, KV cache can help to improve the scalability of the model by reducing the amount of memory required to run the model, making it easier to scale up to larger datasets.

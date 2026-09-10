@@ -1,0 +1,437 @@
+====================================================================================================
+
+LLaDABlock.__init__
+
+====================================================================================================
+
+    def __init__(self, layer_id: int, config: ModelConfig, cache: BufferCache):
+        super().__init__()
+        self.layer_id = layer_id
+        self.config = config
+        self.hidden_size = (
+            config.mlp_hidden_size if config.mlp_hidden_size is not None else config.mlp_ratio * config.d_model
+        )
+        self.__cache = cache
+        assert config.d_model % config.n_heads == 0
+
+        self._activation_checkpoint_fn = None
+
+        # Dropout.
+        self.dropout = Dropout(config.residual_dropout)
+
+        # Layer norms.
+        self.k_norm: Optional[LayerNormBase] = None
+        self.q_norm: Optional[LayerNormBase] = None
+        if config.attention_layer_norm:
+            self.k_norm = LayerNormBase.build(
+                config,
+                size=(config.d_model // config.n_heads) * config.effective_n_kv_heads,
+                elementwise_affine=config.attention_layer_norm_with_affine,
+            )
+            self.q_norm = LayerNormBase.build(config, elementwise_affine=config.attention_layer_norm_with_affine)
+
+        # Activation function.
+        self.act = Activation.build(config)
+        assert (self.act.output_multiplier * self.hidden_size) % 1 == 0
+
+        # Attention output projection.
+        self.attn_out = nn.Linear(
+            config.d_model, config.d_model, bias=config.include_bias, device=config.init_device
+        )
+
+        # Feed-forward output projection.
+        self.ff_out = nn.Linear(
+            int(self.act.output_multiplier * self.hidden_size),
+            config.d_model,
+            bias=config.include_bias,
+            device=config.init_device,
+        )
+        self.ff_out._is_residual = True  # type: ignore
+
+        # Rotary embeddings.
+        if self.config.rope:
+            self.rotary_emb = RotaryEmbedding(config, self.__cache)
+
+        self.flash_attn_func = None
+        if config.flash_attention:
+            try:
+                from flash_attn import flash_attn_func  # type: ignore
+
+                self.flash_attn_func = flash_attn_func
+            except ModuleNotFoundError:
+                pass
+
+
+====================================================================================================
+
+LLaDABlock.attention
+
+====================================================================================================
+
+    def attention(
+        self,
+        q: torch.Tensor,
+        k: torch.Tensor,
+        v: torch.Tensor,
+        mask: Optional[torch.Tensor] = None,
+        attention_bias: Optional[torch.Tensor] = None,
+        layer_past: Optional[Tuple[torch.Tensor, torch.Tensor]] = None,
+        use_cache: bool = False,
+        replace_position: Optional[torch.Tensor] = None,
+    ) -> Tuple[torch.Tensor, Optional[Tuple[torch.Tensor, torch.Tensor]]]:
+        B, T, C = q.size()  # batch size, sequence length, d_model
+        dtype = k.dtype
+
+        # Optionally apply layer norm to keys and queries.
+        if self.q_norm is not None and self.k_norm is not None: #self.q_norm: None, self.k_norm: None
+            q = self.q_norm(q).to(dtype=dtype)
+            k = self.k_norm(k).to(dtype=dtype)
+
+        # Move head forward to be next to the batch dim.
+        # shape: (B, nh, T, hs)
+        # self.config.n_heads: 32
+        q = q.view(B, T, self.config.n_heads, C // self.config.n_heads).transpose(1, 2)
+        # shape: (B, n_kv_h, T, hs)
+        k = k.view(B, T, self.config.effective_n_kv_heads, C // self.config.n_heads).transpose(1, 2)
+        # shape: (B, n_kv_h, T, hs)
+        v = v.view(B, T, self.config.effective_n_kv_heads, C // self.config.n_heads).transpose(1, 2)
+
+        if layer_past is not None: 
+            past_key, past_value = layer_past
+            if replace_position is None:
+                k = torch.cat((past_key, k), dim=-2)
+                v = torch.cat((past_value, v), dim=-2)
+            else:
+                # k shape is [B, n_kv_h, selected_length, hs]
+                # replace_position shape is [B, L], where L contains 0s and 1s, 0 means no replacement, 1 means replace, with selected_length number of 1s
+                # past_key shape is [B, n_kv_h, L, hs]
+                # Replace selected_length number of 1s in past_key with k
+                
+                # Handle batched replace_position correctly
+                B = replace_position.shape[0]
+                for batch_idx in range(B):
+                    # Get indices for this batch
+                    batch_replace_indices = replace_position[batch_idx].nonzero(as_tuple=True)[0]
+                    if len(batch_replace_indices) > 0:
+                        # Replace positions in past_key and past_value for this batch
+                        past_key[batch_idx, :, batch_replace_indices] = k[batch_idx, :, :len(batch_replace_indices)]
+                        past_value[batch_idx, :, batch_replace_indices] = v[batch_idx, :, :len(batch_replace_indices)]
+                
+                k = past_key
+                v = past_value
+
+        present = (k, v) if use_cache else None #present: None
+        query_len, key_len = q.shape[-2], k.shape[-2]  # could be different if layer_past not None
+
+        if self.config.rope:
+            # Apply rotary embeddings.
+            if replace_position is None:
+                q, k = self.rotary_emb(q, k)
+            else:
+                # For batched replace_position, use the maximum position across all batches
+                max_replace_pos = replace_position.nonzero(as_tuple=True)[1].max() + 1 if replace_position.any() else key_len
+                q, k = self.rotary_emb(q, k, max_replace_pos)
+
+        if attention_bias is not None:
+            # Resize and cast attention bias.
+            # The current dtype of the attention bias might not match the dtype that the SDP attn function will
+            # run in if AMP is enabled, and this can be a problem if some tokens are masked out due to padding
+            # as down-casting the attention bias to the autocast precision will result in -infs, which will
+            # cause the SDP attn function to produce NaNs.
+            attention_bias = self._cast_attn_bias(
+                attention_bias[:, :, key_len - query_len : key_len, :key_len], dtype
+            )
+
+        # Get the attention scores.
+        # shape: (B, nh, T, hs)
+        att = self._scaled_dot_product_attention(
+            q,
+            k,
+            v,
+            attn_mask=None,
+            dropout_p=0.0 if not self.training else self.config.attention_dropout,
+            is_causal=False,
+        )
+        # Re-assemble all head outputs side-by-side.
+        att = att.transpose(1, 2).contiguous().view(B, T, C)
+
+        # Apply output projection.
+        return self.attn_out(att), present
+
+
+====================================================================================================
+
+LLaDABlock.forward
+
+====================================================================================================
+
+    @abstractmethod
+    def forward(
+        self,
+        x: torch.Tensor,
+        attention_bias: Optional[torch.FloatTensor] = None,
+        layer_past: Optional[Tuple[torch.Tensor, torch.Tensor]] = None,
+        use_cache: bool = False,
+    ) -> Tuple[torch.Tensor, Optional[Tuple[torch.Tensor, torch.Tensor]]]:
+        raise NotImplementedError
+
+
+====================================================================================================
+
+LLaDALlamaBlock.__init__
+
+====================================================================================================
+
+    def __init__(self, layer_id: int, config: ModelConfig, cache: BufferCache):
+        super().__init__(layer_id, config, cache)
+        # Layer norms.
+        self.attn_norm = LayerNorm.build(config)
+        self.ff_norm = LayerNorm.build(config)
+        self.__cache = cache
+
+        # Attention input projection. Projects x -> (q, k, v)
+        head_dim = config.d_model // config.n_heads
+        q_proj_out_dim = config.d_model
+        k_proj_out_dim = config.effective_n_kv_heads * head_dim
+        v_proj_out_dim = config.effective_n_kv_heads * head_dim
+        self.q_proj = nn.Linear(
+            config.d_model, q_proj_out_dim, bias=config.include_bias | config.include_qkv_bias, device=config.init_device
+        )
+        self.k_proj = nn.Linear(
+            config.d_model, k_proj_out_dim, bias=config.include_bias | config.include_qkv_bias, device=config.init_device
+        )
+        self.v_proj = nn.Linear(
+            config.d_model, v_proj_out_dim, bias=config.include_bias | config.include_qkv_bias, device=config.init_device
+        )
+
+        # Feed-forward input projection.
+        self.ff_proj = nn.Linear(
+            config.d_model, self.hidden_size, bias=config.include_bias, device=config.init_device
+        )
+        # new add
+        self.up_proj = nn.Linear(
+            config.d_model, self.hidden_size, bias=config.include_bias, device=config.init_device
+        )
+
+
+====================================================================================================
+
+LLaDALlamaBlock.forward
+
+====================================================================================================
+
+    def forward(
+        self,
+        x: torch.Tensor,
+        attention_bias: Optional[torch.Tensor] = None,
+        layer_past: Optional[Tuple[torch.Tensor, torch.Tensor]] = None,
+        use_cache: bool = False,
+        replace_position: Optional[torch.Tensor] = None,
+    ) -> Tuple[torch.Tensor, Optional[Tuple[torch.Tensor, torch.Tensor]]]:
+        # Get query, key, value projections.
+        # shape:
+        #  - for regular attn q, k, v: (batch_size, seq_len, d_model)
+        #  - for multi-query attn q: (batch_size, seq_len, d_model)
+        #                      k, v: (batch_size, seq_len, d_model // n_heads)
+        #  - for group query attn q: (batch_size, seq_len, d_model)
+        #                      k, v: (batch_size, seq_len, d_model // n_kv_heads)
+        x_normed = self.attn_norm(x) #x:torch.Size([2, 168, 4096])
+        q = self.q_proj(x_normed) #q:torch.Size([2, 168, 4096])
+        k = self.k_proj(x_normed) #k:torch.Size([2, 168, 4096])
+        v = self.v_proj(x_normed) #v:torch.Size([2, 168, 4096])
+        # attention_bias: None
+        # layer_past: None
+        # use_cache: False
+        # Get attention scores.
+        if self._activation_checkpoint_fn is not None:
+            att, cache = self._activation_checkpoint_fn(  # type: ignore
+                self.attention, q, k, v, attention_bias, layer_past=layer_past, use_cache=use_cache,replace_position=replace_position
+            )
+        else:
+            att, cache = self.attention(q, k, v, attention_bias, layer_past=layer_past, use_cache=use_cache,replace_position=replace_position)
+
+        # Add attention scores.
+        # shape: (B, T, C)
+        x = x + self.dropout(att)
+
+        # Add feed-forward projection.
+        # shape: (batch_size, seq_len, d_model)
+        og_x = x
+        if self._activation_checkpoint_fn is not None:
+            x = self._activation_checkpoint_fn(self.ff_norm, x)  # type: ignore
+        else:
+            x = self.ff_norm(x)
+        x, x_up = self.ff_proj(x), self.up_proj(x) # new add
+        if self._activation_checkpoint_fn is not None:
+            x = self._activation_checkpoint_fn(self.act, x)  # type: ignore
+        else:
+            x = self.act(x)
+        x = x * x_up # new add
+        x = self.ff_out(x)
+        x = self.dropout(x)
+        x = og_x + x
+
+        return x, cache
+
+
+====================================================================================================
+
+GemmaRMSLayerNorm
+
+====================================================================================================
+
+class GemmaRMSLayerNorm(LayerNormBase):
+    """
+    Gemma RMS layer norm, a simplified :class:`LayerNorm` implementation
+    """
+
+    def __init__(
+        self,
+        config: ModelConfig,
+        size: Optional[int] = None,
+        elementwise_affine: Optional[bool] = None,
+        eps: float = 1e-5,
+    ):
+        super().__init__(config, size=size, elementwise_affine=elementwise_affine, eps=config.rms_norm_eps)
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        with torch.autocast(enabled=False, device_type=x.device.type):
+            og_dtype = x.dtype
+            x = x.to(torch.float32)
+            variance = x.pow(2).mean(-1, keepdim=True)
+            x = x * torch.rsqrt(variance + self.eps)
+            x = x.to(og_dtype)
+
+        if self.weight is not None:
+            if self.bias is not None:
+                return x * (1 + self.weight) + self.bias
+            else:
+                return x * (1 + self.weight)
+        else:
+            return x
+
+
+====================================================================================================
+
+RMSLayerNorm
+
+====================================================================================================
+
+class RMSLayerNorm(LayerNormBase):
+    """
+    RMS layer norm, a simplified :class:`LayerNorm` implementation
+    """
+
+    def __init__(
+        self,
+        config: ModelConfig,
+        size: Optional[int] = None,
+        elementwise_affine: Optional[bool] = None,
+        eps: float = 1e-5,
+    ):
+        super().__init__(config, size=size, elementwise_affine=elementwise_affine, eps=config.rms_norm_eps)
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        with torch.autocast(enabled=False, device_type=x.device.type):
+            og_dtype = x.dtype
+            x = x.to(torch.float32)
+            variance = x.pow(2).mean(-1, keepdim=True)
+            x = x * torch.rsqrt(variance + self.eps)
+            x = x.to(og_dtype)
+
+        if self.weight is not None:
+            if self.bias is not None:
+                return self.weight * x + self.bias
+            else:
+                return self.weight * x
+        else:
+            return x
+
+
+====================================================================================================
+
+RotaryEmbedding
+
+====================================================================================================
+
+class RotaryEmbedding(nn.Module):
+    """
+    [Rotary positional embeddings (RoPE)](https://arxiv.org/abs/2104.09864).
+    """
+
+    def __init__(self, config: ModelConfig, cache: BufferCache):
+        super().__init__()
+        self.config = config
+        self.__cache = cache
+        # Warm up cache.
+        self.rope_theta = config.rope_theta
+        self.get_rotary_embedding(config.max_sequence_length, _non_meta_init_device(config))
+
+    def get_rotary_embedding(self, seq_len: int, device: torch.device) -> Tuple[torch.Tensor, torch.Tensor]:
+        if (
+            (pos_sin := self.__cache.get("rope_pos_sin")) is not None
+            and (pos_cos := self.__cache.get("rope_pos_cos")) is not None
+            and pos_sin.shape[-2] >= seq_len
+            and pos_cos.shape[-2] >= seq_len
+        ):
+            if pos_sin.device != device:
+                pos_sin = pos_sin.to(device)
+                self.__cache["rope_pos_sin"] = pos_sin
+            if pos_cos.device != device:
+                pos_cos = pos_cos.to(device)
+                self.__cache["rope_pos_cos"] = pos_cos
+            return pos_sin[:, :, :seq_len, :], pos_cos[:, :, :seq_len, :]
+
+        with torch.autocast(device.type, enabled=False):
+            dim = self.config.d_model // self.config.n_heads
+            inv_freq = 1.0 / (self.rope_theta ** (torch.arange(0, dim, 2, device=device, dtype=torch.float) / dim))
+            seq = torch.arange(seq_len, device=device, dtype=torch.float)
+            freqs = einsum("i , j -> i j", seq, inv_freq)
+            positions = torch.cat((freqs, freqs), dim=-1)
+            pos_sin, pos_cos = positions.sin()[None, None, :, :], positions.cos()[None, None, :, :]
+        self.__cache["rope_pos_sin"] = pos_sin
+        self.__cache["rope_pos_cos"] = pos_cos
+        return pos_sin, pos_cos
+
+    def rotate_half(self, x: torch.Tensor) -> torch.Tensor:
+        B, nh, T, hs = x.size()
+        x = x.view(B, nh, T, 2, hs // 2)
+        x1, x2 = x.unbind(dim=-2)
+        return torch.cat((-x2, x1), dim=-1)
+
+    def apply_rotary_pos_emb(self, pos_sin: torch.Tensor, pos_cos: torch.Tensor, t: torch.Tensor) -> torch.Tensor:
+        return ((t * pos_cos) + (self.rotate_half(t) * pos_sin)).to(t.dtype)
+
+    def forward(self, q: torch.Tensor, k: torch.Tensor,
+                block_end_index: Optional[torch.Tensor] = None) -> Tuple[torch.Tensor, torch.Tensor]:
+        if self.config.rope_full_precision:
+            q_, k_ = q.float(), k.float()
+        else:
+            q_, k_ = q, k
+
+        with torch.autocast(q.device.type, enabled=False):
+            query_len, key_len = q_.shape[-2], k_.shape[-2]
+            pos_sin, pos_cos = self.get_rotary_embedding(key_len, q_.device)
+            pos_sin = pos_sin.type_as(q_)
+            pos_cos = pos_cos.type_as(q_)
+
+            # Build tensor indices instead of using .item()
+            if block_end_index is None:
+                start = key_len - query_len
+                end = key_len
+            else:
+                # block_end_index is a tensor; keep ops tensor-based
+                start = (block_end_index - query_len)
+                end = block_end_index
+
+            # Make an index tensor [start, ..., end-1] on the right device/dtype
+            idx = torch.arange(start, end, device=q_.device, dtype=torch.long)
+
+            # Use index_select on the sequence dimension (dim=2)
+            pos_sin_slice = pos_sin.index_select(2, idx)
+            pos_cos_slice = pos_cos.index_select(2, idx)
+
+            q_ = self.apply_rotary_pos_emb(pos_sin_slice, pos_cos_slice, q_)
+            k_ = self.apply_rotary_pos_emb(pos_sin, pos_cos, k_)
+
+        return q_.type_as(q), k_.type_as(k)

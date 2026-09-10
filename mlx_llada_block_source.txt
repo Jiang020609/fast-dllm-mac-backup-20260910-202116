@@ -1,0 +1,790 @@
+====================================================================================================
+
+LLaDALlamaBlock
+
+====================================================================================================
+
+class LLaDALlamaBlock(LLaDABlock):
+    """
+    This is a transformer block where the output is computed as ``MLP(LN(x + Attention(LN(x))))``
+    (plus another skip connection). This block is similar to `LLaDASequentialBlock`
+    but some operations have slightly different implementations to imitate the
+    behavior of Llama.
+    """
+
+    def __init__(self, layer_id: int, config: ModelConfig, cache: BufferCache):
+        super().__init__(layer_id, config, cache)
+        # Layer norms.
+        self.attn_norm = LayerNorm.build(config)
+        self.ff_norm = LayerNorm.build(config)
+        self.__cache = cache
+
+        # Attention input projection. Projects x -> (q, k, v)
+        head_dim = config.d_model // config.n_heads
+        q_proj_out_dim = config.d_model
+        k_proj_out_dim = config.effective_n_kv_heads * head_dim
+        v_proj_out_dim = config.effective_n_kv_heads * head_dim
+        self.q_proj = nn.Linear(
+            config.d_model, q_proj_out_dim, bias=config.include_bias | config.include_qkv_bias, device=config.init_device
+        )
+        self.k_proj = nn.Linear(
+            config.d_model, k_proj_out_dim, bias=config.include_bias | config.include_qkv_bias, device=config.init_device
+        )
+        self.v_proj = nn.Linear(
+            config.d_model, v_proj_out_dim, bias=config.include_bias | config.include_qkv_bias, device=config.init_device
+        )
+
+        # Feed-forward input projection.
+        self.ff_proj = nn.Linear(
+            config.d_model, self.hidden_size, bias=config.include_bias, device=config.init_device
+        )
+        # new add
+        self.up_proj = nn.Linear(
+            config.d_model, self.hidden_size, bias=config.include_bias, device=config.init_device
+        )
+
+    def reset_parameters(self):
+        super().reset_parameters()
+        self.attn_norm.reset_parameters()
+        self.ff_norm.reset_parameters()
+        # NOTE: the standard deviation for these weights does not depend on the layer.
+        init_weights(self.config, self.q_proj, d=self.config.d_model, layer_id=None)
+        init_weights(self.config, self.k_proj, d=self.config.d_model, layer_id=None)
+        init_weights(self.config, self.v_proj, d=self.config.d_model, layer_id=None)
+        init_weights(self.config, self.ff_proj, d=self.config.d_model, layer_id=None)
+        init_weights(self.config, self.up_proj, d=self.config.d_model, layer_id=None)  # new add
+
+    def forward(
+        self,
+        x: torch.Tensor,
+        attention_bias: Optional[torch.Tensor] = None,
+        layer_past: Optional[Tuple[torch.Tensor, torch.Tensor]] = None,
+        use_cache: bool = False,
+        replace_position: Optional[torch.Tensor] = None,
+    ) -> Tuple[torch.Tensor, Optional[Tuple[torch.Tensor, torch.Tensor]]]:
+        # Get query, key, value projections.
+        # shape:
+        #  - for regular attn q, k, v: (batch_size, seq_len, d_model)
+        #  - for multi-query attn q: (batch_size, seq_len, d_model)
+        #                      k, v: (batch_size, seq_len, d_model // n_heads)
+        #  - for group query attn q: (batch_size, seq_len, d_model)
+        #                      k, v: (batch_size, seq_len, d_model // n_kv_heads)
+        x_normed = self.attn_norm(x) #x:torch.Size([2, 168, 4096])
+        q = self.q_proj(x_normed) #q:torch.Size([2, 168, 4096])
+        k = self.k_proj(x_normed) #k:torch.Size([2, 168, 4096])
+        v = self.v_proj(x_normed) #v:torch.Size([2, 168, 4096])
+        # attention_bias: None
+        # layer_past: None
+        # use_cache: False
+        # Get attention scores.
+        if self._activation_checkpoint_fn is not None:
+            att, cache = self._activation_checkpoint_fn(  # type: ignore
+                self.attention, q, k, v, attention_bias, layer_past=layer_past, use_cache=use_cache,replace_position=replace_position
+            )
+        else:
+            att, cache = self.attention(q, k, v, attention_bias, layer_past=layer_past, use_cache=use_cache,replace_position=replace_position)
+
+        # Add attention scores.
+        # shape: (B, T, C)
+        x = x + self.dropout(att)
+
+        # Add feed-forward projection.
+        # shape: (batch_size, seq_len, d_model)
+        og_x = x
+        if self._activation_checkpoint_fn is not None:
+            x = self._activation_checkpoint_fn(self.ff_norm, x)  # type: ignore
+        else:
+            x = self.ff_norm(x)
+        x, x_up = self.ff_proj(x), self.up_proj(x) # new add
+        if self._activation_checkpoint_fn is not None:
+            x = self._activation_checkpoint_fn(self.act, x)  # type: ignore
+        else:
+            x = self.act(x)
+        x = x * x_up # new add
+        x = self.ff_out(x)
+        x = self.dropout(x)
+        x = og_x + x
+
+        return x, cache
+
+
+====================================================================================================
+
+BufferCache
+
+====================================================================================================
+
+class BufferCache(dict, MutableMapping[str, torch.Tensor]):
+    """
+    Cache for attention biases and other things that would normally be stored as buffers.
+    We avoid using buffers because we've run into various issues doing so with FSDP.
+    In general it appears the way FSDP handles buffers is not well-defined.
+    It doesn't shard them but apparently it does synchronize them across processes, which we want to avoid
+    since (A) it isn't necessary, and (B) we sometimes have `-inf` in these biases which might get turned into
+    NaNs when they're synchronized due to casting or some other issue.
+    """
+
+
+====================================================================================================
+
+LayerNorm
+
+====================================================================================================
+
+class LayerNorm(LayerNormBase):
+    """
+    The default :class:`LayerNorm` implementation which can optionally run in low precision.
+    """
+
+    def __init__(
+        self,
+        config: ModelConfig,
+        size: Optional[int] = None,
+        low_precision: bool = False,
+        elementwise_affine: Optional[bool] = None,
+        eps: float = 1e-05,
+    ):
+        super().__init__(config, size=size, elementwise_affine=elementwise_affine, eps=eps)
+        self.low_precision = low_precision
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        if self.low_precision:
+            module_device = x.device
+            downcast_x = self._cast_if_autocast_enabled(x)
+            downcast_weight = (
+                self._cast_if_autocast_enabled(self.weight) if self.weight is not None else self.weight
+            )
+            downcast_bias = self._cast_if_autocast_enabled(self.bias) if self.bias is not None else self.bias
+            with torch.autocast(enabled=False, device_type=module_device.type):
+                return F.layer_norm(
+                    downcast_x, self.normalized_shape, weight=downcast_weight, bias=downcast_bias, eps=self.eps
+                )
+        else:
+            return F.layer_norm(x, self.normalized_shape, weight=self.weight, bias=self.bias, eps=self.eps)
+
+
+====================================================================================================
+
+GemmaRMSLayerNorm
+
+====================================================================================================
+
+class GemmaRMSLayerNorm(LayerNormBase):
+    """
+    Gemma RMS layer norm, a simplified :class:`LayerNorm` implementation
+    """
+
+    def __init__(
+        self,
+        config: ModelConfig,
+        size: Optional[int] = None,
+        elementwise_affine: Optional[bool] = None,
+        eps: float = 1e-5,
+    ):
+        super().__init__(config, size=size, elementwise_affine=elementwise_affine, eps=config.rms_norm_eps)
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        with torch.autocast(enabled=False, device_type=x.device.type):
+            og_dtype = x.dtype
+            x = x.to(torch.float32)
+            variance = x.pow(2).mean(-1, keepdim=True)
+            x = x * torch.rsqrt(variance + self.eps)
+            x = x.to(og_dtype)
+
+        if self.weight is not None:
+            if self.bias is not None:
+                return x * (1 + self.weight) + self.bias
+            else:
+                return x * (1 + self.weight)
+        else:
+            return x
+
+
+====================================================================================================
+
+LayerNormBase
+
+====================================================================================================
+
+class LayerNormBase(nn.Module):
+    def __init__(
+        self,
+        config: ModelConfig,
+        *,
+        size: Optional[int] = None,
+        elementwise_affine: Optional[bool] = True,
+        eps: float = 1e-05,
+    ):
+        super().__init__()
+        self.config = config
+        self.eps = eps
+        self.normalized_shape = (size or config.d_model,)
+        if elementwise_affine or (elementwise_affine is None and self.config.layer_norm_with_affine):
+            self.weight = nn.Parameter(torch.ones(self.normalized_shape, device=config.init_device))
+            use_bias = self.config.bias_for_layer_norm
+            if use_bias is None:
+                use_bias = self.config.include_bias
+            if use_bias:
+                self.bias = nn.Parameter(torch.zeros(self.normalized_shape, device=config.init_device))
+            else:
+                self.register_parameter("bias", None)
+        else:
+            self.register_parameter("bias", None)
+            self.register_parameter("weight", None)
+
+    @abstractmethod
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        raise NotImplementedError
+
+    @classmethod
+    def build(cls, config: ModelConfig, size: Optional[int] = None, **kwargs) -> LayerNormBase:
+        if config.layer_norm_type == LayerNormType.default:
+            return LayerNorm(config, size=size, low_precision=False, **kwargs)
+        elif config.layer_norm_type == LayerNormType.low_precision:
+            return LayerNorm(config, size=size, low_precision=True, **kwargs)
+        elif config.layer_norm_type == LayerNormType.rms:
+            return RMSLayerNorm(config, size=size, **kwargs)
+        elif config.layer_norm_type == LayerNormType.gemma_rms:
+            return GemmaRMSLayerNorm(config, size=size, **kwargs)
+        else:
+            raise NotImplementedError(f"Unknown LayerNorm type: '{config.layer_norm_type}'")
+
+    def _cast_if_autocast_enabled(self, tensor: torch.Tensor, dtype: Optional[torch.dtype] = None) -> torch.Tensor:
+        # NOTE: `is_autocast_enabled()` only checks for CUDA autocast, so we use the separate function
+        # `is_autocast_cpu_enabled()` for CPU autocast.
+        # See https://github.com/pytorch/pytorch/issues/110966.
+        if tensor.device.type == "cuda" and torch.is_autocast_enabled():
+            return tensor.to(dtype=dtype if dtype is not None else torch.get_autocast_gpu_dtype())
+        elif tensor.device.type == "cpu" and torch.is_autocast_cpu_enabled():
+            return tensor.to(dtype=dtype if dtype is not None else torch.get_autocast_cpu_dtype())
+        else:
+            return tensor
+
+    def reset_parameters(self):
+        if self.weight is not None:
+            torch.nn.init.ones_(self.weight)  # type: ignore
+        if self.bias is not None:
+            torch.nn.init.zeros_(self.bias)  # type: ignore
+
+
+====================================================================================================
+
+LayerNormType
+
+====================================================================================================
+
+class LayerNormType(StrEnum):
+    default = "default"
+    """
+    The default LayerNorm implementation, equivalent to PyTorch's built-in version.
+    """
+
+    low_precision = "low_precision"
+    """
+    A low-precision version of the default LayerNorm.
+    """
+
+    rms = "rms"
+    """
+    An RMSNorm implementation. When using ``torch.compile`` this is
+    probably the fastest implementation.
+    """
+
+    gemma_rms = "gemma_rms"
+    """
+    An RMSNorm implementation by gemmma. When using ``torch.compile`` this is
+    probably the fastest implementation.
+    """
+
+    amd_compatible = "amd_compatible"
+    """
+    LayerNorm implemented manually to work around an issue with ROCm.
+    """
+
+
+====================================================================================================
+
+RMSLayerNorm
+
+====================================================================================================
+
+class RMSLayerNorm(LayerNormBase):
+    """
+    RMS layer norm, a simplified :class:`LayerNorm` implementation
+    """
+
+    def __init__(
+        self,
+        config: ModelConfig,
+        size: Optional[int] = None,
+        elementwise_affine: Optional[bool] = None,
+        eps: float = 1e-5,
+    ):
+        super().__init__(config, size=size, elementwise_affine=elementwise_affine, eps=config.rms_norm_eps)
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        with torch.autocast(enabled=False, device_type=x.device.type):
+            og_dtype = x.dtype
+            x = x.to(torch.float32)
+            variance = x.pow(2).mean(-1, keepdim=True)
+            x = x * torch.rsqrt(variance + self.eps)
+            x = x.to(og_dtype)
+
+        if self.weight is not None:
+            if self.bias is not None:
+                return self.weight * x + self.bias
+            else:
+                return self.weight * x
+        else:
+            return x
+
+
+====================================================================================================
+
+RotaryEmbedding
+
+====================================================================================================
+
+class RotaryEmbedding(nn.Module):
+    """
+    [Rotary positional embeddings (RoPE)](https://arxiv.org/abs/2104.09864).
+    """
+
+    def __init__(self, config: ModelConfig, cache: BufferCache):
+        super().__init__()
+        self.config = config
+        self.__cache = cache
+        # Warm up cache.
+        self.rope_theta = config.rope_theta
+        self.get_rotary_embedding(config.max_sequence_length, _non_meta_init_device(config))
+
+    def get_rotary_embedding(self, seq_len: int, device: torch.device) -> Tuple[torch.Tensor, torch.Tensor]:
+        if (
+            (pos_sin := self.__cache.get("rope_pos_sin")) is not None
+            and (pos_cos := self.__cache.get("rope_pos_cos")) is not None
+            and pos_sin.shape[-2] >= seq_len
+            and pos_cos.shape[-2] >= seq_len
+        ):
+            if pos_sin.device != device:
+                pos_sin = pos_sin.to(device)
+                self.__cache["rope_pos_sin"] = pos_sin
+            if pos_cos.device != device:
+                pos_cos = pos_cos.to(device)
+                self.__cache["rope_pos_cos"] = pos_cos
+            return pos_sin[:, :, :seq_len, :], pos_cos[:, :, :seq_len, :]
+
+        with torch.autocast(device.type, enabled=False):
+            dim = self.config.d_model // self.config.n_heads
+            inv_freq = 1.0 / (self.rope_theta ** (torch.arange(0, dim, 2, device=device, dtype=torch.float) / dim))
+            seq = torch.arange(seq_len, device=device, dtype=torch.float)
+            freqs = einsum("i , j -> i j", seq, inv_freq)
+            positions = torch.cat((freqs, freqs), dim=-1)
+            pos_sin, pos_cos = positions.sin()[None, None, :, :], positions.cos()[None, None, :, :]
+        self.__cache["rope_pos_sin"] = pos_sin
+        self.__cache["rope_pos_cos"] = pos_cos
+        return pos_sin, pos_cos
+
+    def rotate_half(self, x: torch.Tensor) -> torch.Tensor:
+        B, nh, T, hs = x.size()
+        x = x.view(B, nh, T, 2, hs // 2)
+        x1, x2 = x.unbind(dim=-2)
+        return torch.cat((-x2, x1), dim=-1)
+
+    def apply_rotary_pos_emb(self, pos_sin: torch.Tensor, pos_cos: torch.Tensor, t: torch.Tensor) -> torch.Tensor:
+        return ((t * pos_cos) + (self.rotate_half(t) * pos_sin)).to(t.dtype)
+
+    def forward(self, q: torch.Tensor, k: torch.Tensor,
+                block_end_index: Optional[torch.Tensor] = None) -> Tuple[torch.Tensor, torch.Tensor]:
+        if self.config.rope_full_precision:
+            q_, k_ = q.float(), k.float()
+        else:
+            q_, k_ = q, k
+
+        with torch.autocast(q.device.type, enabled=False):
+            query_len, key_len = q_.shape[-2], k_.shape[-2]
+            pos_sin, pos_cos = self.get_rotary_embedding(key_len, q_.device)
+            pos_sin = pos_sin.type_as(q_)
+            pos_cos = pos_cos.type_as(q_)
+
+            # Build tensor indices instead of using .item()
+            if block_end_index is None:
+                start = key_len - query_len
+                end = key_len
+            else:
+                # block_end_index is a tensor; keep ops tensor-based
+                start = (block_end_index - query_len)
+                end = block_end_index
+
+            # Make an index tensor [start, ..., end-1] on the right device/dtype
+            idx = torch.arange(start, end, device=q_.device, dtype=torch.long)
+
+            # Use index_select on the sequence dimension (dim=2)
+            pos_sin_slice = pos_sin.index_select(2, idx)
+            pos_cos_slice = pos_cos.index_select(2, idx)
+
+            q_ = self.apply_rotary_pos_emb(pos_sin_slice, pos_cos_slice, q_)
+            k_ = self.apply_rotary_pos_emb(pos_sin, pos_cos, k_)
+
+        return q_.type_as(q), k_.type_as(k)
+
+
+====================================================================================================
+
+alibi_attention_bias
+
+====================================================================================================
+
+def alibi_attention_bias(seq_len: int, config: ModelConfig, device: torch.device) -> torch.FloatTensor:
+    alibi_bias = torch.arange(1 - seq_len, 1, dtype=torch.float, device=device).view(1, 1, 1, seq_len)
+
+    # shape: (1, 1, seq_len, seq_len)
+    alibi_bias = alibi_bias - torch.arange(1 - seq_len, 1, dtype=torch.float, device=device).view(1, 1, seq_len, 1)
+    alibi_bias.abs_().mul_(-1)
+
+    # shape: (n_heads,)
+    m = torch.arange(1, config.n_heads + 1, dtype=torch.float, device=device)
+    m.mul_(config.alibi_bias_max / config.n_heads)
+
+    # shape: (1, n_heads, seq_len, seq_len)
+    return alibi_bias * (1.0 / (2 ** m.view(1, config.n_heads, 1, 1)))  # type: ignore
+
+
+====================================================================================================
+
+causal_attention_bias
+
+====================================================================================================
+
+def causal_attention_bias(seq_len: int, device: torch.device) -> torch.FloatTensor:
+    att_bias = torch.triu(
+        torch.ones(seq_len, seq_len, device=device, dtype=torch.float),
+        diagonal=1,
+    )
+    att_bias.masked_fill_(att_bias == 1, torch.finfo(att_bias.dtype).min)
+    return att_bias.view(1, 1, seq_len, seq_len)  # type: ignore
+
+
+====================================================================================================
+
+flex_attention
+
+====================================================================================================
+
+def flex_attention(
+    query: Tensor,
+    key: Tensor,
+    value: Tensor,
+    score_mod: _score_mod_signature | None = None,
+    block_mask: BlockMask | None = None,
+    scale: float | None = None,
+    enable_gqa: bool = False,
+    return_lse: bool = False,
+    kernel_options: FlexKernelOptions | None = None,
+    *,
+    return_aux: AuxRequest | None = None,
+) -> Tensor | tuple[Tensor, Tensor] | tuple[Tensor, AuxOutput]:
+    r"""This function implements scaled dot product attention with an arbitrary attention score modification function
+    described in the `Flex Attention <https://arxiv.org/abs/2412.05496>`_ paper. See also the
+    `blog post <https://pytorch.org/blog/flexattention/>`_.
+
+    This function computes the scaled dot product attention between query, key, and value tensors with a user-defined
+    attention score modification function. The attention score modification function will be applied after the attention
+    scores have been calculated between the query and key tensors. The attention scores are calculated as follows:
+
+    The ``score_mod`` function should have the following signature:
+
+    .. code-block:: python
+
+        def score_mod(
+            score: Tensor,
+            batch: Tensor,
+            head: Tensor,
+            q_idx: Tensor,
+            k_idx: Tensor
+        ) -> Tensor:
+
+    Where:
+        - ``score``: A scalar tensor representing the attention score,
+          with the same data type and device as the query, key, and value tensors.
+        - ``batch``, ``head``, ``q_idx``, ``k_idx``: Scalar tensors indicating
+          the batch index, query head index, query index, and key/value index, respectively.
+          These should have the ``torch.int`` data type and be located on the same device as the score tensor.
+
+    Args:
+        query (Tensor): Query tensor; shape :math:`(B, Hq, L, E)`. For FP8 dtypes, should be in row-major memory layout for optimal performance.
+        key (Tensor): Key tensor; shape :math:`(B, Hkv, S, E)`. For FP8 dtypes, should be in row-major memory layout for optimal performance.
+        value (Tensor): Value tensor; shape :math:`(B, Hkv, S, Ev)`. For FP8 dtypes, should be in column-major memory layout for optimal performance.
+        score_mod (Optional[Callable]): Function to modify attention scores. By default no score_mod is applied.
+        block_mask (Optional[BlockMask]): BlockMask object that controls the blocksparsity pattern of the attention.
+        scale (Optional[float]): Scaling factor applied prior to softmax. If none, the default value is set to :math:`\frac{1}{\sqrt{E}}`.
+        enable_gqa (bool): If set to True, enables Grouped Query Attention (GQA) and broadcasts key/value heads to query heads.
+        return_lse (bool): Whether to return the logsumexp of the attention scores. Default is False. **Deprecated**: Use ``return_aux=AuxRequest(lse=True)`` instead.
+        kernel_options (Optional[FlexKernelOptions]):
+            Options to control the behavior of the underlying Triton kernels.
+            See :class:`FlexKernelOptions` for available options and usage examples.
+        return_aux (Optional[AuxRequest]): Specifies which auxiliary outputs to compute and return.
+            If None, only the attention output is returned. Use ``AuxRequest(lse=True, max_scores=True)``
+            to request both auxiliary outputs.
+
+    Returns:
+        output (Tensor): Attention output; shape :math:`(B, Hq, L, Ev)`.
+
+        When ``return_aux`` is not None:
+            aux (AuxOutput): Auxiliary outputs with requested fields populated.
+
+        When ``return_aux`` is None (deprecated paths):
+            lse (Tensor): Log-sum-exp of attention scores; shape :math:`(B, Hq, L)`. Only returned if ``return_lse=True``.
+
+    Shape legend:
+        - :math:`N: \text{Batch size} ... : \text{Any number of other batch dimensions (optional)}`
+        - :math:`S: \text{Source sequence length}`
+        - :math:`L: \text{Target sequence length}`
+        - :math:`E: \text{Embedding dimension of the query and key}`
+        - :math:`Ev: \text{Embedding dimension of the value}`
+
+    .. warning::
+        `torch.nn.attention.flex_attention` is a prototype feature in PyTorch.
+        Please look forward to a more stable implementation in a future version of PyTorch.
+        Read more about feature classification at: https://pytorch.org/blog/pytorch-feature-classification-changes/#prototype
+
+    """
+    # Some basic input validation
+    _validate_no_nested_tensors(query, key, value)
+    _validate_sdpa_input(query, key, value, allow_lowp_kv=True)
+    _validate_embed_dim(query, key, value)
+    _validate_device(query, key, value)
+    query, key, value = _enforce_mem_layouts(query, key, value)
+    if query.dim() != 4 or key.dim() != 4 or value.dim() != 4:
+        raise NotImplementedError("NYI: query, key, and value must be 4D tensors")
+    if (not enable_gqa) and query.size(-3) != key.size(-3):
+        raise ValueError(
+            f"Expect query and key/value to have the same number of heads "
+            f"but got Hq={query.size(-3)} and Hkv={key.size(-3)}. "
+            f"Try setting enable_gqa=True for GQA."
+        )
+    if enable_gqa:
+        Hq = query.size(1)
+        Hkv = key.size(1)
+        if Hq % Hkv != 0:
+            raise ValueError(
+                f"Expect number of query heads to be a multiple of kv heads for GQA "
+                f"but got Hq={Hq} and Hkv={Hkv}."
+            )
+    if query.size(0) != key.size(0):
+        if block_mask is None:
+            raise ValueError(
+                f"Expect query and key/value to have the same batch size, "
+                f"or non-none block_mask, "
+                f"but got block_mask=None, Bq={query.size(0)}, and Bkv={key.size(0)}."
+            )
+
+        if block_mask.kv_num_blocks.size(0) != query.size(0):
+            raise ValueError(
+                f"Expect query and key/value to have the same batch size, "
+                f"or block_mask and query to have the same batch size, "
+                f"but got Bq={query.size(0)}, Bkv={key.size(0)}, B_block_mask={block_mask.kv_num_blocks.size(0)}."
+            )
+
+    if score_mod is None:
+        score_mod = _identity
+
+    if block_mask is None:
+        block_mask = _create_empty_block_mask(query, key)
+
+    # If BlockMask was sliced, its mask_mod is intentionally replaced with an error-raising stub.
+    # This guard ensures we surface the intended error message before any shape-based checks.
+    if getattr(block_mask, "mask_mod", None) is _sliced_mask_mod_error:
+        raise RuntimeError("Cannot use mask_mod from a sliced BlockMask")
+
+    if (
+        block_mask.BLOCK_SIZE[0] == _LARGE_SPARSE_BLOCK_SIZE
+        and block_mask.BLOCK_SIZE[1] == _LARGE_SPARSE_BLOCK_SIZE
+    ):
+        # This corresponds to the case where we essentially have a "no-op" block mask.
+        pass
+    else:
+        block_mask_q_len = block_mask.shape[-2]
+        block_mask_kv_len = block_mask.shape[-1]
+        if query.size(-2) > block_mask_q_len or key.size(-2) > block_mask_kv_len:
+            raise ValueError(
+                f"block_mask was created for block_mask.shape={block_mask.shape} but got q_len={query.size(-2)} and kv_len={key.size(-2)}. "
+                "As the block mask was created for a smaller length than you're using it for, you likely need to create a new block mask."
+            )
+        elif (
+            query.size(-2) < block_mask_q_len and key.size(-2) <= block_mask_kv_len
+        ) or (query.size(-2) <= block_mask_q_len and key.size(-2) < block_mask_kv_len):
+            raise ValueError(
+                f"block_mask was created for block_mask.shape={block_mask.shape} but got q_len={query.size(-2)} and kv_len={key.size(-2)}. "
+                "As the block mask was created for a larger length than you're using it for, you can either 1. create a new block mask with the correct length, or 2. 'adjust' the existing block mask to the correct length by calling block_mask._adjust(q_len, kv_len). This essentially 'crops' the block mask to the upper left corner, which does not work for all mask_mods!"
+            )
+        if query.size(-2) != block_mask_q_len:
+            raise AssertionError(
+                f"query.size(-2) ({query.size(-2)}) != block_mask_q_len ({block_mask_q_len})"
+            )
+        if key.size(-2) != block_mask_kv_len:
+            raise AssertionError(
+                f"key.size(-2) ({key.size(-2)}) != block_mask_kv_len ({block_mask_kv_len})"
+            )
+
+    if scale is None:
+        scale = 1.0 / math.sqrt(query.size(-1))
+
+    if query.device != block_mask.kv_num_blocks.device:  # type: ignore[union-attr]
+        raise RuntimeError(
+            f"Expect q/k/v and block_mask to be on the same device "
+            f"but got {query.device} and {block_mask.kv_num_blocks.device}."  # type: ignore[union-attr]
+        )
+
+    # Handle deprecation warnings for old parameters
+    if return_lse and return_aux is not None:
+        raise ValueError(
+            "Cannot specify both return_lse and return_aux. "
+            "return_lse is deprecated, please use return_aux=AuxRequest(lse=True) instead."
+        )
+    elif return_lse and return_aux is None:
+        _warn_once(
+            "deprecated_return_lse",
+            "return_lse is deprecated and will be removed in v2.10. "
+            "Please use return_aux=AuxRequest(lse=True) instead.",
+            category=FutureWarning,
+        )
+
+    kernel_options = _apply_kernel_options(
+        query,
+        key,
+        value,
+        return_lse,
+        kernel_options,
+        return_aux,
+    )
+
+    def _finalize_outputs(
+        out,
+        lse,
+        max_scores,
+        *,
+        return_aux: AuxRequest | None,
+        return_lse: bool,
+        stats_are_log2: bool,
+    ):
+        """Normalize stats and build return value (aux-aware, legacy-compatible)."""
+        ln2 = math.log(2.0)
+        return_lse = return_lse or return_aux is not None and return_aux.lse
+        return_max = return_aux is not None and return_aux.max_scores
+
+        lse_scaled = lse if (return_lse and lse.numel() > 0) else None
+        max_scaled = max_scores if (return_max and max_scores.numel() > 0) else None
+
+        if stats_are_log2:
+            lse_scaled = lse_scaled * ln2 if lse_scaled is not None else None
+            max_scaled = max_scaled * ln2 if max_scaled is not None else None
+
+        if return_aux is not None:
+            return out, AuxOutput(
+                lse=lse_scaled,
+                max_scores=max_scaled,
+            )
+
+        if return_lse:
+            return out, lse_scaled
+
+        return out
+
+    if torch.compiler.is_dynamo_compiling():
+        # mark head_dim and number of heads to be static
+        for x in [query, key, value]:
+            torch._dynamo.mark_static(x, -3)
+            torch._dynamo.mark_static(x, -1)
+
+        out, lse, max_scores = flex_attention_hop(
+            query,
+            key,
+            value,
+            score_mod,
+            block_mask.as_tuple(),
+            scale,
+            kernel_options,  # type: ignore[union-attr]
+        )
+        return _finalize_outputs(
+            out,
+            lse,
+            max_scores,
+            return_aux=return_aux,
+            return_lse=return_lse,
+            stats_are_log2=kernel_options["BACKEND"] != "FLASH",
+        )
+
+    if not _FLEX_ATTENTION_DISABLE_COMPILE_DEBUG:
+        _warn_once(
+            warning_id="flex_attention_performance",
+            message=(
+                "flex_attention called without torch.compile() - this will use an unfused implementation that materializes the full scores matrix instead of generating a fused kernel.\n\n"
+                "SOLUTION: Use torch.compile(flex_attention)(...)\n\n"
+                "If you want to debug your score_mod/mask_mod, you can set:\n"
+                "torch.nn.attention.flex_attention._FLEX_ATTENTION_DISABLE_COMPILE_DEBUG = True\n\n"
+                "This will allow you to use print statements or breakpoints. Note: This doesn't work with the backwards pass and may produce incorrect results."
+            ),
+        )
+
+    if not torch._dynamo.is_dynamo_supported():
+        raise RuntimeError("flex_attention requires dynamo support")
+
+    # Dynamo is expecting a callable with "__code__" attribute.
+    # We cannot directly pass hop to it. So we wrap it in a dummy function.
+    def _flex_attention_hop_wrapper(*args, **kwargs):
+        return flex_attention_hop(*args, **kwargs)
+
+    with setup_compilation_env() as backend:
+        if _FLEX_ATTENTION_DISABLE_COMPILE_DEBUG:
+            flex_fn = _flex_attention_hop_wrapper
+        else:
+            flex_fn = torch.compile(
+                _flex_attention_hop_wrapper, backend=backend, fullgraph=True
+            )
+
+        out, lse, max_scores = flex_fn(
+            query,
+            key,
+            value,
+            score_mod,
+            block_mask.as_tuple(),
+            scale,
+            kernel_options,
+        )
+    return _finalize_outputs(
+        out,
+        lse,
+        max_scores,
+        return_aux=return_aux,
+        return_lse=return_lse,
+        stats_are_log2=_FLEX_ATTENTION_DISABLE_COMPILE_DEBUG
+        or kernel_options["BACKEND"] != "FLASH",
+    )
+
+
+====================================================================================================
+
+get_causal_attention_bias
+
+====================================================================================================
+
+def get_causal_attention_bias(cache: BufferCache, seq_len: int, device: torch.device) -> torch.Tensor:
+    if (causal_bias := cache.get("causal_attention_bias")) is not None and causal_bias.shape[-1] >= seq_len:
+        if causal_bias.device != device:
+            causal_bias = causal_bias.to(device)
+            cache["causal_attention_bias"] = causal_bias
+        return causal_bias
+    with torch.autocast(device.type, enabled=False):
+        causal_bias = causal_attention_bias(seq_len, device)
+    cache["causal_attention_bias"] = causal_bias
+    return causal_bias
+
+
+====================================================================================================
+
+scaled_dot_product_attention
+
+====================================================================================================
+
+def scaled_dot_product_attention(q, k, v, mask=None, attn_mask=None, dropout_p=0.0, is_causal=False):
+    return F.scaled_dot_product_attention(q, k, v, attn_mask=attn_mask, dropout_p=dropout_p, is_causal=is_causal)

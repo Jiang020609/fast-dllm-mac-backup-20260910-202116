@@ -1,0 +1,51 @@
+================================================================================
+Rotated-K v2b enabled
+Explicit block bounds + request-local ContextVar
+No replace_position/nonzero/global POSITION_CONTEXT
+================================================================================
+Loading model...
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 3/6 [00:00<00:00, 21.39it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 22.88it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 22.64it/s]
+PROFILE_WINDOW_BEGIN iterations=30
+USDT:2026-07-31 02:11:35 27435:205297 SyncActivityProfilerHandler.cpp:52] profiler_start
+USDT:2026-07-31 02:11:35 27435:205297 SyncActivityProfilerHandler.cpp:59] profiler_stop
+
+PYTORCH_OPERATOR_PROFILE
+
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  --------------------------------------------------------------------------------  
+                                                   Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg    # of Calls                                                                      Input Shapes  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  --------------------------------------------------------------------------------  
+                                threading.py(359): wait        50.00%      49.095ms        50.00%      49.095ms      49.095ms             1                                                                                []  
+                                           aten::linear         4.23%       4.155ms         4.39%       4.307ms       6.729us           640                                                 [[1, 32, 4096], [4096, 4096], []]  
+                                            aten::copy_         4.23%       4.153ms         4.78%       4.695ms       4.192us          1120                                          [[1, 32, 32, 128], [1, 32, 32, 128], []]  
+                                           aten::linear         2.21%       2.167ms         2.29%       2.253ms       7.040us           320                                                [[1, 32, 4096], [12288, 4096], []]  
+rotated_k_v2b_runtime_patch.py(206): rotated_k_v2b_a...         2.03%       1.998ms        22.38%      21.976ms     137.351us           160                                                                                []  
+                  model/modeling_llada.py(952): forward         1.98%       1.945ms        47.59%      46.725ms     292.033us           160                                                                                []  
+                  model/modeling_llada.py(338): forward         1.72%       1.684ms        11.75%      11.535ms      35.492us           325                                                                                []  
+                                              aten::mul         1.54%       1.512ms         1.54%       1.512ms       2.362us           640                                               [[1, 32, 32, 128], [1, 1, 32, 128]]  
+           torch/nn/modules/module.py(1782): _call_impl         1.39%       1.364ms       120.80%     118.619ms      56.351us          2105                                                                                []  
+                                            aten::copy_         1.35%       1.327ms         1.45%       1.424ms       2.191us           650                                                [[1, 32, 4096], [1, 32, 4096], []]  
+              torch/amp/autocast_mode.py(222): __init__         1.08%       1.059ms         1.63%       1.596ms       2.475us           645                                                                                []  
+<built-in method to of Tensor object at 0x13c6dd270>...         1.08%       1.056ms         5.31%       5.211ms       3.993us          1305                                                                                []  
+                                           aten::linear         1.02%       1.004ms         1.06%       1.043ms       6.521us           160                                               [[1, 32, 12288], [4096, 12288], []]  
+             torch/amp/autocast_mode.py(308): __enter__         0.87%     851.184us         1.47%       1.442ms       2.236us           645                                                                                []  
+                                              aten::add         0.86%     847.949us         1.21%       1.190ms       3.662us           325                                                              [[1, 32, 1], [], []]  
+          torch/nn/modules/module.py(1954): __getattr__         0.84%     821.648us         0.84%     821.648us       0.149us          5530                                                                                []  
+                                              aten::add         0.83%     811.173us         0.83%     811.173us       2.535us           320                                                [[1, 32, 4096], [1, 32, 4096], []]  
+                                              aten::add         0.83%     811.167us         0.83%     811.167us       2.535us           320                                          [[1, 32, 32, 128], [1, 32, 32, 128], []]  
+                                              aten::cat         0.82%     808.325us         0.82%     808.325us       2.526us           320                                                                          [[], []]  
+     model/modeling_llada.py(431): apply_rotary_pos_emb         0.74%     728.893us         6.68%       6.557ms      20.490us           320                                                                                []  
+                                              aten::mul         0.74%     723.819us         0.74%     723.819us       2.227us           325                                                           [[4096], [1, 32, 4096]]  
+              torch/amp/autocast_mode.py(343): __exit__         0.68%     663.666us         1.13%       1.113ms       1.725us           645                                                                                []  
+                                              aten::pow         0.67%     653.262us         0.72%     704.303us       2.167us           325                                                               [[1, 32, 4096], []]  
+                                              aten::mul         0.65%     641.938us         0.65%     641.938us       1.975us           325                                                       [[1, 32, 4096], [1, 32, 1]]  
+rotated_k_v2b_runtime_patch.py(176): apply_cached_ro...         0.65%     634.324us        13.70%      13.454ms      42.045us           320                                                                                []  
+                                              aten::neg         0.64%     633.223us         0.64%     633.223us       1.979us           320                                                                 [[1, 32, 32, 64]]  
+                             <built-in function linear>         0.60%     586.880us         8.85%       8.689ms       7.724us          1125                                                                                []  
+                                             aten::mean         0.59%     577.205us         0.59%     577.205us       1.776us           325                                                       [[1, 32, 4096], [], [], []]  
+                                            aten::empty         0.58%     573.585us         0.58%     573.585us       0.237us          2425                                                          [[], [], [], [], [], []]  
+<built-in method view of Tensor object at 0x13c6dd54...         0.58%     565.352us         0.97%     950.990us       0.991us           960                                                                                []  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  --------------------------------------------------------------------------------  
+Self CPU time total: 98.192ms
+
+PROFILE_WINDOW_END total_s=3.930825 mean_ms=131.028
+MPS allocated GiB: 15.596

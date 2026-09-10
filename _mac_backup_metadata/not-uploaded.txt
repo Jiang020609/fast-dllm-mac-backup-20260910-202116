@@ -1,0 +1,15 @@
+本仓库保存当前文件快照，不包含原仓库的历史提交。
+原始项目仍保留在 Mac。以下内容需要另行备份：
+
+gputrace_parts/
+traces/
+0000-/
+__pycache__/
+0000-metal_capture_smoke.gputrace/
+.git/
+profiling_export/
+.DS_Store
+fastdllm_one_iteration_gputrace.tar.gz
+v1/llada/__pycache__/
+v1/llada/model/__pycache__/
+/Users/z33/models/LLaDA-8B-Instruct/

@@ -1,0 +1,23 @@
+================================================================================
+Rotated-K v2b enabled
+Explicit block bounds + request-local ContextVar
+No replace_position/nonzero/global POSITION_CONTEXT
+================================================================================
+Loading model...
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 3/6 [00:00<00:00, 22.28it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 23.32it/s]Loading checkpoint shards: 100%|██████████| 6/6 [00:00<00:00, 23.15it/s]
+
+INSTRUMENTED MODULES
+Linear: FF up           : 32
+
+Warmup...
+
+========== MPS MODULE BREAKDOWN ==========
+Wall total                       240.876 ms
+Wall mean / forward               80.292 ms
+Event model total                  0.000 ms
+------------------------------------------
+Category                       Calls     Total ms      Mean us     Share
+Linear: FF up                     96       32.468      338.207    13.48%
+------------------------------------------
+Residual / other                            0.000                  0.00%
+==========================================

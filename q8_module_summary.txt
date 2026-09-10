@@ -1,0 +1,12 @@
+===== Linear: FF gate =====
+Linear: FF gate         : 32
+Wall mean / forward               41.196 ms
+Linear: FF gate                  160       28.648      179.053    13.91%
+===== Linear: FF up =====
+Linear: FF up           : 32
+Wall mean / forward               41.052 ms
+Linear: FF up                    160       28.779      179.868    14.02%
+===== Linear: FF down =====
+Linear: FF down         : 33
+Wall mean / forward               40.932 ms
+Linear: FF down                  165       40.271      244.065    19.68%
